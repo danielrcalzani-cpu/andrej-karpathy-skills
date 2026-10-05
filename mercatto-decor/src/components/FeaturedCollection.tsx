@@ -118,7 +118,7 @@ export default function FeaturedCollection() {
             <p className="mt-4 text-xs text-paper/55">Também no guia: pedras Coronato e madeiras em alto brilho.</p>
           </Reveal>
 
-          <Reveal delay={260} className="mt-10 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+          <Reveal delay={260} className="mt-10 flex flex-col gap-3 sm:flex-row lg:flex-col">
             <a
               href={whatsappUrl(productMessage("Château Mur"))}
               target="_blank"
