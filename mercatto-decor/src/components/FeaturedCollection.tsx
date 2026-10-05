@@ -68,9 +68,7 @@ export default function FeaturedCollection() {
 
         <div className="flex flex-col justify-center px-5 py-16 md:px-10 lg:col-span-5 lg:px-14 lg:py-24 xl:px-20">
           <Reveal>
-            <p className="eyebrow flex items-center gap-3 text-copper-soft">
-              <span className="font-serif text-sm tracking-normal">06</span>
-              <span aria-hidden="true" className="h-px w-8 bg-current opacity-60" />
+            <p className="eyebrow text-copper-soft">
               Em destaque
             </p>
             <h2 id="chateau-title" className="display mt-5 text-5xl md:text-6xl xl:text-7xl">

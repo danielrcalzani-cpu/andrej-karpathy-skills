@@ -10,7 +10,6 @@ export default function CatalogSection() {
       <div className="container-x">
         <SectionHeading
           id="catalogos-title"
-          index="09"
           eyebrow="Catálogos 2026"
           title={
             <>

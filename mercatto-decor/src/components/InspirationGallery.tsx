@@ -25,7 +25,6 @@ export default function InspirationGallery() {
       <div className="container-x">
         <SectionHeading
           id="inspiracoes-title"
-          index="10"
           eyebrow="Inspirações"
           title={
             <>

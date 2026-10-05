@@ -18,7 +18,6 @@ export default function HowItWorks() {
       <div className="container-x">
         <SectionHeading
           id="como-title"
-          index="07"
           eyebrow="Guia rápido"
           title={
             <>

@@ -41,9 +41,7 @@ export default function AboutSection() {
 
         <div className="order-1 lg:order-2 lg:col-span-6 lg:col-start-7">
           <Reveal>
-            <p className="eyebrow flex items-center gap-3 text-copper-deep">
-              <span className="font-serif text-sm tracking-normal">11</span>
-              <span aria-hidden="true" className="h-px w-8 bg-current opacity-60" />
+            <p className="eyebrow text-copper-deep">
               Sobre a Mercatto
             </p>
             <h2 id="sobre-title" className="display mt-5 text-[2.35rem] sm:text-5xl lg:text-[3.4rem]">

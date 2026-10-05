@@ -24,7 +24,6 @@ export default function TechnicalSpecs() {
       <div className="container-x">
         <SectionHeading
           id="tecnico-title"
-          index="08"
           eyebrow="Ficha técnica"
           title={
             <>

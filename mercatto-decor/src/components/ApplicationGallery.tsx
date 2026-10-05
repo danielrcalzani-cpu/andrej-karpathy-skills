@@ -79,7 +79,6 @@ export default function ApplicationGallery() {
       <div className="container-x">
         <SectionHeading
           id="ambientes-title"
-          index="05"
           eyebrow="Ambientes"
           title={
             <>
@@ -104,7 +103,6 @@ export default function ApplicationGallery() {
                     i === active ? "text-ink" : "text-stone hover:text-ink"
                   }`}
                 >
-                  <span className="font-serif text-xs text-copper-deep">{String(i + 1).padStart(2, "0")}</span>
                   <span className="font-serif text-[1.9rem] leading-tight">{r.name}</span>
                   <span
                     aria-hidden="true"

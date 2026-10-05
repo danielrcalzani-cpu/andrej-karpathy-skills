@@ -69,7 +69,6 @@ export default function ProductDiscovery() {
       <div className="container-x">
         <SectionHeading
           id="colecoes-title"
-          index="02"
           eyebrow="Coleções e padrões"
           title={
             <>

@@ -71,7 +71,6 @@ export default function TextureGallery() {
       <div className="container-x">
         <SectionHeading
           id="materiais-title"
-          index="03"
           eyebrow="Matéria"
           tone="dark"
           title={
@@ -118,7 +117,6 @@ export default function TextureGallery() {
                   className="absolute inset-0 z-10 flex items-start p-5 text-left md:p-6"
                 >
                   <span className="flex items-baseline gap-3 md:[writing-mode:vertical-rl] md:rotate-180 md:data-[open=true]:[writing-mode:horizontal-tb] md:data-[open=true]:rotate-0" data-open={open}>
-                    <span className="font-serif text-xs text-copper-soft">0{i + 1}</span>
                     <span className="font-serif text-2xl md:text-3xl">{m.name}</span>
                   </span>
                 </button>

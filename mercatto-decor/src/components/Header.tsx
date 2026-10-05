@@ -110,10 +110,9 @@ export default function Header() {
                     ref={i === 0 ? firstLinkRef : undefined}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="flex items-baseline justify-between py-4 font-serif text-[1.9rem] leading-tight"
+                    className="block py-4 font-serif text-[1.9rem] leading-tight"
                   >
                     {item.label}
-                    <span className="font-sans text-xs text-copper-soft">{String(i + 1).padStart(2, "0")}</span>
                   </a>
                 </li>
               ))}

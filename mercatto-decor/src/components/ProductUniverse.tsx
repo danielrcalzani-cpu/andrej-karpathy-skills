@@ -10,7 +10,6 @@ export default function ProductUniverse() {
       <div className="container-x">
         <SectionHeading
           id="universo-title"
-          index="01"
           eyebrow="Universo de produtos"
           title={
             <>
@@ -51,9 +50,7 @@ export default function ProductUniverse() {
                   }`}
                 >
                   <Reveal>
-                    <p className="eyebrow flex items-center gap-3 text-copper-deep">
-                      <span className="font-serif text-sm tracking-normal">0{i + 1}</span>
-                      <span aria-hidden="true" className="h-px w-8 bg-current opacity-60" />
+                    <p className="eyebrow text-copper-deep">
                       {f.kicker}
                     </p>
                     <h3 id={`fam-${f.id}`} className="display mt-5 text-4xl sm:text-5xl">

@@ -2,10 +2,10 @@ import Image from "next/image";
 import Reveal from "./Reveal";
 
 const verbs = [
-  { n: "01", title: "Ver", text: "Amostras físicas na loja e catálogos com cada padrão em detalhe." },
-  { n: "02", title: "Comparar", text: "Tons do claro ao escuro, lado a lado, por efeito e por ambiente." },
-  { n: "03", title: "Planejar", text: "Paginação, sentido das peças e cálculo de quantidade antes da obra." },
-  { n: "04", title: "Especificar", text: "Código do padrão, quantidade e lote: o pedido sai certo." },
+  { title: "Ver", text: "Amostras físicas na loja e catálogos com cada padrão em detalhe." },
+  { title: "Comparar", text: "Tons do claro ao escuro, lado a lado, por efeito e por ambiente." },
+  { title: "Planejar", text: "Paginação, sentido das peças e cálculo de quantidade antes da obra." },
+  { title: "Especificar", text: "Código do padrão, quantidade e lote: o pedido sai certo." },
 ];
 
 export default function IntroStatement() {
@@ -58,9 +58,8 @@ export default function IntroStatement() {
       <div className="container-x mt-24 md:mt-32">
         <ol className="grid border-t border-ink/15 sm:grid-cols-2 lg:grid-cols-4">
           {verbs.map((v, i) => (
-            <Reveal as="li" key={v.n} delay={i * 100} className="border-b border-ink/15 py-8 sm:pr-8 lg:border-b-0">
-              <span className="font-serif text-sm text-copper-deep">{v.n}</span>
-              <h3 className="mt-3 font-serif text-3xl">{v.title}</h3>
+            <Reveal as="li" key={v.title} delay={i * 100} className="border-b border-ink/15 py-8 sm:pr-8 lg:border-b-0">
+              <h3 className="font-serif text-3xl">{v.title}</h3>
               <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-soft">{v.text}</p>
             </Reveal>
           ))}

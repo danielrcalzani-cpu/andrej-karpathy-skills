@@ -59,9 +59,7 @@ export default function BenefitsSection() {
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-28">
             <Reveal>
-              <p className="eyebrow flex items-center gap-3 text-copper-deep">
-                <span className="font-serif text-sm tracking-normal">04</span>
-                <span aria-hidden="true" className="h-px w-8 bg-current opacity-60" />
+              <p className="eyebrow text-copper-deep">
                 Por que Mercatto
               </p>
               <h2 id="beneficios-title" className="display mt-5 text-[2.35rem] sm:text-5xl lg:text-[3.6rem]">
@@ -99,9 +97,8 @@ export default function BenefitsSection() {
         </div>
 
         <ol className="lg:col-span-7 lg:col-start-6">
-          {benefits.map((b, i) => (
-            <Reveal as="li" key={b.title} className="grid grid-cols-[3.5rem_1fr] gap-x-4 border-t border-ink/15 py-8 sm:grid-cols-[5rem_1fr] md:py-10">
-              <span className="font-serif text-3xl leading-none text-copper md:text-5xl">{String(i + 1).padStart(2, "0")}</span>
+          {benefits.map((b) => (
+            <Reveal as="li" key={b.title} className="border-t border-ink/15 py-8 md:py-10">
               <div>
                 <h3 className="font-serif text-2xl md:text-[2rem] md:leading-tight">{b.title}</h3>
                 <p className="mt-3 max-w-xl leading-relaxed text-ink-soft">{b.text}</p>
