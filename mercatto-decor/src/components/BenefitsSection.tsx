@@ -54,7 +54,7 @@ const comparison = [
 
 export default function BenefitsSection() {
   return (
-    <section id="beneficios" aria-labelledby="beneficios-title" className="bg-paper py-24 md:py-36">
+    <section id="beneficios" aria-labelledby="beneficios-title" className="bg-paper py-16 md:py-36">
       <div className="container-x grid gap-16 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-28">

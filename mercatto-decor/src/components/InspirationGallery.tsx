@@ -21,7 +21,7 @@ const shots = [
 
 export default function InspirationGallery() {
   return (
-    <section id="inspiracoes" aria-labelledby="inspiracoes-title" className="bg-paper py-24 md:py-36">
+    <section id="inspiracoes" aria-labelledby="inspiracoes-title" className="bg-paper py-16 md:py-36">
       <div className="container-x">
         <SectionHeading
           id="inspiracoes-title"

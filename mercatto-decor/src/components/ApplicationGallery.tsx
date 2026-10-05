@@ -75,7 +75,7 @@ export default function ApplicationGallery() {
   const list = suggestions(room.match);
 
   return (
-    <section id="ambientes" aria-labelledby="ambientes-title" className="bg-sand py-24 md:py-36">
+    <section id="ambientes" aria-labelledby="ambientes-title" className="bg-sand py-16 md:py-36">
       <div className="container-x">
         <SectionHeading
           id="ambientes-title"

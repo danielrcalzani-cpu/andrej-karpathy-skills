@@ -65,7 +65,7 @@ export default function ProductDiscovery() {
   };
 
   return (
-    <section ref={sectionRef} id="colecoes" aria-labelledby="colecoes-title" className="scroll-mt-16 bg-paper py-24 md:py-36">
+    <section ref={sectionRef} id="colecoes" aria-labelledby="colecoes-title" className="scroll-mt-16 bg-paper py-16 md:py-36">
       <div className="container-x">
         <SectionHeading
           id="colecoes-title"
@@ -75,7 +75,7 @@ export default function ProductDiscovery() {
               Escolha pelo <em>padrão.</em>
             </>
           }
-          intro="Todos os padrões dos catálogos, com código, efeito e medidas. Passe o cursor sobre a amostra para ver o padrão aplicado, quando houver imagem de ambiente."
+          intro="Todos os padrões dos catálogos, com código, efeito e medidas. Toque ou passe o cursor sobre a amostra para ver o padrão aplicado, quando houver imagem de ambiente."
         />
 
         <div className="mt-14 flex flex-col gap-6 border-b border-ink/15 md:flex-row md:items-end md:justify-between">

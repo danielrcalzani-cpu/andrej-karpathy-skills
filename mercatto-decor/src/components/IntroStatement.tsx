@@ -10,7 +10,7 @@ const verbs = [
 
 export default function IntroStatement() {
   return (
-    <section id="conteudo" aria-labelledby="intro-title" className="overflow-hidden bg-paper py-24 md:py-36">
+    <section id="conteudo" aria-labelledby="intro-title" className="overflow-hidden bg-paper py-16 md:py-36">
       <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-6 lg:pt-6">
           <Reveal>
@@ -55,7 +55,7 @@ export default function IntroStatement() {
         </div>
       </div>
 
-      <div className="container-x mt-24 md:mt-32">
+      <div className="container-x mt-16 md:mt-32">
         <ol className="grid border-t border-ink/15 sm:grid-cols-2 lg:grid-cols-4">
           {verbs.map((v, i) => (
             <Reveal as="li" key={v.title} delay={i * 100} className="border-b border-ink/15 py-8 sm:pr-8 lg:border-b-0">

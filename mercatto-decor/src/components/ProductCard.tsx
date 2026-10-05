@@ -9,7 +9,11 @@ export default function ProductCard({ product: p }: { product: Product }) {
   const specs = [p.dimensions, p.thickness, p.wearLayer && `capa ${p.wearLayer}`, p.finish].filter(Boolean) as string[];
   return (
     <article className="group flex h-full flex-col" aria-labelledby={`p-${p.id}`}>
-      <div className="relative aspect-[4/5] overflow-hidden bg-linen">
+      <div
+        className="relative aspect-[4/5] overflow-hidden bg-linen"
+        tabIndex={p.image ? 0 : undefined}
+        aria-label={p.image ? `Ver o padrão ${p.name} aplicado: ${p.image.label}` : undefined}
+      >
         <Image
           src={p.texture}
           alt={`Textura do padrão ${p.name}: ${p.tone.toLowerCase()}, efeito ${p.effectLabel.toLowerCase()}`}
@@ -23,14 +27,14 @@ export default function ProductCard({ product: p }: { product: Product }) {
             alt=""
             fill
             sizes="(min-width: 1280px) 22vw, (min-width: 768px) 32vw, 78vw"
-            className="object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+            className="object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100 group-focus-within:opacity-100"
           />
         )}
         {p.code && (
           <span className="absolute left-0 top-0 bg-ink px-3 py-1.5 text-[0.65rem] tracking-[0.18em] text-paper">CÓD. {p.code}</span>
         )}
         {p.image && (
-          <span className="absolute bottom-0 right-0 bg-paper/90 px-3 py-1.5 text-[0.65rem] uppercase tracking-[0.18em] text-ink opacity-0 transition-opacity duration-700 group-hover:opacity-100">
+          <span className="absolute bottom-0 right-0 bg-paper/90 px-3 py-1.5 text-[0.65rem] uppercase tracking-[0.18em] text-ink opacity-0 transition-opacity duration-700 group-hover:opacity-100 group-focus-within:opacity-100">
             {p.image.label}
           </span>
         )}

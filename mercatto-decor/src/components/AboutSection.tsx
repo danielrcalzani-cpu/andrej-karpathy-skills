@@ -24,7 +24,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
 
 export default function AboutSection() {
   return (
-    <section id="sobre" aria-labelledby="sobre-title" className="bg-sand py-24 md:py-36">
+    <section id="sobre" aria-labelledby="sobre-title" className="bg-sand py-16 md:py-36">
       <div className="container-x grid items-center gap-16 lg:grid-cols-12">
         <div className="order-2 lg:order-1 lg:col-span-5">
           <Reveal>

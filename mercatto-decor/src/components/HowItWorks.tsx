@@ -14,7 +14,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="como-escolher" aria-labelledby="como-title" className="bg-sand py-24 md:py-36">
+    <section id="como-escolher" aria-labelledby="como-title" className="bg-sand py-16 md:py-36">
       <div className="container-x">
         <SectionHeading
           id="como-title"

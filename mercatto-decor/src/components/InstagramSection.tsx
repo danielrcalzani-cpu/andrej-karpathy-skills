@@ -15,7 +15,7 @@ const tiles = [
 
 export default function InstagramSection() {
   return (
-    <section aria-labelledby="insta-title" className="overflow-hidden bg-paper py-24 md:py-32">
+    <section aria-labelledby="insta-title" className="overflow-hidden bg-paper py-16 md:py-32">
       <div className="container-x grid items-end gap-10 md:grid-cols-12">
         <Reveal className="md:col-span-7">
           <p className="eyebrow text-copper-deep">Instagram</p>

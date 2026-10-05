@@ -20,7 +20,7 @@ const rows: { label: string; values: string[] }[] = [
 
 export default function TechnicalSpecs() {
   return (
-    <section id="tecnico" aria-labelledby="tecnico-title" className="bg-paper py-24 md:py-36">
+    <section id="tecnico" aria-labelledby="tecnico-title" className="bg-paper py-16 md:py-36">
       <div className="container-x">
         <SectionHeading
           id="tecnico-title"
@@ -34,7 +34,30 @@ export default function TechnicalSpecs() {
         />
 
         <Reveal className="mt-14">
-          <div className="no-scrollbar -mx-5 overflow-x-auto px-5 md:mx-0 md:px-0" role="region" aria-label="Tabela de especificações (role para o lado no celular)" tabIndex={0}>
+          {/* Celular: um cartão recolhível por linha de produto */}
+          <div className="border-t border-ink/15 md:hidden">
+            {columns.map((c, ci) => (
+              <details key={c} open={ci === 0} className="group border-b border-ink/15">
+                <summary className="flex cursor-pointer list-none items-center justify-between py-5 font-serif text-xl [&::-webkit-details-marker]:hidden">
+                  {c}
+                  <span aria-hidden="true" className="text-2xl leading-none text-copper transition-transform duration-300 group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <dl className="grid grid-cols-[6.5rem_1fr] gap-x-4 gap-y-3 pb-6 text-sm">
+                  {rows.map((r) => (
+                    <div key={r.label} className="contents">
+                      <dt className="pt-0.5 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-copper-deep">{r.label}</dt>
+                      <dd className={r.values[ci] === "Sob consulta" || r.values[ci] === "—" ? "text-stone" : "text-ink-soft"}>{r.values[ci]}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </details>
+            ))}
+          </div>
+
+          {/* Tablet e desktop: tabela comparativa */}
+          <div className="hidden overflow-x-auto md:block" role="region" aria-label="Tabela de especificações" tabIndex={0}>
             <table className="w-full min-w-[56rem] border-collapse text-left text-sm">
               <caption className="sr-only">Especificações técnicas por linha de produto</caption>
               <thead>

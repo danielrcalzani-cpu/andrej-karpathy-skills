@@ -6,7 +6,7 @@ import { catalogs } from "@/data/catalogs";
 
 export default function CatalogSection() {
   return (
-    <section id="catalogos" aria-labelledby="catalogos-title" className="bg-linen/60 py-24 md:py-36">
+    <section id="catalogos" aria-labelledby="catalogos-title" className="bg-linen/60 py-16 md:py-36">
       <div className="container-x">
         <SectionHeading
           id="catalogos-title"
@@ -19,9 +19,9 @@ export default function CatalogSection() {
           intro="Cada catálogo traz todos os padrões, escala real, paginação, cálculo e cuidados. Abra no navegador ou baixe o PDF para consultar na obra."
         />
 
-        <ul className="mt-16 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <ul className="no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:mt-16 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-14 sm:overflow-visible sm:px-0 lg:grid-cols-3 xl:grid-cols-5">
           {catalogs.map((c, i) => (
-            <Reveal as="li" key={c.id} delay={i * 80} className="group flex flex-col">
+            <Reveal as="li" key={c.id} delay={i * 80} className="group flex w-[72%] shrink-0 snap-start flex-col sm:w-auto">
               <article id={`catalogo-${c.id}`} aria-labelledby={`cat-${c.id}`} className="flex h-full scroll-mt-28 flex-col">
                 <a
                   href={c.file}
@@ -34,7 +34,7 @@ export default function CatalogSection() {
                     src={c.cover}
                     alt=""
                     fill
-                    sizes="(min-width: 1280px) 18vw, (min-width: 640px) 45vw, 90vw"
+                    sizes="(min-width: 1280px) 18vw, (min-width: 640px) 45vw, 72vw"
                     className="object-contain p-6 drop-shadow-[0_18px_22px_rgba(43,39,36,0.28)] transition-transform duration-700 ease-[var(--ease-arch)] group-hover:-translate-y-1.5 group-hover:scale-[1.02]"
                   />
                 </a>
@@ -59,6 +59,9 @@ export default function CatalogSection() {
             </Reveal>
           ))}
         </ul>
+        <p className="mt-6 text-sm text-stone sm:hidden" aria-hidden="true">
+          Deslize para ver os 5 catálogos →
+        </p>
       </div>
     </section>
   );

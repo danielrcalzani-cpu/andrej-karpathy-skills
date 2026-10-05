@@ -67,7 +67,7 @@ export default function TextureGallery() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="materiais" aria-labelledby="materiais-title" className="bg-night py-24 text-paper md:py-36">
+    <section id="materiais" aria-labelledby="materiais-title" className="bg-night py-16 text-paper md:py-36">
       <div className="container-x">
         <SectionHeading
           id="materiais-title"
