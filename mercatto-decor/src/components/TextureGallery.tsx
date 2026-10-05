@@ -1,8 +1,6 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import SectionHeading from "./SectionHeading";
+import MaterialHover from "./MaterialHover";
 import { products, type Effect } from "@/data/products";
 
 type Material = {
@@ -63,9 +61,11 @@ const materials: Material[] = [
   },
 ];
 
+/**
+ * Galeria de matérias em HTML + CSS puro (rádios + :has), para funcionar também onde
+ * JavaScript não roda (ex.: pré-visualização de arquivos do iPhone). Estilos em globals.css (.mat-*).
+ */
 export default function TextureGallery() {
-  const [active, setActive] = useState(0);
-
   return (
     <section id="materiais" aria-labelledby="materiais-title" className="bg-night py-16 text-paper md:py-36">
       <div className="container-x">
@@ -78,73 +78,59 @@ export default function TextureGallery() {
               Sinta a <em className="text-copper-soft">textura</em> antes de ver o ambiente.
             </>
           }
-          intro="Amostras reais dos catálogos, em detalhe. Escolha um efeito para ver em quais padrões ele aparece — e peça a amostra física na loja antes da escolha final."
+          intro="Amostras reais dos catálogos, em detalhe. Toque em um efeito para ver em quais padrões ele aparece — e peça a amostra física na loja antes da escolha final."
         />
 
-        <div className="mt-14 flex flex-col gap-2 md:mt-20 md:h-[34rem] md:flex-row">
+        <div className="mat-gallery mt-12 md:mt-20" role="radiogroup" aria-label="Efeitos de superfície">
           {materials.map((m, i) => {
-            const open = i === active;
             const list = products.filter((p) => m.effects.includes(p.effect));
             return (
-              <div
-                key={m.name}
-                onMouseEnter={() => setActive(i)}
-                className={`relative overflow-hidden transition-[flex-grow,height] duration-700 ease-[var(--ease-arch)] ${
-                  open ? "h-[30rem] md:h-auto md:flex-[5]" : "h-20 md:h-auto md:flex-[1]"
-                }`}
-              >
+              <div key={m.name} className="mat-panel">
+                <input type="radio" name="materia" id={`mat-${i}`} defaultChecked={i === 0} className="mat-radio sr-only" />
                 {m.tile ? (
                   <div
                     aria-hidden="true"
-                    className="absolute inset-0"
-                    style={{ backgroundImage: `url(${m.texture})`, backgroundSize: `${m.tile}px`, backgroundRepeat: "repeat" }}
+                    className="mat-bg mat-bg-tile"
+                    style={{ backgroundImage: `url(${m.texture})`, backgroundSize: `${m.tile}px` }}
                   />
                 ) : (
-                  <Image src={m.texture} alt="" fill sizes="(min-width: 768px) 60vw, 100vw" className="object-cover" />
+                  <div aria-hidden="true" className="mat-bg">
+                    <Image src={m.texture} alt="" fill sizes="(min-width: 768px) 60vw, 100vw" className="object-cover" />
+                  </div>
                 )}
-                <div
-                  className={`absolute inset-0 transition-colors duration-700 ${
-                    open ? "bg-gradient-to-t from-night/90 via-night/30 to-transparent" : "bg-night/55"
-                  }`}
-                />
+                <div aria-hidden="true" className="mat-shade" />
 
-                <button
-                  type="button"
-                  onClick={() => setActive(i)}
-                  onFocus={() => setActive(i)}
-                  aria-expanded={open}
-                  aria-controls={`material-${i}`}
-                  className="absolute inset-0 z-10 flex items-start p-5 text-left md:p-6"
-                >
-                  <span className="flex items-baseline gap-3 md:[writing-mode:vertical-rl] md:rotate-180 md:data-[open=true]:[writing-mode:horizontal-tb] md:data-[open=true]:rotate-0" data-open={open}>
-                    <span className="font-serif text-2xl md:text-3xl">{m.name}</span>
-                  </span>
-                </button>
-
-                <div
-                  id={`material-${i}`}
-                  className={`absolute inset-x-0 bottom-0 z-20 p-5 transition-all duration-700 md:p-8 ${
-                    open ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
-                  }`}
-                  aria-hidden={!open}
-                >
-                  <p className="max-w-md text-sm leading-relaxed text-paper/85 md:text-base">{m.text}</p>
-                  <p className="eyebrow mt-5 text-copper-soft">
+                <label htmlFor={`mat-${i}`} className="mat-label">
+                  <span className="mat-name font-serif text-2xl md:text-3xl">{m.name}</span>
+                  <span className="mat-count">
                     {list.length} {list.length === 1 ? "padrão" : "padrões"}
-                  </p>
-                  <p className="mt-2 max-w-lg text-sm text-paper/75">
+                  </span>
+                </label>
+
+                <div className="mat-info">
+                  <p className="max-w-md text-sm leading-relaxed text-paper/85 md:text-base">{m.text}</p>
+                  <ul className="mt-5 flex flex-wrap gap-2" aria-label={`Padrões com efeito ${m.name.toLowerCase()}`}>
+                    {list.slice(0, 7).map((p) => (
+                      <li key={p.id} className="mat-swatch" title={p.name}>
+                        <Image src={p.texture} alt="" fill sizes="56px" className="object-cover" />
+                        <span className="sr-only">{p.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-3 max-w-lg text-sm text-paper/75">
                     {list
-                      .slice(0, 9)
+                      .slice(0, 7)
                       .map((p) => p.name)
                       .join(" · ")}
-                    {list.length > 9 && ` e mais ${list.length - 9}`}
+                    {list.length > 7 && ` e mais ${list.length - 7}`}
                   </p>
-                  <p className="mt-4 text-[0.7rem] text-paper/50">Na imagem: {m.credit}</p>
+                  <p className="mt-3 text-[0.7rem] text-paper/50">Na imagem: {m.credit}</p>
                 </div>
               </div>
             );
           })}
         </div>
+        <MaterialHover />
       </div>
     </section>
   );

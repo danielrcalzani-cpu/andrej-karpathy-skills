@@ -216,3 +216,161 @@
     clip-path: none;
   }
 }
+
+/* ───────── Matéria: galeria de texturas sem JavaScript (rádios + :has) ───────── */
+.mat-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.mat-panel {
+  position: relative;
+  overflow: hidden;
+  height: 4.75rem;
+  transition:
+    height 0.8s var(--ease-arch),
+    flex-grow 0.8s var(--ease-arch);
+}
+.mat-panel:has(.mat-radio:checked) {
+  height: 34rem;
+}
+.mat-bg {
+  position: absolute;
+  inset: -4%;
+  transition: transform 1.2s var(--ease-arch);
+}
+.mat-bg-tile {
+  background-repeat: repeat;
+}
+/* animação lenta da matéria aberta: aproxima e desliza */
+.mat-panel:has(.mat-radio:checked) .mat-bg {
+  animation: mat-drift 16s ease-in-out infinite alternate;
+}
+.mat-panel:has(.mat-radio:checked) .mat-bg-tile {
+  animation: mat-pan 22s linear infinite alternate;
+}
+@keyframes mat-drift {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.12) translate3d(-2%, -1.5%, 0);
+  }
+}
+@keyframes mat-pan {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 160px 90px;
+  }
+}
+.mat-shade {
+  position: absolute;
+  inset: 0;
+  background: rgb(31 27 24 / 0.55);
+  transition: background 0.8s var(--ease-arch);
+}
+.mat-panel:has(.mat-radio:checked) .mat-shade {
+  background: linear-gradient(to top, rgb(31 27 24 / 0.92), rgb(31 27 24 / 0.35) 55%, rgb(31 27 24 / 0.1));
+}
+.mat-label {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem;
+  cursor: pointer;
+}
+.mat-name,
+.mat-info {
+  text-shadow: 0 1px 14px rgb(0 0 0 / 0.45);
+}
+.mat-count {
+  padding-top: 0.6rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-copper-soft);
+  transition: opacity 0.5s;
+}
+.mat-panel:has(.mat-radio:checked) .mat-count {
+  opacity: 0;
+}
+.mat-radio:focus-visible ~ .mat-label {
+  outline: 2px solid var(--color-copper);
+  outline-offset: -4px;
+}
+.mat-info {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 20;
+  padding: 1.25rem;
+  opacity: 0;
+  transform: translateY(1.5rem);
+  pointer-events: none;
+  transition:
+    opacity 0.7s var(--ease-arch) 0.15s,
+    transform 0.7s var(--ease-arch) 0.15s;
+}
+.mat-panel:has(.mat-radio:checked) .mat-info {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.mat-swatch {
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.18);
+}
+
+@media (min-width: 768px) {
+  .mat-gallery {
+    flex-direction: row;
+    height: 36rem;
+  }
+  .mat-panel,
+  .mat-panel:has(.mat-radio:checked) {
+    height: auto;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .mat-panel:has(.mat-radio:checked) {
+    flex-grow: 5;
+  }
+  .mat-label {
+    padding: 1.5rem;
+  }
+  .mat-info {
+    padding: 2rem;
+  }
+  .mat-swatch {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  /* painéis fechados: nome na vertical, sem contador */
+  .mat-name {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  .mat-count {
+    display: none;
+  }
+  .mat-panel:has(.mat-radio:checked) .mat-name {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+}
+
+/* dica de hover nos painéis fechados (a troca em si é por clique/toque, ou hover via JS) */
+@media (hover: hover) {
+  .mat-panel:not(:has(.mat-radio:checked)):hover .mat-shade {
+    background: rgb(31 27 24 / 0.3);
+  }
+}
