@@ -79,7 +79,7 @@ export default function ProductDiscovery() {
         />
 
         <div className="mt-14 flex flex-col gap-6 border-b border-ink/15 md:flex-row md:items-end md:justify-between">
-          <div role="tablist" aria-label="Linhas de produto" className="no-scrollbar -mx-5 flex overflow-x-auto px-5 md:mx-0 md:px-0">
+          <div role="tablist" aria-label="Linhas de produto" className="no-scrollbar relative -mx-5 flex overflow-x-auto px-5 md:mx-0 md:px-0">
             {tabs.map((t, i) => {
               const selected = t.id === active;
               return (
@@ -149,7 +149,7 @@ export default function ProductDiscovery() {
           id="colecoes-trilho"
           aria-label={`Padrões de ${family.name}`}
           onScroll={updateEdges}
-          className="no-scrollbar flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto scroll-smooth px-5 pb-4 md:scroll-px-10 md:gap-8 md:px-10 xl:scroll-px-[max(4rem,calc((100vw_-_88rem)/2_+_4rem))] xl:px-[max(4rem,calc((100vw_-_88rem)/2_+_4rem))]"
+          className="no-scrollbar relative flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto scroll-smooth px-5 pb-4 md:scroll-px-10 md:gap-8 md:px-10 xl:scroll-px-[max(4rem,calc((100vw_-_88rem)/2_+_4rem))] xl:px-[max(4rem,calc((100vw_-_88rem)/2_+_4rem))]"
         >
           {items.map((p, i) => (
             <li

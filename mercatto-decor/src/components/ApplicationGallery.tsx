@@ -151,7 +151,7 @@ export default function ApplicationGallery() {
       </div>
 
       {/* Mobile/tablet: cartões deslizáveis */}
-      <ul className="no-scrollbar mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 md:px-10 lg:hidden" aria-label="Ambientes">
+      <ul className="no-scrollbar relative mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 md:px-10 lg:hidden" aria-label="Ambientes">
         {rooms.map((r) => {
           const l = suggestions(r.match);
           return (

@@ -19,7 +19,7 @@ export default function CatalogSection() {
           intro="Cada catálogo traz todos os padrões, escala real, paginação, cálculo e cuidados. Abra no navegador ou baixe o PDF para consultar na obra."
         />
 
-        <ul className="no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:mt-16 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-14 sm:overflow-visible sm:px-0 lg:grid-cols-3 xl:grid-cols-5">
+        <ul className="no-scrollbar relative -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:mt-16 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-14 sm:overflow-visible sm:px-0 lg:grid-cols-3 xl:grid-cols-5">
           {catalogs.map((c, i) => (
             <Reveal as="li" key={c.id} delay={i * 80} className="group flex w-[72%] shrink-0 snap-start flex-col sm:w-auto">
               <article id={`catalogo-${c.id}`} aria-labelledby={`cat-${c.id}`} className="flex h-full scroll-mt-28 flex-col">

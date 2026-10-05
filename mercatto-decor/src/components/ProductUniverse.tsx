@@ -20,7 +20,7 @@ export default function ProductUniverse() {
         />
       </div>
 
-      <div className="no-scrollbar mt-12 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 pb-2 md:scroll-px-10 md:px-10 lg:mt-24 lg:block lg:space-y-32 lg:overflow-visible lg:px-0">
+      <div className="no-scrollbar relative mt-12 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 pb-2 md:scroll-px-10 md:px-10 lg:mt-24 lg:block lg:space-y-32 lg:overflow-visible lg:px-0">
         {families.map((f, i) => {
           const flip = i % 2 === 1;
           return (
