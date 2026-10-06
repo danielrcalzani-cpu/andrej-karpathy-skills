@@ -374,3 +374,12 @@
     background: rgb(31 27 24 / 0.3);
   }
 }
+
+/* Calculadora: o cálculo com medida exata depende de JavaScript ("js" no site, "live" no arquivo offline) */
+.calc-live {
+  display: none;
+}
+.js .calc-live,
+.live .calc-live {
+  display: block;
+}
