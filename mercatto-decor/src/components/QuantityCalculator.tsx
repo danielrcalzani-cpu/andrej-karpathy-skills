@@ -113,7 +113,7 @@ export default function QuantityCalculator() {
 
             <p className="mt-5 text-xs leading-relaxed text-stone">{cfg.note}</p>
             {cfg.patterns.length > 0 && (
-              <p className="mt-3 text-xs leading-relaxed text-ink-soft">
+              <p className="mt-3 hidden text-xs leading-relaxed text-ink-soft md:block">
                 <span className="font-medium text-copper-deep">Padrões: </span>
                 {cfg.patterns.join(" · ")}
               </p>
