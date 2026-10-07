@@ -383,3 +383,8 @@
 .live .calc-live {
   display: block;
 }
+
+/* Controles que dependem de JavaScript ficam ocultos onde ele não roda */
+html:not(.js):not(.live) .js-only {
+  display: none !important;
+}
