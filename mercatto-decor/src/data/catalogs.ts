@@ -40,7 +40,7 @@ export const catalogs: Catalog[] = [
     file: "/catalogos/mercatto-decor-piso-vinilico-colado.pdf",
     cover: "/catalogs-covers/piso-vinilico-colado.jpg",
     pages: 21,
-    size: "17,7 MB",
+    size: "17,8 MB",
   },
   {
     id: "piso-vinilico-spc",

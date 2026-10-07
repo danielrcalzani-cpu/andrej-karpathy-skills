@@ -11,7 +11,7 @@ const rows: { label: string; values: string[] }[] = [
   },
   { label: "Espessura", values: ["2 mm · 3 mm no Toscana", "Sob consulta", "3 mm", "2 mm", "Sob consulta"] },
   { label: "Capa de uso", values: ["0,15 mm (Nobiltà) · 0,20 mm (Paesaggi e Realeza) · 0,30 mm (Sole)", "0,30 mm (Serras) · 0,50 mm (Freijó)", "Filme laminado de PVC", "Filme de proteção anti-riscos", "Acabamento amadeirado"] },
-  { label: "Instalação", values: ["Colada sobre o contrapiso nivelado, sem argamassa", "Clique Uniclic com ClickControl, sem cola", "Colada sobre a parede limpa, seca e firme", "Colada sobre a parede existente, limpa, seca e nivelada", "Sob consulta"] },
+  { label: "Instalação", values: ["Colada sobre o contrapiso nivelado, com argamassa específica", "Clique Uniclic com ClickControl, sem cola", "Colada sobre a parede limpa, seca e firme", "Colada sobre a parede existente, limpa, seca e nivelada", "Sob consulta"] },
   { label: "Água", values: ["Resiste a respingos; evite água parada", "À prova d’água", "Indicada também para áreas úmidas", "Resistente à água e à umidade", "—"] },
   { label: "Uso", values: ["Residencial · ambientes internos", "Residencial intenso e comercial geral", "Ambientes internos", "Ambientes internos, inclusive úmidos", "Salas, quartos, recepções e espaços comerciais"] },
   { label: "Limpeza", values: ["Pano úmido e detergente neutro", "Pano úmido e detergente neutro", "Pano macio levemente úmido; sabão neutro", "Pano úmido e detergente neutro", "Espanador ou pano macio e seco"] },

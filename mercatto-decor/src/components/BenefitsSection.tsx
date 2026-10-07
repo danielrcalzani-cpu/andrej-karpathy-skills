@@ -39,7 +39,7 @@ const benefits = [
   },
   {
     title: "Manutenção simples",
-    text: "Pano úmido e detergente neutro resolvem a limpeza do dia a dia. Nada de rejunte para limpar.",
+    text: "Pano úmido e detergente neutro resolvem a limpeza do dia a dia.",
     lines: ["Pisos vinílicos", "Château Mur", "Placas flexíveis"],
   },
 ];

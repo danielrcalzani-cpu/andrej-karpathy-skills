@@ -21,7 +21,7 @@ OUT = Path(__file__).resolve().parent.parent / "public"
 C, P, V, S, T = (
     "Chateau_Mur_v2_1",
     "Placas_Flexiveis",
-    "Pisos_Vinilicos_5_1",
+    "Pisos_Vinilicos_6",
     "Pisos_SPC_2",
     "Teto_Laminado_1",
 )
@@ -157,7 +157,7 @@ covers.mkdir(parents=True, exist_ok=True)
 for pdf, slug in (
     ("Chateau_Mur_v2_1.pdf", "chateau-mur"),
     ("Placas_Flexiveis.pdf", "placas-revestimento-flexivel"),
-    ("Pisos_Vinilicos_5_1.pdf", "piso-vinilico-colado"),
+    ("Pisos_Vinilicos_6.pdf", "piso-vinilico-colado"),
     ("Pisos_SPC_2.pdf", "piso-vinilico-spc"),
     ("Teto_Laminado_1.pdf", "teto-laminado"),
 ):

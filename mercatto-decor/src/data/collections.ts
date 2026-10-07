@@ -23,7 +23,7 @@ export const families: Family[] = [
     surface: "Piso",
     kicker: "14 padrões · 4 linhas",
     summary:
-      "O desenho e a cor da madeira em apenas 2 ou 3 mm. Colado sobre o contrapiso, sem argamassa e sem rejunte: mais confortável e silencioso que a cerâmica.",
+      "O desenho e a cor da madeira em apenas 2 ou 3 mm. Colado sobre o contrapiso nivelado, com instalação rápida e obra limpa: mais confortável e silencioso que a cerâmica.",
     image: "/projects/piso-toscana-sala.jpg",
     imageAlt: "Sala de estar com piso vinílico colado padrão Toscana, Linha Sole",
     catalogId: "piso-vinilico-colado",
