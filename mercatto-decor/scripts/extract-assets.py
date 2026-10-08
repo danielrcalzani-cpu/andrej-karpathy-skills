@@ -23,7 +23,7 @@ C, P, V, S, T = (
     "Placas_Flexiveis",
     "Pisos_Vinilicos_6",
     "Pisos_SPC_2",
-    "Teto_Laminado_1",
+    "Teto_Laminado_3",
 )
 
 # destino -> (catálogo, arquivo extraído)
@@ -99,22 +99,24 @@ MAP = {
     "projects/spc-serras-lounge.jpg": (S, "i-006-019.jpg"),
     "projects/spc-madeiras-brasileiras-jantar.jpg": (S, "i-010-035.jpg"),
     # ---- Teto laminado: texturas
-    "textures/teto/padrao-01.jpg": (T, "i-005-011.jpg"),
-    "textures/teto/padrao-02.jpg": (T, "i-006-016.jpg"),
-    "textures/teto/padrao-03.jpg": (T, "i-007-021.jpg"),
-    "textures/teto/padrao-04.jpg": (T, "i-008-026.jpg"),
-    "textures/teto/padrao-05.jpg": (T, "i-009-031.jpg"),
-    "textures/teto/padrao-06.jpg": (T, "i-010-036.jpg"),
-    "textures/teto/padrao-07.jpg": (T, "i-011-041.jpg"),
+    "textures/teto/padrao-01.jpg": (T, "i-005-012.jpg"),
+    "textures/teto/padrao-02.jpg": (T, "i-006-017.jpg"),
+    "textures/teto/padrao-03.jpg": (T, "i-007-022.jpg"),
+    "textures/teto/padrao-04.jpg": (T, "i-008-027.jpg"),
+    "textures/teto/padrao-05.jpg": (T, "i-009-032.jpg"),
+    "textures/teto/padrao-06.jpg": (T, "i-010-037.jpg"),
+    "textures/teto/padrao-07.jpg": (T, "i-011-042.jpg"),
+    "textures/teto/padrao-08.jpg": (T, "i-012-047.jpg"),
     # ---- Teto laminado: ambientes
-    "projects/teto-recepcao.jpg": (T, "i-002-010.jpg"),
-    "projects/teto-01-banheiro.jpg": (T, "i-005-015.jpg"),
-    "projects/teto-02-sala-de-estar.jpg": (T, "i-006-020.jpg"),
-    "projects/teto-03-restaurante.jpg": (T, "i-007-025.jpg"),
-    "projects/teto-04-area-gourmet.jpg": (T, "i-008-030.jpg"),
-    "projects/teto-05-escritorio.jpg": (T, "i-009-035.jpg"),
-    "projects/teto-06-banheiro.jpg": (T, "i-010-040.jpg"),
-    "projects/teto-07-sala-de-jantar.jpg": (T, "i-011-045.jpg"),
+    "projects/teto-recepcao.jpg": (T, "i-002-011.jpg"),
+    "projects/teto-01-banheiro.jpg": (T, "i-005-016.jpg"),
+    "projects/teto-02-sala-de-estar.jpg": (T, "i-006-021.jpg"),
+    "projects/teto-03-restaurante.jpg": (T, "i-007-026.jpg"),
+    "projects/teto-04-area-gourmet.jpg": (T, "i-008-031.jpg"),
+    "projects/teto-05-escritorio.jpg": (T, "i-009-036.jpg"),
+    "projects/teto-06-banheiro.jpg": (T, "i-010-041.jpg"),
+    "projects/teto-07-sala-de-jantar.jpg": (T, "i-011-046.jpg"),
+    "projects/teto-08-sala-integrada.jpg": (T, "i-012-051.jpg"),
 }
 
 MAX = 2000  # px no lado maior; o next/image gera os tamanhos responsivos
@@ -159,7 +161,7 @@ for pdf, slug in (
     ("Placas_Flexiveis.pdf", "placas-revestimento-flexivel"),
     ("Pisos_Vinilicos_6.pdf", "piso-vinilico-colado"),
     ("Pisos_SPC_2.pdf", "piso-vinilico-spc"),
-    ("Teto_Laminado_1.pdf", "teto-laminado"),
+    ("Teto_Laminado_3.pdf", "teto-laminado"),
 ):
     shutil.copyfile(PDFS / pdf, catalogs / f"mercatto-decor-{slug}.pdf")
     tmp = covers / slug

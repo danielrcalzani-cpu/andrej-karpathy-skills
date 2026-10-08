@@ -10,18 +10,18 @@ import { whatsappUrl } from "@/lib/whatsapp";
 type Shot = { src: string; room: string; product: string; alt: string };
 
 const s = {
-  sala: { src: "/projects/teto-02-sala-de-estar.jpg", room: "Sala de estar", product: "Teto laminado · Padrão 02", alt: "Sala de estar com teto laminado mel claro e grandes janelas" },
+  sala: { src: "/projects/teto-02-sala-de-estar.jpg", room: "Sala de estar", product: "Teto laminado Carvalho · padrão 02", alt: "Sala de estar com teto laminado mel claro e grandes janelas" },
   jantarPreto: { src: "/projects/placas-173-marmore-preto-jantar.jpg", room: "Sala de jantar", product: "Mármore Preto · cód. 173", alt: "Sala de jantar com parede em placa flexível Mármore Preto" },
-  gourmet: { src: "/projects/teto-04-area-gourmet.jpg", room: "Área gourmet", product: "Teto laminado · Padrão 04", alt: "Área gourmet com teto laminado em cedro avermelhado" },
+  gourmet: { src: "/projects/teto-04-area-gourmet.jpg", room: "Área gourmet", product: "Teto laminado Mogno · padrão 04", alt: "Área gourmet com teto laminado Mogno, em mogno avermelhado" },
   blackPiano: { src: "/projects/placas-167-black-piano-comercial.jpg", room: "Espaço comercial", product: "Black Piano · cód. 167", alt: "Recepção comercial com parede preta espelhada Black Piano" },
   monteBianco: { src: "/projects/piso-monte-bianco-sala.jpg", room: "Sala de estar", product: "Piso colado Monte Bianco", alt: "Sala de estar com piso vinílico Monte Bianco em bege acinzentado" },
   pastilha: { src: "/projects/placas-174-pastilha-cinza-banheiro.jpg", room: "Banheiro", product: "Pastilha Cinza · cód. 174", alt: "Banheiro com parede em placa flexível Pastilha Cinza" },
   chateauSala: { src: "/projects/chateau-sala.jpg", room: "Sala", product: "Château Mur", alt: "Sala de estar com parede revestida em Château Mur" },
-  escritorio: { src: "/projects/teto-05-escritorio.jpg", room: "Escritório", product: "Teto laminado · Padrão 05", alt: "Escritório com teto laminado em castanho escuro" },
+  escritorio: { src: "/projects/teto-05-escritorio.jpg", room: "Escritório", product: "Teto laminado Pinewood · padrão 05", alt: "Escritório com teto laminado em castanho escuro" },
   mogno: { src: "/projects/chateau-mogno-real-jantar.jpg", room: "Sala de jantar", product: "Madeira Mogno Real · alto brilho", alt: "Sala de jantar com parede em madeira Mogno Real de alto brilho" },
   caramelo: { src: "/projects/piso-caramelo-comercial.jpg", room: "Espaço comercial", product: "Piso colado Caramelo", alt: "Lounge comercial com piso vinílico Caramelo" },
   linho: { src: "/projects/placas-171-linho-cinza-escuro-sala.jpg", room: "Sala de estar", product: "Linho Cinza Escuro · cód. 171", alt: "Sala de estar com parede em placa flexível Linho Cinza Escuro" },
-  banheiro: { src: "/projects/teto-06-banheiro.jpg", room: "Banheiro", product: "Teto laminado · Padrão 06", alt: "Banheiro com teto laminado em carvalho natural claro" },
+  banheiro: { src: "/projects/teto-06-banheiro.jpg", room: "Banheiro", product: "Teto laminado Carvalho Natural · padrão 06", alt: "Banheiro com teto laminado em carvalho natural claro" },
 } satisfies Record<string, Shot>;
 
 /** Foto com legenda sobreposta (sempre visível — também no celular) e zoom lento no hover. */

@@ -40,7 +40,7 @@ const rooms = [
     match: ["Banheiro"],
     image: "/projects/teto-01-banheiro.jpg",
     alt: "Banheiro amplo com teto laminado em bege acinzentado claro",
-    credit: "Teto laminado · Padrão 01",
+    credit: "Teto laminado Sandal Pinus · padrão 01",
   },
   {
     name: "Escritório",
@@ -61,7 +61,7 @@ const rooms = [
     match: ["Espaço comercial", "Área gourmet"],
     image: "/projects/teto-03-restaurante.jpg",
     alt: "Restaurante com teto laminado em castanho rústico",
-    credit: "Teto laminado · Padrão 03",
+    credit: "Teto laminado Maple · padrão 03",
   },
 ];
 

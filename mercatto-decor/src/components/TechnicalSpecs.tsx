@@ -15,7 +15,7 @@ const rows: { label: string; values: string[] }[] = [
   { label: "Água", values: ["Resiste a respingos; evite água parada", "À prova d’água", "Indicada também para áreas úmidas", "Resistente à água e à umidade", "—"] },
   { label: "Uso", values: ["Residencial · ambientes internos", "Residencial intenso e comercial geral", "Ambientes internos", "Ambientes internos, inclusive úmidos", "Salas, quartos, recepções e espaços comerciais"] },
   { label: "Limpeza", values: ["Pano úmido e detergente neutro", "Pano úmido e detergente neutro", "Pano macio levemente úmido; sabão neutro", "Pano úmido e detergente neutro", "Espanador ou pano macio e seco"] },
-  { label: "Padrões", values: ["14", "4", "11", "5 + 2 Coronato + 2 madeiras", "7"] },
+  { label: "Padrões", values: ["14", "4", "11", "5 + 2 Coronato + 2 madeiras", "8"] },
 ];
 
 export default function TechnicalSpecs() {

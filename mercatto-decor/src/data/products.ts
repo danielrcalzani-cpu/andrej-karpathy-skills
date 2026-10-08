@@ -52,7 +52,7 @@ const SPC = {
   area: "0,322 m² por régua",
   installation: "Clique Uniclic",
 };
-const TETO = { family: "teto" as const, collection: "Teto laminado", effect: "madeira" as const, effectLabel: "Madeira", finish: "Amadeirado" };
+const TETO = { family: "teto" as const, effect: "madeira" as const, effectLabel: "Madeira", finish: "Amadeirado" };
 
 export const products: Product[] = [
   // ───────────── Château Mur
@@ -594,11 +594,12 @@ export const products: Product[] = [
     image: { src: "/projects/spc-madeiras-brasileiras-jantar.jpg", label: "Cozinha e jantar" },
   },
 
-  // ───────────── Teto laminado (padrões ainda sem nome comercial no catálogo)
+  // ───────────── Teto laminado (catálogo v2: cada padrão tem nome e número)
   {
     ...TETO,
     id: "teto-padrao-01",
-    name: "Padrão 01",
+    name: "Sandal Pinus",
+    collection: "Padrão 01",
     tone: "Bege acinzentado claro",
     description: "O claro que eleva o teto: veios suaves e alongados que refletem a luz e dão sensação de mais altura.",
     idealFor: ["Sala", "Quarto", "Home office"],
@@ -608,7 +609,8 @@ export const products: Product[] = [
   {
     ...TETO,
     id: "teto-padrao-02",
-    name: "Padrão 02",
+    name: "Carvalho",
+    collection: "Padrão 02",
     tone: "Mel claro",
     description: "O carvalho dourado: catedrais marcadas de ponta a ponta, natural e cheio de movimento.",
     idealFor: ["Sala de estar", "Sala de jantar", "Quarto"],
@@ -618,7 +620,8 @@ export const products: Product[] = [
   {
     ...TETO,
     id: "teto-padrao-03",
-    name: "Padrão 03",
+    name: "Maple",
+    collection: "Padrão 03",
     tone: "Castanho rústico",
     description: "A madeira com história: nós aparentes, fendas de veio e variações de tom de tábuas de demolição.",
     idealFor: ["Sala", "Escritório", "Espaço comercial"],
@@ -628,8 +631,9 @@ export const products: Product[] = [
   {
     ...TETO,
     id: "teto-padrao-04",
-    name: "Padrão 04",
-    tone: "Cedro avermelhado",
+    name: "Mogno",
+    collection: "Padrão 04",
+    tone: "Mogno avermelhado",
     description: "O tom mais vibrante: alaranjado-avermelhado com veios finos e ondulados, para projetos tropicais e retrô.",
     idealFor: ["Sala", "Recepção", "Espaço comercial"],
     texture: "/textures/teto/padrao-04.jpg",
@@ -638,9 +642,10 @@ export const products: Product[] = [
   {
     ...TETO,
     id: "teto-padrao-05",
-    name: "Padrão 05",
+    name: "Pinewood",
+    collection: "Padrão 05",
     tone: "Castanho escuro",
-    description: "O escuro que acolhe: castanho profundo, próximo da nogueira, com veios discretos e superfície uniforme.",
+    description: "O escuro que acolhe: castanho profundo, com veios discretos e superfície uniforme.",
     idealFor: ["Quarto", "Home theater", "Sala de jantar"],
     texture: "/textures/teto/padrao-05.jpg",
     image: { src: "/projects/teto-05-escritorio.jpg", label: "Escritório" },
@@ -648,7 +653,8 @@ export const products: Product[] = [
   {
     ...TETO,
     id: "teto-padrao-06",
-    name: "Padrão 06",
+    name: "Carvalho Natural",
+    collection: "Padrão 06",
     tone: "Carvalho natural claro",
     description: "O natural do dia a dia: veios longos com riscos acinzentados e pequenos nós discretos.",
     idealFor: ["Sala", "Quarto", "Escritório"],
@@ -658,12 +664,24 @@ export const products: Product[] = [
   {
     ...TETO,
     id: "teto-padrao-07",
-    name: "Padrão 07",
-    tone: "Cerejeira alaranjada",
-    description: "O calor da cerejeira: laranja-cobre intenso, com veios longos e desenhos em chama.",
+    name: "Nogueira Mel",
+    collection: "Padrão 07",
+    tone: "Mel alaranjado",
+    description: "O calor da nogueira: mel alaranjado intenso, no tom da nogueira mel, com veios longos e desenhos em chama.",
     idealFor: ["Sala de jantar", "Área gourmet", "Recepção"],
     texture: "/textures/teto/padrao-07.jpg",
     image: { src: "/projects/teto-07-sala-de-jantar.jpg", label: "Sala de jantar" },
+  },
+  {
+    ...TETO,
+    id: "teto-padrao-08",
+    name: "Amêndoa",
+    collection: "Padrão 08",
+    tone: "Amêndoa dourada",
+    description: "A cor que aquece sem marcar: tom amêndoa dourado, com veios finos, retos e uniformes que quase desaparecem à distância.",
+    idealFor: ["Sala de estar", "Sala de jantar", "Quarto"],
+    texture: "/textures/teto/padrao-08.jpg",
+    image: { src: "/projects/teto-08-sala-integrada.jpg", label: "Sala integrada" },
   },
 ];
 
@@ -676,7 +694,8 @@ export function productLabel(p: Product): string {
     "piso-spc": "Piso vinílico SPC ",
     teto: "Teto laminado ",
   };
-  return `${prefix[p.family]}${p.name}${p.code ? ` (cód. ${p.code})` : ""}`;
+  const ref = p.code ? ` (cód. ${p.code})` : p.family === "teto" ? ` (${p.collection.toLowerCase()})` : "";
+  return `${prefix[p.family]}${p.name}${ref}`;
 }
 
 export const productsByFamily = (id: FamilyId) => products.filter((p) => p.family === id);

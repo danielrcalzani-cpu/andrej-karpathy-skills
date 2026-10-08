@@ -55,11 +55,11 @@ export const catalogs: Catalog[] = [
   {
     id: "teto-laminado",
     title: "Teto Laminado",
-    subtitle: "Catálogo de tetos · 7 padrões",
+    subtitle: "Catálogo de tetos · 8 padrões",
     description: "Do bege claro ao castanho profundo, com dicas para escolher e planejar o teto.",
     file: "/catalogos/mercatto-decor-teto-laminado.pdf",
     cover: "/catalogs-covers/teto-laminado.jpg",
-    pages: 13,
-    size: "11,1 MB",
+    pages: 14,
+    size: "12,9 MB",
   },
 ];

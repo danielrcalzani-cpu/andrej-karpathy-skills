@@ -22,7 +22,7 @@ export default function IntroStatement() {
           <Reveal delay={120}>
             <p className="mt-8 max-w-xl text-[1.05rem] leading-relaxed text-ink-soft">
               Reunimos materiais para piso, parede e teto: pisos vinílicos com o desenho da madeira, placas que levam mármore e
-              linho para a parede, Château Mur em grande formato e teto laminado em sete tons. Superfícies escolhidas para mudar a
+              linho para a parede, Château Mur em grande formato e teto laminado em oito tons. Superfícies escolhidas para mudar a
               leitura de um espaço — com menos obra para chegar lá.
             </p>
           </Reveal>

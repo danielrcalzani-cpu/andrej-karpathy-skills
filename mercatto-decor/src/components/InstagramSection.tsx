@@ -5,7 +5,7 @@ import { site } from "@/data/site";
 
 // Não é um feed ao vivo: imagens dos catálogos com link para o perfil.
 const tiles = [
-  { src: "/projects/teto-07-sala-de-jantar.jpg", alt: "Sala de jantar com teto laminado cerejeira" },
+  { src: "/projects/teto-07-sala-de-jantar.jpg", alt: "Sala de jantar com teto laminado Nogueira Mel" },
   { src: "/textures/chateau/247-troussay.jpg", alt: "Detalhe do mármore Troussay" },
   { src: "/projects/placas-marmore-sala.jpg", alt: "Parede em mármore branco com sofá amarelo" },
   { src: "/textures/spc/caparao.jpg", alt: "Detalhe do piso SPC Caparaó" },

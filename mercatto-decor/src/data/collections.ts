@@ -93,14 +93,14 @@ export const families: Family[] = [
     id: "teto",
     name: "Teto laminado",
     surface: "Teto",
-    kicker: "7 padrões · claro ao escuro",
+    kicker: "8 padrões · claro ao escuro",
     summary:
       "O calor e o desenho da madeira levados para o alto. Do bege claro ao castanho profundo, o teto deixa de ser um plano branco e passa a fazer parte da decoração.",
     image: "/projects/teto-02-sala-de-estar.jpg",
     imageAlt: "Sala de estar ampla com teto laminado em madeira mel claro",
     catalogId: "teto-laminado",
     specs: [
-      { label: "Padrões", value: "07, do claro ao escuro" },
+      { label: "Padrões", value: "08, do claro ao escuro" },
       { label: "Acabamento", value: "Amadeirado" },
       { label: "Medidas", value: "Sob consulta" },
       { label: "Cálculo", value: "Área do teto + 10%" },

@@ -68,7 +68,7 @@ export const CALC_MODES: Record<CalcMode, ModeConfig> = {
     formula: "Comprimento × largura × 1,10",
     note: "Acrescente 10% para recortes e perdas. Em tetos com muitos recortes, sancas, vigas ou paginação diagonal, considere uma margem maior. A quantidade por caixa é informada no orçamento.",
     quick: [6, 9, 12, 15, 20, 30],
-    patterns: products.filter((p) => p.family === "teto").map((p) => p.name),
+    patterns: products.filter((p) => p.family === "teto").map((p) => `${p.name} (${p.collection.toLowerCase()})`),
   },
 };
 
