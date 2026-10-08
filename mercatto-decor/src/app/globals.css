@@ -388,3 +388,18 @@
 html:not(.js):not(.live) .js-only {
   display: none !important;
 }
+
+/* Em destaque: troca suave do padrão escolhido */
+.fx-pv {
+  animation: fx-in 0.6s var(--ease-arch, ease) both;
+}
+@keyframes fx-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-pv {
+    animation: none;
+  }
+}

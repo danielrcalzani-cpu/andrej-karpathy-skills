@@ -594,12 +594,12 @@ export const products: Product[] = [
     image: { src: "/projects/spc-madeiras-brasileiras-jantar.jpg", label: "Cozinha e jantar" },
   },
 
-  // ───────────── Teto laminado (catálogo v2: cada padrão tem nome e número)
+  // ───────────── Teto laminado (do mais claro ao mais escuro, como no catálogo)
   {
     ...TETO,
     id: "teto-padrao-01",
     name: "Sandal Pinus",
-    collection: "Padrão 01",
+    collection: "Teto laminado",
     tone: "Bege acinzentado claro",
     description: "O claro que eleva o teto: veios suaves e alongados que refletem a luz e dão sensação de mais altura.",
     idealFor: ["Sala", "Quarto", "Home office"],
@@ -610,7 +610,7 @@ export const products: Product[] = [
     ...TETO,
     id: "teto-padrao-02",
     name: "Carvalho",
-    collection: "Padrão 02",
+    collection: "Teto laminado",
     tone: "Mel claro",
     description: "O carvalho dourado: catedrais marcadas de ponta a ponta, natural e cheio de movimento.",
     idealFor: ["Sala de estar", "Sala de jantar", "Quarto"],
@@ -621,7 +621,7 @@ export const products: Product[] = [
     ...TETO,
     id: "teto-padrao-03",
     name: "Maple",
-    collection: "Padrão 03",
+    collection: "Teto laminado",
     tone: "Castanho rústico",
     description: "A madeira com história: nós aparentes, fendas de veio e variações de tom de tábuas de demolição.",
     idealFor: ["Sala", "Escritório", "Espaço comercial"],
@@ -632,7 +632,7 @@ export const products: Product[] = [
     ...TETO,
     id: "teto-padrao-04",
     name: "Mogno",
-    collection: "Padrão 04",
+    collection: "Teto laminado",
     tone: "Mogno avermelhado",
     description: "O tom mais vibrante: alaranjado-avermelhado com veios finos e ondulados, para projetos tropicais e retrô.",
     idealFor: ["Sala", "Recepção", "Espaço comercial"],
@@ -643,7 +643,7 @@ export const products: Product[] = [
     ...TETO,
     id: "teto-padrao-05",
     name: "Pinewood",
-    collection: "Padrão 05",
+    collection: "Teto laminado",
     tone: "Castanho escuro",
     description: "O escuro que acolhe: castanho profundo, com veios discretos e superfície uniforme.",
     idealFor: ["Quarto", "Home theater", "Sala de jantar"],
@@ -654,7 +654,7 @@ export const products: Product[] = [
     ...TETO,
     id: "teto-padrao-06",
     name: "Carvalho Natural",
-    collection: "Padrão 06",
+    collection: "Teto laminado",
     tone: "Carvalho natural claro",
     description: "O natural do dia a dia: veios longos com riscos acinzentados e pequenos nós discretos.",
     idealFor: ["Sala", "Quarto", "Escritório"],
@@ -665,7 +665,7 @@ export const products: Product[] = [
     ...TETO,
     id: "teto-padrao-07",
     name: "Nogueira Mel",
-    collection: "Padrão 07",
+    collection: "Teto laminado",
     tone: "Mel alaranjado",
     description: "O calor da nogueira: mel alaranjado intenso, no tom da nogueira mel, com veios longos e desenhos em chama.",
     idealFor: ["Sala de jantar", "Área gourmet", "Recepção"],
@@ -676,7 +676,7 @@ export const products: Product[] = [
     ...TETO,
     id: "teto-padrao-08",
     name: "Amêndoa",
-    collection: "Padrão 08",
+    collection: "Teto laminado",
     tone: "Amêndoa dourada",
     description: "A cor que aquece sem marcar: tom amêndoa dourado, com veios finos, retos e uniformes que quase desaparecem à distância.",
     idealFor: ["Sala de estar", "Sala de jantar", "Quarto"],
@@ -694,7 +694,7 @@ export function productLabel(p: Product): string {
     "piso-spc": "Piso vinílico SPC ",
     teto: "Teto laminado ",
   };
-  const ref = p.code ? ` (cód. ${p.code})` : p.family === "teto" ? ` (${p.collection.toLowerCase()})` : "";
+  const ref = p.code ? ` (cód. ${p.code})` : "";
   return `${prefix[p.family]}${p.name}${ref}`;
 }
 

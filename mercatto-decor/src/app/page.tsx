@@ -13,7 +13,6 @@ import TechnicalSpecs from "@/components/TechnicalSpecs";
 import CatalogSection from "@/components/CatalogSection";
 import InspirationGallery from "@/components/InspirationGallery";
 import AboutSection from "@/components/AboutSection";
-import InstagramSection from "@/components/InstagramSection";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -37,7 +36,6 @@ export default function Home() {
         <CatalogSection />
         <InspirationGallery />
         <AboutSection />
-        <InstagramSection />
         <FinalCTA />
       </main>
       <Footer />
