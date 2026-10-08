@@ -1,0 +1,405 @@
+@import "tailwindcss";
+
+/* Paleta derivada do logo e dos catálogos Mercatto Decor (papel creme, marrom quase preto, cobre). */
+@theme {
+  --color-paper: #f6f3ee;
+  --color-sand: #ece5da;
+  --color-linen: #e2d8ca;
+  --color-stone: #8a8077;
+  --color-ink: #2b2724;
+  --color-ink-soft: #4a433d;
+  --color-night: #1f1b18;
+  --color-copper: #c57e3e;
+  --color-copper-deep: #96571f;
+  --color-copper-soft: #e3b98f;
+
+  --font-serif: var(--font-lora), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-poppins), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --ease-arch: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-copper);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-copper);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: 2.5rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-x {
+      padding-inline: 4rem;
+    }
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .display {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.04;
+  }
+  .display em {
+    font-style: italic;
+    color: var(--color-copper);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0.85rem 1.6rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition:
+      background-color 0.35s var(--ease-arch),
+      color 0.35s var(--ease-arch),
+      border-color 0.35s var(--ease-arch);
+  }
+  .btn-copper {
+    background: var(--color-copper);
+    color: #fff;
+  }
+  .btn-copper:hover {
+    background: var(--color-copper-deep);
+  }
+  .btn-ink {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .btn-ink:hover {
+    background: var(--color-copper-deep);
+  }
+  .btn-ghost-light {
+    border: 1px solid rgb(255 255 255 / 0.55);
+    color: #fff;
+  }
+  .btn-ghost-light:hover {
+    background: #fff;
+    color: var(--color-ink);
+  }
+  .btn-ghost-dark {
+    border: 1px solid var(--color-ink);
+    color: var(--color-ink);
+  }
+  .btn-ghost-dark:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  /* Link com sublinhado animado */
+  .link-line {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.45s var(--ease-arch);
+  }
+  .link-line:hover,
+  .link-line:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Revelação ao rolar (ativada por <Reveal>; só com JS, para nunca esconder conteúdo) */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 1s var(--ease-arch),
+    transform 1s var(--ease-arch);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.js .reveal-img {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.3s var(--ease-arch);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js .reveal-img.is-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+@keyframes slow-zoom {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.hero-zoom {
+  animation: slow-zoom 9s var(--ease-arch) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 1.1s var(--ease-arch) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .js .reveal,
+  .js .reveal-img {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+}
+
+/* ───────── Matéria: galeria de texturas sem JavaScript (rádios + :has) ───────── */
+.mat-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.mat-panel {
+  position: relative;
+  overflow: hidden;
+  height: 4.75rem;
+  transition:
+    height 0.8s var(--ease-arch),
+    flex-grow 0.8s var(--ease-arch);
+}
+.mat-panel:has(.mat-radio:checked) {
+  height: 34rem;
+}
+.mat-bg {
+  position: absolute;
+  inset: -4%;
+  transition: transform 1.2s var(--ease-arch);
+}
+.mat-bg-tile {
+  background-repeat: repeat;
+}
+/* animação lenta da matéria aberta: aproxima e desliza */
+.mat-panel:has(.mat-radio:checked) .mat-bg {
+  animation: mat-drift 16s ease-in-out infinite alternate;
+}
+.mat-panel:has(.mat-radio:checked) .mat-bg-tile {
+  animation: mat-pan 22s linear infinite alternate;
+}
+@keyframes mat-drift {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.12) translate3d(-2%, -1.5%, 0);
+  }
+}
+@keyframes mat-pan {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 160px 90px;
+  }
+}
+.mat-shade {
+  position: absolute;
+  inset: 0;
+  background: rgb(31 27 24 / 0.55);
+  transition: background 0.8s var(--ease-arch);
+}
+.mat-panel:has(.mat-radio:checked) .mat-shade {
+  background: linear-gradient(to top, rgb(31 27 24 / 0.92), rgb(31 27 24 / 0.35) 55%, rgb(31 27 24 / 0.1));
+}
+.mat-label {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem;
+  cursor: pointer;
+}
+.mat-name,
+.mat-info {
+  text-shadow: 0 1px 14px rgb(0 0 0 / 0.45);
+}
+.mat-count {
+  padding-top: 0.6rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-copper-soft);
+  transition: opacity 0.5s;
+}
+.mat-panel:has(.mat-radio:checked) .mat-count {
+  opacity: 0;
+}
+.mat-radio:focus-visible ~ .mat-label {
+  outline: 2px solid var(--color-copper);
+  outline-offset: -4px;
+}
+.mat-info {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 20;
+  padding: 1.25rem;
+  opacity: 0;
+  transform: translateY(1.5rem);
+  pointer-events: none;
+  transition:
+    opacity 0.7s var(--ease-arch) 0.15s,
+    transform 0.7s var(--ease-arch) 0.15s;
+}
+.mat-panel:has(.mat-radio:checked) .mat-info {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.mat-swatch {
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.18);
+}
+
+@media (min-width: 768px) {
+  .mat-gallery {
+    flex-direction: row;
+    height: 36rem;
+  }
+  .mat-panel,
+  .mat-panel:has(.mat-radio:checked) {
+    height: auto;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .mat-panel:has(.mat-radio:checked) {
+    flex-grow: 5;
+  }
+  .mat-label {
+    padding: 1.5rem;
+  }
+  .mat-info {
+    padding: 2rem;
+  }
+  .mat-swatch {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  /* painéis fechados: nome na vertical, sem contador */
+  .mat-name {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  .mat-count {
+    display: none;
+  }
+  .mat-panel:has(.mat-radio:checked) .mat-name {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+}
+
+/* dica de hover nos painéis fechados (a troca em si é por clique/toque, ou hover via JS) */
+@media (hover: hover) {
+  .mat-panel:not(:has(.mat-radio:checked)):hover .mat-shade {
+    background: rgb(31 27 24 / 0.3);
+  }
+}
+
+/* Calculadora: o cálculo com medida exata depende de JavaScript ("js" no site, "live" no arquivo offline) */
+.calc-live {
+  display: none;
+}
+.js .calc-live,
+.live .calc-live {
+  display: block;
+}
+
+/* Controles que dependem de JavaScript ficam ocultos onde ele não roda */
+html:not(.js):not(.live) .js-only {
+  display: none !important;
+}
+
+/* Em destaque: troca suave do padrão escolhido */
+.fx-pv {
+  animation: fx-in 0.6s var(--ease-arch, ease) both;
+}
+@keyframes fx-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-pv {
+    animation: none;
+  }
+}
