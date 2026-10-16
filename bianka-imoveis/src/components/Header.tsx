@@ -6,12 +6,10 @@ import { copy } from "@/content/site";
 import { CtaLink } from "./CtaLink";
 import { Wordmark } from "./Wordmark";
 
-type Props = { showPortfolio: boolean };
-
-export function Header({ showPortfolio }: Props) {
+export function Header() {
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const links = copy.nav.filter((l) => showPortfolio || l.href !== "#imoveis-vendidos");
+  const links = copy.nav;
 
   useEffect(() => {
     if (!open) return;

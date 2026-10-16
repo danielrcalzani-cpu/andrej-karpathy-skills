@@ -129,43 +129,83 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .mobile-menu a:not(.btn) { display: flex; align-items: center; min-height: 60px; font-family: var(--serif); font-size: 1.6rem; color: var(--aub); border-bottom: 1px solid rgb(217 207 191 / .6); }
 .mobile-menu .btn { margin-block: 20px 24px; }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero (Bianka) ---------- */
 .hero { overflow: hidden; }
-.hero__grid { display: grid; gap: 44px; padding-block: 28px 64px; }
-.hero__copy { animation: rise .9s var(--ease) both; min-width: 0; }
+.hero__grid {
+  display: grid; grid-template-columns: 6.5rem 1fr; grid-template-areas: "photo name" "copy copy";
+  column-gap: 20px; row-gap: 28px; align-items: center; padding-block: 32px 64px;
+}
+.hero__photo { grid-area: photo; position: relative; }
+.hero__photo::before { content: ""; position: absolute; inset: 12px 12px -8px -8px; border: 1px solid rgb(184 149 90 / .6); }
+.hero__name { grid-area: name; animation: rise .9s var(--ease) both; }
+.hero__copy { grid-area: copy; min-width: 0; animation: rise .9s var(--ease) both; }
+.hero .eyebrow { letter-spacing: .16em; }
 .hero .eyebrow::before { display: none; }
-.hero h1 { font-family: var(--serif); font-weight: 400; color: var(--aub); font-size: clamp(2.4rem, 1.55rem + 4.2vw, 4.7rem); line-height: 1.04; letter-spacing: -.015em; margin-top: 16px; }
+.hero h1 { font-family: var(--serif); font-weight: 400; color: var(--aub); font-size: clamp(2.5rem, 1.55rem + 4.6vw, 6.2rem); line-height: .98; letter-spacing: -.015em; margin-top: 10px; }
 .hero h1 em { font-style: italic; color: var(--aub-soft); }
-.hero .lead { margin-top: 18px; max-width: 36rem; }
+.tagline { font-family: var(--serif); font-style: italic; font-size: clamp(1.45rem, 1.2rem + 1vw, 1.9rem); line-height: 1.3; color: var(--aub); }
+.hero .lead { margin-top: 14px; max-width: 36rem; }
 .hero__ctas { display: grid; gap: 12px; margin-top: 26px; }
 .creds { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); font-size: .875rem; font-weight: 500; color: var(--muted); }
 .creds li { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
 .creds li::before, .specs li::before { content: ""; width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
-.hero__art { position: relative; margin-right: 6px; }
-.hero__art::before { content: ""; position: absolute; inset: -10px -10px 28px 28px; border: 1px solid rgb(184 149 90 / .6); }
-.hero__frame { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--aub-deep); }
-.hero__frame svg, .hero__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-
-/* ---------- About ---------- */
-.about { background: var(--paper); border-top: 1px solid rgb(217 207 191 / .7); }
-.about__grid { display: grid; gap: 52px; }
-.portrait { position: relative; width: 100%; max-width: 420px; margin-inline: auto; align-self: start; }
-.portrait::before { content: ""; position: absolute; inset: 28px 28px -14px -14px; border: 1px solid rgb(184 149 90 / .6); }
 .portrait__frame { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--aub); display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .portrait__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .portrait__frame svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.monogram { position: relative; font-family: var(--serif); font-style: italic; font-size: 5.5rem; line-height: 1; color: var(--gold-light); }
-.monogram + span { position: relative; margin-top: 14px; font-size: .75rem; font-weight: 600; letter-spacing: .4em; text-transform: uppercase; color: rgb(247 242 234 / .72); }
-.about__text p { margin-top: 18px; max-width: 36rem; line-height: 1.75; }
-.about__text p:first-of-type { margin-top: 28px; }
+.monogram { position: relative; font-family: var(--serif); font-style: italic; font-size: 2.25rem; line-height: 1; color: var(--gold-light); }
+.monogram + span { display: none; position: relative; margin-top: 14px; font-size: .75rem; font-weight: 600; letter-spacing: .4em; text-transform: uppercase; color: rgb(247 242 234 / .72); }
+.years { display: none; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (min-width: 640px) {
+  .hero__grid { grid-template-columns: 9rem 1fr; column-gap: 32px; padding-top: 56px; }
+  .hero .eyebrow { letter-spacing: .28em; }
+  .monogram { font-size: 3rem; }
+  .hero__ctas { grid-template-columns: auto auto; justify-content: start; }
+}
+@media (min-width: 1024px) {
+  .hero__grid {
+    grid-template-columns: 7fr 5fr; grid-template-rows: auto 1fr; grid-template-areas: "name photo" "copy photo";
+    column-gap: 64px; row-gap: 0; align-items: start; padding-block: 80px 112px;
+  }
+  .hero__name { padding-top: 40px; }
+  .hero__copy { padding-top: 32px; }
+  .hero__photo { margin-top: 8px; }
+  .hero__photo::before { inset: 32px 32px -20px -20px; }
+  .monogram { font-size: 7rem; }
+  .monogram + span { display: block; }
+  .years { display: block; position: absolute; left: -24px; bottom: -24px; max-width: 13rem; padding: 20px 24px; background: var(--aub-deep); color: var(--ivory); box-shadow: 0 12px 32px rgb(42 23 48 / .25); }
+  .years strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 3.75rem; line-height: 1; color: var(--gold-light); font-variant-numeric: lining-nums; }
+  .years span { display: block; margin-top: 8px; font-size: .875rem; line-height: 1.4; color: rgb(247 242 234 / .85); }
+}
+
+/* ---------- About ---------- */
+.about { background: var(--paper); border-top: 1px solid rgb(217 207 191 / .7); }
+.about__grid { display: grid; gap: 48px; }
+.about__text p:not(.eyebrow) { margin-top: 18px; max-width: 36rem; line-height: 1.75; }
+.about__text h2 + p { margin-top: 28px; }
 .facts { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 36px; max-width: 36rem; border-top: 1px solid var(--line); }
 .facts div { display: flex; flex-direction: column-reverse; justify-content: flex-end; padding: 18px 10px 18px 0; border-right: 1px solid var(--line); }
 .facts div + div { padding-left: 14px; }
 .facts div:last-child { border-right: 0; }
 .facts dd { font-family: var(--serif); font-size: 1.85rem; line-height: 1; color: var(--aub); font-variant-numeric: lining-nums; }
 .facts dt { margin-top: 8px; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-.about .btn { margin-top: 36px; }
+.approach { padding: 28px; border: 1px solid rgb(58 33 64 / .15); background: var(--ivory); }
+.approach h3 { font-family: var(--serif); font-weight: 400; font-size: 1.6rem; color: var(--aub); }
+.approach ol { margin-top: 20px; }
+.approach li { display: grid; grid-template-columns: 2.5rem 1fr; column-gap: 12px; padding-block: 20px; border-top: 1px solid var(--line); }
+.approach li:first-child { border-top: 0; padding-top: 0; }
+.approach__n { font-family: var(--serif); font-style: italic; font-size: 2rem; line-height: 1; color: var(--gold-ink); font-variant-numeric: lining-nums; }
+.approach strong { display: block; font-weight: 600; color: var(--aub); }
+.approach li p { margin-top: 4px; color: var(--muted); line-height: 1.65; }
+.approach .btn { margin-top: 12px; width: 100%; }
+@media (min-width: 640px) {
+  .approach { padding: 40px; }
+  .approach .btn { width: auto; }
+}
+@media (min-width: 1024px) {
+  .about__grid { grid-template-columns: 1fr 1fr; gap: 64px; }
+  .approach { margin-top: 56px; }
+}
 
 /* ---------- Services ---------- */
 .services__list { margin-top: 44px; border-top: 1px solid rgb(58 33 64 / .2); }
@@ -178,34 +218,77 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .service .link { margin-top: 16px; align-self: flex-start; }
 .rental { display: flex; flex-wrap: wrap; align-items: center; column-gap: 12px; padding-top: 16px; color: var(--muted); }
 
-/* ---------- Portfolio ---------- */
-.portfolio { background: var(--ivory-deep); border-top: 1px solid rgb(217 207 191 / .7); }
-.portfolio__head { display: grid; gap: 18px; }
+/* ---------- Imóveis disponíveis ---------- */
+.listings { background: var(--ivory-deep); border-top: 1px solid rgb(217 207 191 / .7); }
+.listings__head { display: grid; gap: 18px; }
 .note { display: flex; gap: 12px; align-items: flex-start; margin-top: 32px; padding: 14px 16px; border: 1px dashed rgb(58 33 64 / .4); background: var(--paper); font-size: .9rem; line-height: 1.6; }
 .note .icon { width: 18px; height: 18px; margin-top: 2px; color: var(--aub); }
-.cards { display: grid; gap: 44px 24px; margin-top: 40px; }
-.card { display: flex; flex-direction: column; }
+.filters { display: flex; gap: 8px; margin-top: 36px; overflow-x: auto; }
+.filters button { flex-shrink: 0; min-height: 44px; padding: 0 16px; border: 1px solid rgb(58 33 64 / .25); color: var(--aub); font-size: .875rem; font-weight: 600; transition: background-color .2s, color .2s; }
+.filters button:hover { border-color: var(--aub); }
+.filters button[aria-pressed="true"] { background: var(--aub); border-color: var(--aub); color: var(--ivory); }
+.filters small { font-size: inherit; font-weight: 400; opacity: .75; }
+.listing-cards { display: grid; gap: 56px 32px; margin-top: 32px; }
+.lcard { display: flex; flex-direction: column; }
 .card__media { position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: rgb(58 33 64 / .1); }
 .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 .card__media:hover img { transform: scale(1.03); }
 .card__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgb(42 23 48 / .5), transparent 45%); }
+.badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.card__media .badges { position: absolute; left: 14px; top: 14px; z-index: 1; }
 .badge { display: inline-flex; align-items: center; padding: 5px 10px; font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
-.badge--sold { background: var(--aub); color: var(--gold-light); }
+.badge--venda { background: var(--aub); color: var(--gold-light); box-shadow: inset 0 0 0 1px rgb(217 191 140 / .45); }
+.badge--aluguel { background: var(--gold-light); color: var(--aub-deep); }
+.badge--vendido { background: rgb(43 39 48 / .85); color: var(--ivory); }
 .badge--demo { background: var(--ivory); color: var(--aub); border: 1px dashed rgb(58 33 64 / .6); }
-.card__media .badge { position: absolute; left: 14px; top: 14px; z-index: 1; }
 .chips { position: absolute; right: 14px; bottom: 14px; z-index: 1; display: flex; gap: 12px; align-items: center; padding: 6px 12px; background: rgb(247 242 234 / .95); color: var(--aub); font-size: .8rem; font-weight: 600; }
 .chips span { display: flex; align-items: center; gap: 6px; }
 .chips span + span { padding-left: 12px; border-left: 1px solid rgb(58 33 64 / .2); }
 .chips .icon { width: 14px; height: 14px; }
-.card__body { padding-top: 18px; }
-.card__meta { font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); }
-.card h3 { margin-top: 6px; font-family: var(--serif); font-weight: 400; font-size: 1.6rem; line-height: 1.2; color: var(--aub); }
+.lcard__body { display: flex; flex-direction: column; flex: 1; padding-top: 20px; }
+.lcard h3 { font-family: var(--serif); font-weight: 400; font-size: 1.75rem; line-height: 1.2; color: var(--aub); }
+.details { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; margin-top: 12px; font-size: .95rem; }
+.details dt { font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; line-height: 1.6rem; color: var(--gold-ink); }
+.details dd { font-weight: 500; }
+.details dd.missing { font-weight: 400; font-style: italic; color: var(--muted); }
 .specs { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; color: var(--muted); font-size: .9rem; }
 .specs li { display: flex; align-items: center; gap: 8px; }
-.card .link { margin-top: 6px; font-size: .92rem; }
-.card .link .icon { width: 16px; height: 16px; }
-.portfolio__cta { display: grid; gap: 16px; margin-top: 52px; padding-top: 36px; border-top: 1px solid rgb(58 33 64 / .2); }
-.portfolio__cta p { font-family: var(--serif); font-size: 1.6rem; line-height: 1.25; color: var(--aub); }
+.lcard__actions { display: grid; gap: 4px; margin-top: 24px; }
+.lcard__actions .link { justify-self: center; font-size: .92rem; }
+.listings__more { margin-top: 56px; padding-top: 28px; border-top: 1px solid rgb(58 33 64 / .2); }
+.empty { margin-top: 48px; padding: 48px 24px; border: 1px solid rgb(58 33 64 / .2); background: var(--paper); text-align: center; }
+.empty p:first-child { font-family: var(--serif); font-size: 1.9rem; color: var(--aub); }
+.empty p + p { max-width: 28rem; margin: 12px auto 0; color: var(--muted); }
+.empty .btn { margin-top: 28px; }
+
+/* ---------- Imóveis vendidos (compacto) ---------- */
+.sold { background: var(--paper); border-top: 1px solid rgb(217 207 191 / .7); padding-block: 64px; }
+.sold__head { display: grid; gap: 12px; }
+.sold h2 { margin-top: 16px; font-family: var(--serif); font-weight: 400; font-size: clamp(1.9rem, 1.6rem + 1.2vw, 2.4rem); line-height: 1.15; color: var(--aub); }
+.sold__head p:not(.eyebrow) { margin-top: 8px; color: var(--muted); }
+.sold__demo { margin-top: 12px; font-size: .875rem; font-style: italic; color: var(--muted); }
+.sold-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 16px; margin-top: 32px; }
+.sold-card { display: block; width: 100%; text-align: left; }
+.sold-card__img { position: relative; display: block; aspect-ratio: 1; overflow: hidden; background: rgb(58 33 64 / .1); }
+.sold-card__img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.35); transition: transform .7s var(--ease), filter .7s var(--ease); }
+.sold-card:hover img { transform: scale(1.03); filter: none; }
+.sold-card .badges { position: absolute; left: 8px; top: 8px; transform: scale(.9); transform-origin: top left; }
+.sold-card__title { display: block; margin-top: 8px; font-size: .875rem; font-weight: 500; line-height: 1.4; }
+.sold-card__place { display: block; font-size: .75rem; color: var(--muted); }
+@media (min-width: 640px) {
+  .lcard__actions { display: flex; flex-wrap: wrap; align-items: center; column-gap: 24px; }
+  .sold-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 768px) {
+  .listing-cards { grid-template-columns: 1fr 1fr; }
+  .sold { padding-block: 80px; }
+  .sold__head { grid-template-columns: 1fr auto; align-items: end; }
+}
+@media (min-width: 1024px) {
+  .listings__head { grid-template-columns: 7fr 5fr; align-items: end; }
+  .listings__head .lead { justify-self: end; max-width: 26rem; }
+  .sold-grid { grid-template-columns: repeat(4, 1fr); }
+}
 
 /* ---------- Process ---------- */
 .process { border-top: 1px solid rgb(217 207 191 / .7); }
@@ -282,31 +365,26 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .lb__thumbs img { width: 100%; height: 100%; object-fit: cover; }
 .lb__thumbs .icon { position: absolute; inset: 0; margin: auto; width: 20px; height: 20px; color: var(--ivory); filter: drop-shadow(0 1px 2px rgb(0 0 0 / .6)); }
 .lb__info { flex-shrink: 0; max-height: 36dvh; overflow-y: auto; padding: 18px 20px max(20px, env(safe-area-inset-bottom)); background: var(--aub-deep); border-top: 1px solid rgb(247 242 234 / .1); }
-.lb__info .card__meta { margin-top: 14px; color: var(--gold-light); }
-.lb__info h2 { margin-top: 4px; font-family: var(--serif); font-weight: 400; font-size: 1.7rem; line-height: 1.15; }
+.lb__info h2 { margin-top: 0; font-family: var(--serif); font-weight: 400; font-size: 1.7rem; line-height: 1.15; }
 .lb__info p { margin-top: 10px; color: rgb(247 242 234 / .85); line-height: 1.65; font-size: .95rem; }
 .lb__info .specs { color: rgb(247 242 234 / .85); }
 .lb__info .specs li::before { background: var(--gold-light); }
-.lb__info .btn { position: sticky; bottom: 0; margin-top: 20px; box-shadow: 0 -16px 16px var(--aub-deep); }
+.lb__info .badges { margin-bottom: 14px; }
+.lb__info .details { padding-top: 16px; margin-top: 16px; border-top: 1px solid rgb(247 242 234 / .1); }
+.lb__info .details dt { color: var(--gold-light); }
+.lb__info .details dd { color: var(--ivory); }
+.lb__info .details dd.missing { color: rgb(247 242 234 / .65); }
+.lb__cta { position: sticky; bottom: 0; margin-top: 20px; padding-top: 8px; background: var(--aub-deep); box-shadow: 0 -16px 16px var(--aub-deep); }
 
 /* ---------- Larger screens ---------- */
 @media (min-width: 640px) {
   :root { --pad: 32px; }
   .header__cta { display: inline-flex; }
-  .hero .eyebrow::before { display: block; }
   .eyebrow { letter-spacing: .28em; }
-  .hero__ctas { grid-template-columns: auto auto; justify-content: start; }
-  .hero__frame { aspect-ratio: 16 / 11; }
-  .hero__art::before { inset: -18px -18px 32px 32px; }
-  .cards { grid-template-columns: 1fr 1fr; }
-  .card__media { aspect-ratio: 4 / 5; }
-  .card--featured { grid-column: 1 / -1; }
-  .card--featured .card__media { aspect-ratio: 16 / 10; }
   .steps { grid-template-columns: repeat(3, 1fr); }
   .final .eyebrow { letter-spacing: .28em; }
   .final__ctas { grid-template-columns: auto auto; align-items: center; column-gap: 36px; }
   .final__ctas .btn { width: auto; }
-  .portfolio__cta { grid-template-columns: 1fr auto; align-items: center; }
   .lb__stage { padding-inline: 68px; }
   .lb__nav { display: inline-flex; }
   .lb__thumbs { justify-content: center; }
@@ -330,19 +408,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .nav a:hover { color: var(--aub); }
   .nav a:hover::after { transform: scaleX(1); }
   .menu-btn, .mobile-menu { display: none !important; }
-  .hero__grid { grid-template-columns: 1fr 1fr; gap: 40px; padding-block: 80px 104px; align-items: start; }
-  .hero__copy { padding-top: 40px; padding-right: 24px; }
-  .hero__frame { aspect-ratio: 4 / 5; }
-  .hero__art::before { inset: -20px -20px 32px 48px; }
-  .about__grid { grid-template-columns: 5fr 7fr; gap: 64px; }
-  .portrait { max-width: none; }
-  .about__text { padding-top: 24px; }
-  .portfolio__head { grid-template-columns: 7fr 5fr; align-items: end; }
-  .portfolio__head .lead { justify-self: end; max-width: 26rem; }
-  .cards { grid-template-columns: repeat(3, 1fr); }
-  .card--featured { grid-column: span 2; grid-row: span 2; }
-  .card--featured .card__media { aspect-ratio: auto; flex: 1; min-height: 30rem; }
-  .card--featured h3 { font-size: 1.9rem; }
   .process__grid { display: grid; grid-template-columns: 4fr 8fr; gap: 40px; }
   .steps { margin-top: 8px; }
   .final { padding-block: 128px; }
@@ -364,6 +429,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></symbol>
 <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle></symbol>
 <symbol id="i-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></symbol>
 <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></symbol>
 <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></symbol>
 <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></symbol>
@@ -387,8 +453,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     <nav class="nav" aria-label="Principal">
       <ul>
         <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#imoveis">Imóveis</a></li>
         <li><a href="#servicos">Serviços</a></li>
-        <li data-portfolio-link hidden><a href="#imoveis-vendidos">Imóveis vendidos</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
     </nav>
@@ -406,8 +472,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     <div class="wrap">
       <ul>
         <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#imoveis">Imóveis</a></li>
         <li><a href="#servicos">Serviços</a></li>
-        <li data-portfolio-link hidden><a href="#imoveis-vendidos">Imóveis vendidos</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
       <a class="btn btn--primary btn--block" data-wa="geral" data-cta="menu-whatsapp" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
@@ -419,18 +485,38 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 <main id="conteudo">
 
-<!-- ========== HERO ========== -->
+<!-- ========== BIANKA ========== -->
 <section id="inicio" class="hero" aria-labelledby="hero-title">
   <div class="wrap hero__grid">
+    <div class="hero__photo">
+      <div class="portrait__frame">
+        <!-- Retrato: substitua o <svg> e os dois <span> abaixo por
+             <img src="assets/bianka/retrato.jpg" alt="Retrato de Bianka Rodrigues, corretora de imóveis em Manaus" width="1200" height="1500" fetchpriority="high"> -->
+        <svg viewBox="0 0 200 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g fill="none" stroke="#d9bf8c" stroke-opacity=".35" stroke-width=".6">
+            <path d="M40 250V110a60 60 0 0 1 120 0v140"/>
+            <path d="M52 250V112a48 48 0 0 1 96 0v138" stroke-opacity=".2"/>
+          </g>
+        </svg>
+        <span class="monogram" role="img" aria-label="Espaço reservado para o retrato de Bianka Rodrigues">BR</span>
+        <span aria-hidden="true">Manaus · AM</span>
+      </div>
+      <p class="years"><strong data-years>22</strong><span>anos ajudando a realizar sonhos</span></p>
+    </div>
+
+    <div class="hero__name">
+      <p class="eyebrow">Corretora de imóveis em Manaus</p>
+      <h1 id="hero-title">Bianka <em>Rodrigues</em></h1>
+    </div>
+
     <div class="hero__copy">
-      <p class="eyebrow">Bianka Rodrigues · Imóveis em Manaus</p>
-      <h1 id="hero-title">Seu próximo capítulo começa no <em>imóvel certo.</em></h1>
-      <p class="lead">Há <span data-years>22</span> anos, ajudando pessoas a comprar, vender e alugar imóveis em Manaus com orientação próxima em cada etapa.</p>
+      <p class="tagline">Seu próximo capítulo começa no imóvel certo.</p>
+      <p class="lead">Há <span data-years>22</span> anos, Bianka ajuda pessoas a comprar, vender e alugar imóveis em Manaus — com atendimento direto e orientação próxima em cada etapa.</p>
       <div id="hero-ctas" class="hero__ctas">
-        <a class="btn btn--primary" data-wa="comprar" data-cta="hero-comprar" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
-          <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Quero encontrar meu imóvel
+        <a class="btn btn--primary" data-wa="geral" data-cta="hero-whatsapp" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
+          <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Falar com Bianka
         </a>
-        <a class="btn btn--secondary" data-wa="vender" data-cta="hero-vender" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">Quero vender meu imóvel</a>
+        <a class="btn btn--secondary" data-cta="hero-imoveis" href="#imoveis">Ver imóveis disponíveis<svg class="icon" aria-hidden="true" style="width:1rem;height:1rem"><use href="#i-arrow-down"/></svg></a>
       </div>
       <ul class="creds">
         <li><span><span data-years>22</span> anos de experiência</span></li>
@@ -438,92 +524,79 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
         <li>CRECI 1259 PF</li>
       </ul>
     </div>
-
-    <div class="hero__art">
-      <div class="hero__frame">
-        <!-- Para usar uma foto: substitua o <svg> abaixo por
-             <img src="assets/hero/fachada.jpg" alt="" width="1600" height="2000" fetchpriority="high"> -->
-        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-          <defs>
-            <linearGradient id="arch-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1730"/><stop offset="1" stop-color="#3a2140"/></linearGradient>
-            <pattern id="arch-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#f7f2ea" stroke-opacity=".05" stroke-width=".6"/></pattern>
-            <pattern id="arch-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#f7f2ea" stroke-opacity=".14" stroke-width=".7"/></pattern>
-          </defs>
-          <rect width="400" height="500" fill="url(#arch-bg)"/>
-          <rect width="400" height="500" fill="url(#arch-grid)"/>
-          <g stroke="#f7f2ea" stroke-opacity=".12" stroke-width=".6" stroke-dasharray="3 4">
-            <line x1="0" y1="180" x2="400" y2="180"/><line x1="0" y1="250" x2="400" y2="250"/>
-            <line x1="70" y1="0" x2="70" y2="500"/><line x1="300" y1="0" x2="300" y2="500"/>
-          </g>
-          <circle cx="292" cy="118" r="44" fill="#d9bf8c" fill-opacity=".1" stroke="#d9bf8c"/>
-          <circle cx="292" cy="118" r="58" fill="none" stroke="#d9bf8c" stroke-opacity=".35" stroke-width=".6"/>
-          <g fill="none" stroke="#f7f2ea" stroke-width="1.2" stroke-linejoin="round">
-            <rect x="120" y="186" width="150" height="64" stroke-opacity=".85"/>
-            <rect x="136" y="200" width="34" height="34" stroke-opacity=".7"/>
-            <rect x="178" y="200" width="34" height="34" stroke-opacity=".7"/>
-            <rect x="220" y="200" width="34" height="34" stroke-opacity=".7"/>
-            <rect x="70" y="257" width="230" height="143" stroke-opacity=".9"/>
-            <rect x="222" y="257" width="78" height="143" fill="url(#arch-hatch)" stroke-opacity=".5"/>
-            <rect x="92" y="290" width="112" height="110" stroke-opacity=".9"/>
-            <line x1="120" y1="290" x2="120" y2="400" stroke-opacity=".6"/>
-            <line x1="148" y1="290" x2="148" y2="400" stroke-opacity=".6"/>
-            <line x1="176" y1="290" x2="176" y2="400" stroke-opacity=".6"/>
-            <rect x="238" y="300" width="46" height="100" stroke-opacity=".75"/>
-          </g>
-          <rect x="104" y="179" width="186" height="7" fill="#f7f2ea" fill-opacity=".9"/>
-          <rect x="44" y="250" width="270" height="7" fill="#f7f2ea" fill-opacity=".9"/>
-          <rect x="93" y="291" width="110" height="108" fill="#d9bf8c" fill-opacity=".16"/>
-          <g fill="none" stroke="#d9bf8c">
-            <line x1="346" y1="300" x2="346" y2="400"/>
-            <circle cx="346" cy="272" r="34" stroke-opacity=".8"/>
-            <circle cx="346" cy="272" r="22" stroke-opacity=".35"/>
-          </g>
-          <line x1="16" y1="400" x2="384" y2="400" stroke="#d9bf8c" stroke-width="1.2"/>
-          <g stroke="#f7f2ea" stroke-opacity=".4" stroke-width=".8">
-            <line x1="70" y1="428" x2="300" y2="428"/><line x1="70" y1="422" x2="70" y2="434"/>
-            <line x1="300" y1="422" x2="300" y2="434"/><line x1="185" y1="424" x2="185" y2="432"/>
-          </g>
-          <text x="24" y="474" fill="#f7f2ea" fill-opacity=".55" font-size="9" letter-spacing="3.2" font-family="Manrope, sans-serif">MANAUS · AMAZONAS</text>
-          <text x="376" y="474" text-anchor="end" fill="#d9bf8c" fill-opacity=".8" font-size="9" letter-spacing="3.2" font-family="Manrope, sans-serif">3°06′S</text>
-        </svg>
-      </div>
-    </div>
   </div>
 </section>
 
 <!-- ========== SOBRE ========== -->
 <section id="sobre" class="section about" aria-labelledby="sobre-title">
   <div class="wrap about__grid">
-    <div class="portrait">
-      <div class="portrait__frame">
-        <!-- Retrato: substitua o conteúdo deste bloco por
-             <img src="assets/bianka/retrato.jpg" alt="Retrato de Bianka Rodrigues, corretora de imóveis em Manaus" width="1200" height="1500" loading="lazy"> -->
-        <svg viewBox="0 0 200 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <g fill="none" stroke="#d9bf8c" stroke-opacity=".35" stroke-width=".6">
-            <path d="M40 250V110a60 60 0 0 1 120 0v140"/>
-            <path d="M52 250V112a48 48 0 0 1 96 0v138" stroke-opacity=".2"/>
-          </g>
-        </svg>
-        <span class="monogram" aria-hidden="true">BR</span>
-        <span aria-hidden="true">Manaus · AM</span>
-      </div>
-    </div>
-
     <div class="about__text">
       <p class="eyebrow">Sobre Bianka</p>
       <h2 id="sobre-title" class="h2">Experiência para orientar. Proximidade para entender você.</h2>
       <p>Há <span data-years>22</span> anos, Bianka Rodrigues acompanha pessoas em Manaus em um dos momentos mais importantes da vida: a escolha de um novo endereço.</p>
       <p>Venda, locação e avaliação de imóveis fazem parte do seu dia a dia. Em cada atendimento, o ponto de partida é o mesmo: ouvir com atenção o que você procura antes de indicar qualquer caminho.</p>
-      <p>Aqui você fala diretamente com ela. Conte seu objetivo — comprar, vender ou alugar — e receba orientação de quem conhece o mercado da cidade.</p>
       <dl class="facts">
         <div><dt>anos de experiência</dt><dd data-years>22</dd></div>
         <div><dt>Amazonas</dt><dd>Manaus</dd></div>
         <div><dt>1259 PF</dt><dd>CRECI</dd></div>
       </dl>
+    </div>
+    <div class="approach">
+      <h3>Como Bianka atende</h3>
+      <ol>
+        <li><span class="approach__n">1</span><div><strong>Atendimento direto</strong><p>Você conversa com a própria Bianka sobre o imóvel ou o objetivo que tem em mente.</p></div></li>
+        <li><span class="approach__n">2</span><div><strong>Escuta antes de indicar</strong><p>Entender o que você precisa vem antes de qualquer sugestão de imóvel.</p></div></li>
+        <li><span class="approach__n">3</span><div><strong><span data-years>22</span> anos de experiência</strong><p>Venda, locação e avaliação de imóveis em Manaus fazem parte da sua trajetória.</p></div></li>
+      </ol>
       <a class="btn btn--primary" data-wa="geral" data-cta="sobre-whatsapp" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
         <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Conversar com Bianka
       </a>
     </div>
+  </div>
+</section>
+
+<!-- ========== IMÓVEIS À VENDA E PARA ALUGAR (preenchido pelo PROPERTIES no fim da página) ========== -->
+<section id="imoveis" class="section listings" aria-labelledby="imoveis-title">
+  <div class="wrap">
+    <div class="listings__head">
+      <div>
+        <p class="eyebrow">Imóveis disponíveis</p>
+        <h2 id="imoveis-title" class="h2">Imóveis à venda e para alugar com Bianka</h2>
+      </div>
+      <p class="lead">Imóveis que Bianka representa no momento. Viu algo que combina com você? Fale diretamente com ela sobre o imóvel.</p>
+    </div>
+    <p class="note" role="note" data-demo-note hidden>
+      <svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>
+      <span><strong>Demonstração.</strong> Os imóveis abaixo são demonstrações do layout. As imagens não representam imóveis reais e as informações marcadas como "a confirmar" serão preenchidas com dados confirmados.</span>
+    </p>
+    <div class="filters" role="group" aria-label="Filtrar imóveis" hidden></div>
+    <ul class="listing-cards" id="listing-cards"></ul>
+    <div class="empty" id="listings-empty" hidden>
+      <p>Novos imóveis em breve.</p>
+      <p>Fale com Bianka para saber quais imóveis estão disponíveis agora.</p>
+      <a class="btn btn--primary" data-wa="imoveis" data-cta="imoveis-vazio" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
+        <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Perguntar sobre imóveis disponíveis
+      </a>
+    </div>
+    <p class="listings__more" id="listings-more">
+      <a class="link" data-wa="imoveis" data-cta="imoveis-outros" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">Não encontrou o que procura? Fale com Bianka</a>
+    </p>
+  </div>
+</section>
+
+<!-- ========== IMÓVEIS VENDIDOS (compacto) ========== -->
+<section id="vendidos" class="sold" aria-labelledby="vendidos-title" hidden>
+  <div class="wrap">
+    <div class="sold__head">
+      <div>
+        <p class="eyebrow">Trajetória</p>
+        <h2 id="vendidos-title">Imóveis vendidos. Novos capítulos iniciados.</h2>
+        <p>Alguns imóveis que fizeram parte da trajetória de Bianka.</p>
+      </div>
+      <a class="link" data-wa="portfolio" data-cta="vendidos-whatsapp" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">Quero encontrar um imóvel como esse</a>
+    </div>
+    <p class="sold__demo" data-sold-demo hidden>Demonstração: estes itens não representam imóveis reais nem negociações realizadas.</p>
+    <ul class="sold-grid" id="sold-cards"></ul>
   </div>
 </section>
 
@@ -555,30 +628,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     <p class="rental">Procura um imóvel para alugar?
       <a class="link" data-wa="locacao" data-cta="servico-locacao" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">Falar sobre locação</a>
     </p>
-  </div>
-</section>
-
-<!-- ========== IMÓVEIS VENDIDOS (preenchido pelo PORTFOLIO no fim da página) ========== -->
-<section id="imoveis-vendidos" class="section portfolio" aria-labelledby="vendidos-title" hidden>
-  <div class="wrap">
-    <div class="portfolio__head">
-      <div>
-        <p class="eyebrow">Trajetória</p>
-        <h2 id="vendidos-title" class="h2">Imóveis vendidos. Novos capítulos iniciados.</h2>
-      </div>
-      <p class="lead">Conheça alguns dos imóveis que fizeram parte dessa trajetória.</p>
-    </div>
-    <p class="note" role="note" data-demo-note hidden>
-      <svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>
-      <span><strong>Demonstração.</strong> Os itens abaixo são demonstrações do layout. As imagens não representam imóveis reais nem negociações realizadas.</span>
-    </p>
-    <ul class="cards" id="portfolio-cards"></ul>
-    <div class="portfolio__cta">
-      <p>Procura algo parecido?</p>
-      <a class="btn btn--primary" data-wa="portfolio" data-cta="portfolio-whatsapp" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
-        <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Quero encontrar um imóvel como esses
-      </a>
-    </div>
   </div>
 </section>
 
@@ -674,61 +723,94 @@ const WHATSAPP_MESSAGES = {
   locacao: "Olá, Bianka! Vim pelo seu site e gostaria de conversar sobre locação de imóveis.",
   avaliacao: "Olá, Bianka! Vim pelo seu site e gostaria de solicitar uma avaliação do meu imóvel.",
   portfolio: "Olá, Bianka! Vi os imóveis vendidos no seu site e gostaria de encontrar opções semelhantes.",
+  imoveis: "Olá, Bianka! Vim pelo seu site e gostaria de saber quais imóveis você tem disponíveis no momento.",
   geral: "Olá, Bianka! Vim pelo seu site e gostaria de conversar.",
 };
 
-/* Antes de publicar, mude para false. Sem itens reais, a seção some. */
-const SHOW_DEMO_PORTFOLIO = true;
+/* Antes de publicar, mude para false. */
+const SHOW_DEMO_PROPERTIES = true;
 
-/* Imóveis vendidos. Cadastre apenas imóveis efetivamente vendidos, sem preço
-   nem endereço completo. Fotos em assets/portfolio/<imovel>/. Exemplo de item real:
+/* Imóveis da Bianka.
+   status: "venda" | "aluguel" -> seção "Imóveis à venda e para alugar com Bianka"
+           "vendido"           -> seção menor de imóveis já vendidos
+   Use apenas informações confirmadas. Campos vazios aparecem como
+   "a confirmar" / "Valor sob consulta". Não informe endereço completo.
+   Fotos em assets/imoveis/<imovel>/. Exemplo de imóvel real:
    {
-     id: "casa-ponta-negra",
+     id: "casa-ponta-negra",              // código único; vai na mensagem do WhatsApp
+     status: "venda",
      title: "Casa em condomínio",
      neighborhood: "Ponta Negra",          // opcional
      propertyType: "Casa",                  // opcional
+     price: "R$ 000.000",                   // opcional; sem ele: "Valor sob consulta"
      description: "Casa térrea com área de lazer.", // opcional
      specs: ["3 quartos", "1 suíte"],       // opcional
      photos: [
-       { src: "assets/portfolio/casa-ponta-negra/01.jpg", alt: "Fachada", width: 1600, height: 1067 },
+       { src: "assets/imoveis/casa-ponta-negra/01.jpg", alt: "Fachada", width: 1600, height: 1067 },
      ],
-     // vídeo opcional — um destes formatos:
-     video: { type: "file", src: "assets/portfolio/casa-ponta-negra/tour.mp4", poster: "assets/portfolio/casa-ponta-negra/capa.jpg", width: 1080, height: 1920 },
+     // vídeo tour opcional — um destes formatos:
+     video: { type: "file", src: "assets/imoveis/casa-ponta-negra/tour.mp4", poster: "assets/imoveis/casa-ponta-negra/capa.jpg", width: 1080, height: 1920 },
      // video: { type: "youtube", id: "ID_DO_VIDEO", poster: "...", width: 1920, height: 1080 },
      // video: { type: "vimeo", id: "123456789", poster: "...", width: 1920, height: 1080 },
    },
 */
-const PORTFOLIO = [
+const DEMO = "assets/portfolio/demo/";
+const DEMO_VIDEO = { type: "file", src: DEMO + "demo-1-video.mp4", srcWebm: DEMO + "demo-1-video.webm", poster: DEMO + "demo-1-video-poster.jpg", width: 720, height: 1280 };
+const PROPERTIES = [
+  // Itens de demonstração: bairro e valor ficam vazios de propósito.
   {
-    id: "demo-1", isDemo: true,
-    title: "Exemplo de casa com vídeo",
-    propertyType: "Casa · demonstração",
-    description: "Item de demonstração para visualizar o layout com várias fotos e um vídeo vertical.",
-    specs: ["Exemplo de especificação", "Outro exemplo"],
+    id: "demo-venda-1", status: "venda", isDemo: true,
+    title: "Exemplo de casa à venda com vídeo tour",
+    propertyType: "Casa",
+    description: "Item de demonstração para visualizar fotos e vídeo tour de um imóvel à venda.",
     photos: [
-      { src: "assets/portfolio/demo/demo-1-fachada.jpg", alt: "Ilustração de demonstração de uma fachada", width: 1600, height: 1067 },
-      { src: "assets/portfolio/demo/demo-1-sala.jpg", alt: "Ilustração de demonstração de uma sala", width: 1600, height: 1067 },
-      { src: "assets/portfolio/demo/demo-1-detalhe.jpg", alt: "Ilustração vertical de demonstração de um ambiente", width: 1080, height: 1350 },
+      { src: DEMO + "demo-1-fachada.jpg", alt: "Ilustração de demonstração de uma fachada", width: 1600, height: 1067 },
+      { src: DEMO + "demo-1-sala.jpg", alt: "Ilustração de demonstração de uma sala", width: 1600, height: 1067 },
+      { src: DEMO + "demo-1-detalhe.jpg", alt: "Ilustração vertical de demonstração de um ambiente", width: 1080, height: 1350 },
     ],
-    video: { type: "file", src: "assets/portfolio/demo/demo-1-video.mp4", srcWebm: "assets/portfolio/demo/demo-1-video.webm", poster: "assets/portfolio/demo/demo-1-video-poster.jpg", width: 720, height: 1280 },
+    video: DEMO_VIDEO,
   },
   {
-    id: "demo-2", isDemo: true,
-    title: "Exemplo com fotos verticais",
-    propertyType: "Apartamento · demonstração",
-    description: "Item de demonstração com fotos no formato vertical.",
+    id: "demo-aluguel-1", status: "aluguel", isDemo: true,
+    title: "Exemplo de apartamento para alugar",
+    propertyType: "Apartamento",
     photos: [
-      { src: "assets/portfolio/demo/demo-2-fachada.jpg", alt: "Ilustração vertical de demonstração de uma fachada", width: 1080, height: 1350 },
-      { src: "assets/portfolio/demo/demo-2-sala.jpg", alt: "Ilustração vertical de demonstração de uma sala", width: 1080, height: 1350 },
+      { src: DEMO + "demo-4-fachada.jpg", alt: "Ilustração de demonstração de uma fachada", width: 1600, height: 1067 },
+      { src: DEMO + "demo-4-sala.jpg", alt: "Ilustração vertical de demonstração de uma sala", width: 1080, height: 1350 },
     ],
   },
   {
-    id: "demo-3", isDemo: true,
-    title: "Exemplo com fotos horizontais",
-    propertyType: "Casa · demonstração",
+    id: "demo-venda-2", status: "venda", isDemo: true,
+    title: "Exemplo de imóvel à venda",
     photos: [
-      { src: "assets/portfolio/demo/demo-3-fachada.jpg", alt: "Ilustração de demonstração de uma fachada", width: 1600, height: 1067 },
-      { src: "assets/portfolio/demo/demo-3-sala.jpg", alt: "Ilustração de demonstração de uma sala", width: 1600, height: 1067 },
+      { src: DEMO + "demo-5-fachada.jpg", alt: "Ilustração vertical de demonstração de uma fachada", width: 1080, height: 1350 },
+      { src: DEMO + "demo-5-sala.jpg", alt: "Ilustração de demonstração de uma sala", width: 1600, height: 1067 },
+    ],
+  },
+  {
+    id: "demo-aluguel-2", status: "aluguel", isDemo: true,
+    title: "Exemplo de casa para alugar com vídeo tour",
+    propertyType: "Casa",
+    photos: [
+      { src: DEMO + "demo-6-fachada.jpg", alt: "Ilustração de demonstração de uma fachada", width: 1600, height: 1067 },
+      { src: DEMO + "demo-6-sala.jpg", alt: "Ilustração de demonstração de uma sala", width: 1600, height: 1067 },
+    ],
+    video: DEMO_VIDEO,
+  },
+  {
+    id: "demo-vendido-1", status: "vendido", isDemo: true,
+    title: "Exemplo de imóvel vendido",
+    photos: [
+      { src: DEMO + "demo-2-fachada.jpg", alt: "Ilustração vertical de demonstração de uma fachada", width: 1080, height: 1350 },
+      { src: DEMO + "demo-2-sala.jpg", alt: "Ilustração vertical de demonstração de uma sala", width: 1080, height: 1350 },
+    ],
+  },
+  {
+    id: "demo-vendido-2", status: "vendido", isDemo: true,
+    title: "Exemplo de imóvel vendido",
+    photos: [
+      { src: DEMO + "demo-3-fachada.jpg", alt: "Ilustração de demonstração de uma fachada", width: 1600, height: 1067 },
+      { src: DEMO + "demo-3-sala.jpg", alt: "Ilustração de demonstração de uma sala", width: 1600, height: 1067 },
     ],
   },
 ];
@@ -749,36 +831,80 @@ const PORTFOLIO = [
   // External links: announce new tab for screen readers.
   $$('a[target="_blank"]').forEach((a) => a.insertAdjacentHTML("beforeend", '<span class="sr-only"> (abre em nova aba)</span>'));
 
-  /* ---------- Portfolio ---------- */
-  const items = PORTFOLIO.filter((i) => !i.isDemo || SHOW_DEMO_PORTFOLIO);
+  /* ---------- Imóveis ---------- */
+  const STATUS = { venda: "À venda", aluguel: "Para alugar", vendido: "Vendido" };
+  const visible = PROPERTIES.filter((p) => !p.isDemo || SHOW_DEMO_PROPERTIES);
+  const byId = Object.fromEntries(visible.map((p) => [p.id, p]));
+  const listings = visible.filter((p) => p.status !== "vendido");
+  const sold = visible.filter((p) => p.status === "vendido");
   const slidesOf = (item) => [...item.photos.map((photo) => ({ kind: "photo", photo })), ...(item.video ? [{ kind: "video", video: item.video }] : [])];
-  const titleOf = (item) => item.title || item.propertyType || "Imóvel vendido";
-  const metaOf = (item) => [item.propertyType, item.neighborhood].filter(Boolean).join(" · ");
-  const badge = (item) => item.isDemo ? '<span class="badge badge--demo">Demonstração</span>' : '<span class="badge badge--sold">Vendido</span>';
+  const titleOf = (item) => item.title || item.propertyType || "Imóvel";
+  const badges = (item) => `<span class="badges"><span class="badge badge--${item.status}">${STATUS[item.status]}</span>${item.isDemo ? '<span class="badge badge--demo">Demonstração</span>' : ""}</span>`;
   const specs = (item) => item.specs?.length ? `<ul class="specs">${item.specs.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>` : "";
+  const details = (item) => {
+    const rows = [["Tipo", item.propertyType, "Tipo a confirmar"], ["Bairro", item.neighborhood, "Bairro a confirmar"]];
+    if (item.status !== "vendido") rows.push(["Valor", item.price, "Valor sob consulta"]);
+    return `<dl class="details">${rows.map(([l, v, ph]) => `<dt>${l}</dt><dd${v ? "" : ' class="missing"'}>${esc(v || ph)}</dd>`).join("")}</dl>`;
+  };
+  const interestLink = (item) => {
+    const where = item.neighborhood ? `, no bairro ${item.neighborhood}` : "";
+    const msg = `Olá, Bianka! Vim pelo seu site e tenho interesse no imóvel "${titleOf(item)}" (${STATUS[item.status].toLowerCase()}${where}, código ${item.id}). Pode me passar mais informações?`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  };
+  const interestCta = (item, extra = "") => `<a class="btn btn--primary ${extra}" data-cta="interesse-${esc(item.id)}" href="${interestLink(item)}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")}Tenho interesse neste imóvel<span class="sr-only"> (abre em nova aba)</span></a>`;
 
-  if (items.length) {
-    $("#imoveis-vendidos").hidden = false;
-    $$("[data-portfolio-link]").forEach((li) => (li.hidden = false));
-    $("[data-demo-note]").hidden = !items.some((i) => i.isDemo);
-    $("#portfolio-cards").innerHTML = items.map((item, i) => {
-      const featured = i === 0 && items.length > 2;
-      const n = item.photos.length;
-      const cover = item.photos[0];
-      return `<li class="card${featured ? " card--featured" : ""}">
-        <button type="button" class="card__media" data-open="${i}" data-index="0" aria-label="Ver ${n} ${n === 1 ? "foto" : "fotos"}: ${esc(titleOf(item))}${item.isDemo ? " (demonstração)" : ""}">
-          <img src="${esc(cover.src)}" alt="" width="${cover.width}" height="${cover.height}" loading="lazy" decoding="async">
-          ${badge(item)}
-          <span class="chips" aria-hidden="true"><span>${icon("images")}${n}</span>${item.video ? `<span>${icon("play")}Vídeo</span>` : ""}</span>
-        </button>
-        <div class="card__body">
-          ${metaOf(item) ? `<p class="card__meta">${esc(metaOf(item))}</p>` : ""}
-          <h3>${esc(titleOf(item))}</h3>
-          ${specs(item)}
-          ${item.video ? `<button type="button" class="link" data-open="${i}" data-index="${n}">${icon("play")}Assistir ao vídeo<span class="sr-only">: ${esc(titleOf(item))}</span></button>` : ""}
+  const listingCard = (item) => {
+    const n = item.photos.length, cover = item.photos[0], title = esc(titleOf(item));
+    return `<li class="lcard" data-status="${item.status}">
+      <button type="button" class="card__media" data-open="${esc(item.id)}" data-index="0" aria-label="Ver ${n} ${n === 1 ? "foto" : "fotos"}: ${title} (${STATUS[item.status].toLowerCase()})">
+        <img src="${esc(cover.src)}" alt="" width="${cover.width}" height="${cover.height}" loading="lazy" decoding="async">
+        ${badges(item)}
+        <span class="chips" aria-hidden="true"><span>${icon("images")}${n} ${n === 1 ? "foto" : "fotos"}</span>${item.video ? `<span>${icon("play")}Vídeo tour</span>` : ""}</span>
+      </button>
+      <div class="lcard__body">
+        <h3>${title}</h3>
+        ${details(item)}
+        ${specs(item)}
+        <div class="lcard__actions">
+          ${interestCta(item)}
+          ${item.video ? `<button type="button" class="link" data-open="${esc(item.id)}" data-index="${n}">${icon("play")}Ver vídeo tour<span class="sr-only">: ${title}</span></button>` : ""}
         </div>
-      </li>`;
-    }).join("");
+      </div>
+    </li>`;
+  };
+
+  const listEl = $("#listing-cards");
+  if (listings.length) {
+    listEl.innerHTML = listings.map(listingCard).join("");
+    $("[data-demo-note]").hidden = !listings.some((i) => i.isDemo);
+    const count = (f) => (f === "todos" ? listings.length : listings.filter((i) => i.status === f).length);
+    if (count("venda") && count("aluguel")) {
+      const filters = $(".filters");
+      filters.hidden = false;
+      filters.innerHTML = [["todos", "Todos"], ["venda", STATUS.venda], ["aluguel", STATUS.aluguel]]
+        .map(([f, l]) => `<button type="button" data-filter="${f}" aria-pressed="${f === "todos"}">${l} <small>(${count(f)})</small></button>`).join("");
+      filters.addEventListener("click", (e) => {
+        const b = e.target.closest("[data-filter]");
+        if (!b) return;
+        $$("[data-filter]", filters).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        $$(".lcard", listEl).forEach((li) => (li.hidden = b.dataset.filter !== "todos" && li.dataset.status !== b.dataset.filter));
+      });
+    }
+  } else {
+    listEl.hidden = true;
+    $("#listings-more").hidden = true;
+    $("#listings-empty").hidden = false;
+  }
+
+  if (sold.length) {
+    $("#vendidos").hidden = false;
+    $("[data-sold-demo]").hidden = !sold.some((i) => i.isDemo);
+    $("#sold-cards").innerHTML = sold.map((item) => `<li>
+      <button type="button" class="sold-card" data-open="${esc(item.id)}" data-index="0" aria-label="Ver fotos: ${esc(titleOf(item))} (vendido)">
+        <span class="sold-card__img"><img src="${esc(item.photos[0].src)}" alt="" loading="lazy" decoding="async">${badges(item)}</span>
+        <span class="sold-card__title">${esc(titleOf(item))}</span>
+        ${item.neighborhood ? `<span class="sold-card__place">${esc(item.neighborhood)}</span>` : ""}
+      </button></li>`).join("");
   }
 
   /* ---------- Lightbox ---------- */
@@ -793,7 +919,7 @@ const PORTFOLIO = [
   const embed = (v) => v.type === "youtube"
     ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?autoplay=1&rel=0&playsinline=1`
     : `https://player.vimeo.com/video/${encodeURIComponent(v.id)}?autoplay=1&dnt=1`;
-  const label = (s, i) => s.kind === "video" ? "Vídeo" : `Foto ${i + 1} de ${current.photos.length}`;
+  const label = (s, i) => s.kind === "video" ? "Vídeo tour" : `Foto ${i + 1} de ${current.photos.length}`;
 
   function render() {
     const s = slides[index];
@@ -834,13 +960,15 @@ const PORTFOLIO = [
     thumbs.innerHTML = slides.map((s, i) => `<li><button type="button" data-thumb="${i}">
       <img src="${esc(s.kind === "photo" ? s.photo.src : s.video.poster)}" alt="" loading="lazy">
       ${s.kind === "video" ? icon("play") : ""}<span class="sr-only">Mostrar ${label(s, i).toLowerCase()}</span></button></li>`).join("");
-    info.innerHTML = `${badge(item)}
-      ${metaOf(item) ? `<p class="card__meta">${esc(metaOf(item))}</p>` : ""}
+    info.innerHTML = `${badges(item)}
       <h2 id="lb-title">${esc(titleOf(item))}</h2>
       ${item.isDemo ? "<p>Item de demonstração. As imagens não representam um imóvel real.</p>" : ""}
+      ${details(item)}
       ${item.description ? `<p>${esc(item.description)}</p>` : ""}
       ${specs(item)}
-      <a class="btn btn--gold btn--block" data-cta="lightbox-whatsapp" href="${waLink("portfolio")}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")}Quero encontrar um imóvel como esses<span class="sr-only"> (abre em nova aba)</span></a>`;
+      <div class="lb__cta">${item.status === "vendido"
+        ? `<a class="btn btn--gold btn--block" data-cta="lightbox-vendido" href="${waLink("portfolio")}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")}Quero encontrar um imóvel como esse<span class="sr-only"> (abre em nova aba)</span></a>`
+        : interestCta(item, "btn--gold btn--block")}</div>`;
     render();
     dialog.showModal();
     document.documentElement.style.overflow = "hidden";
@@ -858,9 +986,9 @@ const PORTFOLIO = [
     opener?.focus();
   });
 
-  $("#portfolio-cards").addEventListener("click", (e) => {
+  document.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-open]");
-    if (btn) openLightbox(items[+btn.dataset.open], +btn.dataset.index, btn);
+    if (btn && byId[btn.dataset.open]) openLightbox(byId[btn.dataset.open], +btn.dataset.index, btn);
   });
   $(".lb__close").addEventListener("click", closeLightbox);
   $(".lb__nav--prev").addEventListener("click", () => go(-1));

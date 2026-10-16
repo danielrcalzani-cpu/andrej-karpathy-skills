@@ -4,10 +4,10 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { MobileWhatsApp } from "@/components/MobileWhatsApp";
-import { Portfolio } from "@/components/portfolio/Portfolio";
 import { Process } from "@/components/Process";
+import { Listings } from "@/components/properties/Listings";
+import { SoldProperties } from "@/components/properties/SoldProperties";
 import { Services } from "@/components/Services";
-import { visiblePortfolio } from "@/content/portfolio";
 import { copy, site } from "@/content/site";
 
 const jsonLd = {
@@ -43,12 +43,13 @@ export default function Home() {
       >
         Pular para o conteúdo
       </a>
-      <Header showPortfolio={visiblePortfolio.length > 0} />
+      <Header />
       <main id="conteudo">
         <Hero />
         <About />
+        <Listings />
+        <SoldProperties />
         <Services />
-        <Portfolio />
         <Process />
         <FinalCta />
       </main>

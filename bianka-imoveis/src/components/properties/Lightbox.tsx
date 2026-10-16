@@ -3,11 +3,12 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { LuChevronLeft, LuChevronRight, LuPlay, LuX } from "react-icons/lu";
-import type { PortfolioItem, PortfolioVideo } from "@/content/portfolio";
+import type { Property, PropertyVideo } from "@/content/properties";
 import { copy } from "@/content/site";
 import { CtaLink } from "../CtaLink";
-import { getSlides, itemMeta, itemTitle, type Slide } from "./media";
-import { StatusBadge } from "./StatusBadge";
+import { propertyWhatsappLink } from "@/lib/whatsapp";
+import { getSlides, itemDetails, itemTitle, type Slide } from "./media";
+import { Badges } from "./StatusBadge";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), video[controls], iframe, [tabindex]:not([tabindex="-1"])';
@@ -20,13 +21,13 @@ function fitStyle(width: number, height: number) {
   };
 }
 
-function embedUrl(video: Exclude<PortfolioVideo, { type: "file" }>) {
+function embedUrl(video: Exclude<PropertyVideo, { type: "file" }>) {
   return video.type === "youtube"
     ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(video.id)}?autoplay=1&rel=0&playsinline=1`
     : `https://player.vimeo.com/video/${encodeURIComponent(video.id)}?autoplay=1&dnt=1`;
 }
 
-function VideoSlide({ video, title }: { video: PortfolioVideo; title: string }) {
+function VideoSlide({ video, title }: { video: PropertyVideo; title: string }) {
   const [playing, setPlaying] = useState(false);
 
   if (video.type === "file") {
@@ -94,7 +95,7 @@ function SlideView({ slide, title }: { slide: Slide; title: string }) {
   return <VideoSlide video={slide.video} title={title} />;
 }
 
-type Props = { item: PortfolioItem; startIndex: number; onClose: () => void };
+type Props = { item: Property; startIndex: number; onClose: () => void };
 
 export function Lightbox({ item, startIndex, onClose }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -102,7 +103,7 @@ export function Lightbox({ item, startIndex, onClose }: Props) {
   const [index, setIndex] = useState(startIndex);
   const slide = slides[index];
   const title = itemTitle(item);
-  const meta = itemMeta(item);
+  const sold = item.status === "vendido";
   const total = slides.length;
 
   const go = useCallback((delta: number) => setIndex((i) => (i + delta + total) % total), [total]);
@@ -153,7 +154,7 @@ export function Lightbox({ item, startIndex, onClose }: Props) {
   }
 
   const label = (s: Slide, i: number) =>
-    s.kind === "video" ? "Vídeo" : `Foto ${i + 1} de ${item.photos.length}`;
+    s.kind === "video" ? "Vídeo tour" : `Foto ${i + 1} de ${item.photos.length}`;
 
   const navBtn =
     "absolute top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center bg-ivory/90 text-aubergine transition-colors hover:bg-ivory sm:size-12";
@@ -233,11 +234,8 @@ export function Lightbox({ item, startIndex, onClose }: Props) {
         </div>
 
         <aside className="max-h-[34dvh] shrink-0 overflow-y-auto border-t border-ivory/10 bg-aubergine-deep px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5 sm:px-6 lg:max-h-none lg:w-[24rem] lg:border-l lg:border-t-0 lg:px-8 lg:pt-16">
-          <StatusBadge item={item} />
-          {meta && (
-            <p className="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-gold-light">{meta}</p>
-          )}
-          <h2 id="lightbox-title" className="mt-2 font-serif text-3xl font-normal leading-tight text-ivory">
+          <Badges item={item} />
+          <h2 id="lightbox-title" className="mt-4 font-serif text-3xl font-normal leading-tight text-ivory">
             {title}
           </h2>
           {item.isDemo && (
@@ -245,6 +243,14 @@ export function Lightbox({ item, startIndex, onClose }: Props) {
               Item de demonstração. As imagens não representam um imóvel real.
             </p>
           )}
+          <dl className="mt-5 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 border-t border-ivory/10 pt-5 text-sm">
+            {itemDetails(item).map((d) => (
+              <div key={d.label} className="contents">
+                <dt className="text-xs font-semibold uppercase leading-5 tracking-[0.14em] text-gold-light">{d.label}</dt>
+                <dd className={d.missing ? "italic text-ivory/65" : "text-ivory"}>{d.value}</dd>
+              </div>
+            ))}
+          </dl>
           {item.description && <p className="mt-4 leading-relaxed text-ivory/85">{item.description}</p>}
           {item.specs && item.specs.length > 0 && (
             <ul className="mt-5 space-y-2 border-t border-ivory/10 pt-5 text-sm text-ivory/85">
@@ -255,9 +261,23 @@ export function Lightbox({ item, startIndex, onClose }: Props) {
               ))}
             </ul>
           )}
-          <CtaLink ctaId="lightbox-whatsapp" intent="portfolio" variant="light" icon className="mt-8 w-full !px-5 !py-3.5 text-[0.9rem]">
-            {copy.portfolio.cta}
-          </CtaLink>
+          <div className="sticky bottom-0 mt-6 bg-aubergine-deep pt-2 shadow-[0_-16px_16px_var(--color-aubergine-deep)]">
+            {sold ? (
+              <CtaLink ctaId="lightbox-vendido" intent="portfolio" variant="light" icon className="w-full !px-5 !py-3.5 text-[0.9rem]">
+                {copy.sold.cta}
+              </CtaLink>
+            ) : (
+              <CtaLink
+                ctaId={`lightbox-interesse-${item.id}`}
+                href={propertyWhatsappLink(item)}
+                variant="light"
+                icon
+                className="w-full !px-5 !py-3.5 text-[0.9rem]"
+              >
+                {copy.listings.cta}
+              </CtaLink>
+            )}
+          </div>
         </aside>
       </div>
     </dialog>

@@ -48,42 +48,25 @@ export const portrait: {
   height: 1500,
 };
 
-/**
- * Imagem grande do topo da página. Enquanto `src` for null, é exibida uma
- * ilustração arquitetônica. Use uma foto horizontal ou vertical de boa
- * resolução (mín. 1600px no lado maior) em `public/hero/`.
- */
-export const heroImage: {
-  src: string | null;
-  alt: string;
-  width: number;
-  height: number;
-} = {
-  src: null, // ex.: "/hero/fachada.jpg"
-  alt: "",
-  width: 1600,
-  height: 2000,
-};
-
 const credibility = `${EXPERIENCE_YEARS} anos de experiência · ${site.city}, ${site.state} · ${site.creci}`;
 
 export const copy = {
   nav: [
     { label: "Sobre", href: "#sobre" },
+    { label: "Imóveis", href: "#imoveis" },
     { label: "Serviços", href: "#servicos" },
-    { label: "Imóveis vendidos", href: "#imoveis-vendidos" },
     { label: "Contato", href: "#contato" },
   ],
   headerCta: "Falar com Bianka",
 
   hero: {
-    eyebrow: "Bianka Rodrigues · Imóveis em Manaus",
-    headline: "Seu próximo capítulo começa no imóvel certo.",
-    /** Trecho do título exibido em itálico (deve existir dentro do título). */
-    headlineEmphasis: "imóvel certo.",
-    text: `Há ${EXPERIENCE_YEARS} anos, ajudando pessoas a comprar, vender e alugar imóveis em Manaus com orientação próxima em cada etapa.`,
-    primaryCta: "Quero encontrar meu imóvel",
-    secondaryCta: "Quero vender meu imóvel",
+    eyebrow: "Corretora de imóveis em Manaus",
+    /** O nome é o título principal da página. */
+    tagline: "Seu próximo capítulo começa no imóvel certo.",
+    text: `Há ${EXPERIENCE_YEARS} anos, Bianka ajuda pessoas a comprar, vender e alugar imóveis em Manaus — com atendimento direto e orientação próxima em cada etapa.`,
+    primaryCta: "Falar com Bianka",
+    secondaryCta: "Ver imóveis disponíveis",
+    experienceLabel: "anos ajudando a realizar sonhos",
     credibility,
   },
 
@@ -93,7 +76,21 @@ export const copy = {
     paragraphs: [
       `Há ${EXPERIENCE_YEARS} anos, Bianka Rodrigues acompanha pessoas em Manaus em um dos momentos mais importantes da vida: a escolha de um novo endereço.`,
       "Venda, locação e avaliação de imóveis fazem parte do seu dia a dia. Em cada atendimento, o ponto de partida é o mesmo: ouvir com atenção o que você procura antes de indicar qualquer caminho.",
-      "Aqui você fala diretamente com ela. Conte seu objetivo — comprar, vender ou alugar — e receba orientação de quem conhece o mercado da cidade.",
+    ],
+    approachTitle: "Como Bianka atende",
+    approach: [
+      {
+        title: "Atendimento direto",
+        text: "Você conversa com a própria Bianka sobre o imóvel ou o objetivo que tem em mente.",
+      },
+      {
+        title: "Escuta antes de indicar",
+        text: "Entender o que você precisa vem antes de qualquer sugestão de imóvel.",
+      },
+      {
+        title: `${EXPERIENCE_YEARS} anos de experiência`,
+        text: "Venda, locação e avaliação de imóveis em Manaus fazem parte da sua trajetória.",
+      },
     ],
     facts: [
       { value: String(EXPERIENCE_YEARS), label: "anos de experiência" },
@@ -101,6 +98,23 @@ export const copy = {
       { value: "CRECI", label: "1259 PF" },
     ],
     cta: "Conversar com Bianka",
+  },
+
+  listings: {
+    eyebrow: "Imóveis disponíveis",
+    headline: "Imóveis à venda e para alugar com Bianka",
+    text: "Imóveis que Bianka representa no momento. Viu algo que combina com você? Fale diretamente com ela sobre o imóvel.",
+    cta: "Tenho interesse neste imóvel",
+    filterAll: "Todos",
+    pricePlaceholder: "Valor sob consulta",
+    neighborhoodPlaceholder: "Bairro a confirmar",
+    typePlaceholder: "Tipo a confirmar",
+    emptyTitle: "Novos imóveis em breve.",
+    emptyText: "Fale com Bianka para saber quais imóveis estão disponíveis agora.",
+    emptyCta: "Perguntar sobre imóveis disponíveis",
+    moreCta: "Não encontrou o que procura? Fale com Bianka",
+    demoNotice:
+      "Os imóveis abaixo são demonstrações do layout. As imagens não representam imóveis reais e as informações marcadas como \"a confirmar\" serão preenchidas com dados confirmados.",
   },
 
   services: {
@@ -133,13 +147,12 @@ export const copy = {
     rentalCta: "Falar sobre locação",
   },
 
-  portfolio: {
+  sold: {
     eyebrow: "Trajetória",
     headline: "Imóveis vendidos. Novos capítulos iniciados.",
-    text: "Conheça alguns dos imóveis que fizeram parte dessa trajetória.",
-    cta: "Quero encontrar um imóvel como esses",
-    demoNotice:
-      "Os itens abaixo são demonstrações do layout. As imagens não representam imóveis reais nem negociações realizadas.",
+    text: "Alguns imóveis que fizeram parte da trajetória de Bianka.",
+    cta: "Quero encontrar um imóvel como esse",
+    demoNotice: "Demonstração: estes itens não representam imóveis reais nem negociações realizadas.",
   },
 
   process: {
