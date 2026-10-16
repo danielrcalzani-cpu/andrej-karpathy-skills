@@ -17,7 +17,7 @@ export function Wordmark({ tone = "dark", className = "" }: Props) {
       </span>
       <span className={`mt-1.5 flex items-center gap-2 ${sub}`}>
         <span aria-hidden="true" className="h-px w-6 bg-current opacity-70" />
-        <span className="text-[0.62rem] font-semibold uppercase tracking-[0.42em]">
+        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.4em]">
           {site.descriptor}
         </span>
       </span>

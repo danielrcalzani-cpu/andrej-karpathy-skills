@@ -12,7 +12,7 @@ async function CurrentYear() {
 
 export function Footer() {
   const linkClass =
-    "inline-flex items-center gap-2.5 py-1.5 text-ivory/85 transition-colors hover:text-ivory";
+    "inline-flex min-h-11 items-center gap-2.5 text-ivory/85 transition-colors hover:text-ivory";
 
   return (
     <footer id="site-footer" className="on-dark bg-aubergine-deep text-ivory">

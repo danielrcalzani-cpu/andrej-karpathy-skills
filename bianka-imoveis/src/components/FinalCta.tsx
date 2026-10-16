@@ -21,7 +21,7 @@ export function FinalCta() {
       </svg>
 
       <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-32">
-        <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-gold-light">
+        <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em] text-gold-light sm:tracking-[0.28em]">
           <span aria-hidden="true" className="h-px w-8 bg-gold-light" />
           {site.city}, {site.state} · {site.creci}
         </p>
@@ -42,7 +42,7 @@ export function FinalCta() {
             target="_blank"
             rel="noopener noreferrer"
             data-cta="final-instagram"
-            className="inline-flex items-center gap-2.5 py-2 font-semibold text-ivory underline decoration-gold-light/60 decoration-1 underline-offset-[6px] transition-colors hover:decoration-ivory"
+            className="inline-flex min-h-11 items-center gap-2.5 font-semibold text-ivory underline decoration-gold-light/60 decoration-1 underline-offset-[6px] transition-colors hover:decoration-ivory"
           >
             <FaInstagram aria-hidden="true" className="size-5" />
             {final.secondaryCta}

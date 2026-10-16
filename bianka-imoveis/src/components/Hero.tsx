@@ -11,7 +11,7 @@ export function Hero() {
     <section id="inicio" aria-labelledby="hero-title" className="relative overflow-hidden">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 pb-16 pt-9 sm:px-8 sm:pt-14 lg:grid-cols-12 lg:gap-8 lg:pb-24 lg:pt-20">
         <div className="min-w-0 animate-rise lg:col-span-6 lg:pr-6 lg:pt-10 xl:col-span-6">
-          <p className="flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-gold-ink sm:text-xs sm:tracking-[0.28em]">
+          <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold-ink sm:tracking-[0.28em]">
             <span aria-hidden="true" className="hidden h-px w-8 bg-gold sm:block" />
             {hero.eyebrow}
           </p>
@@ -44,14 +44,14 @@ export function Hero() {
             </CtaLink>
           </div>
 
-          <p className="mt-7 flex flex-wrap gap-x-2 gap-y-1 border-t border-line pt-5 text-[0.8rem] font-medium tracking-[0.04em] text-muted sm:text-sm">
-            {hero.credibility.split(" · ").map((part, i) => (
-              <span key={part} className="whitespace-nowrap">
-                {i > 0 && <span aria-hidden="true" className="mr-2 text-gold">·</span>}
+          <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2 border-t border-line pt-5 text-sm font-medium text-muted">
+            {hero.credibility.split(" · ").map((part) => (
+              <li key={part} className="flex items-center gap-2 whitespace-nowrap">
+                <span aria-hidden="true" className="size-1.5 rotate-45 bg-gold" />
                 {part}
-              </span>
+              </li>
             ))}
-          </p>
+          </ul>
         </div>
 
         <div className="relative lg:col-span-6 xl:col-span-6">

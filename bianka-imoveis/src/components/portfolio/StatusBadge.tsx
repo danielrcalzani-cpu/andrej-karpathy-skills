@@ -4,13 +4,13 @@ import type { PortfolioItem } from "@/content/portfolio";
 export function StatusBadge({ item, className = "" }: { item: PortfolioItem; className?: string }) {
   return item.isDemo ? (
     <span
-      className={`inline-flex items-center border border-dashed border-aubergine/60 bg-ivory px-2.5 py-1 text-[0.66rem] font-bold uppercase tracking-[0.2em] text-aubergine ${className}`}
+      className={`inline-flex items-center border border-dashed border-aubergine/60 bg-ivory px-2.5 py-1 text-xs font-bold uppercase tracking-[0.16em] text-aubergine ${className}`}
     >
       Demonstração
     </span>
   ) : (
     <span
-      className={`inline-flex items-center bg-aubergine px-2.5 py-1 text-[0.66rem] font-bold uppercase tracking-[0.2em] text-gold-light ${className}`}
+      className={`inline-flex items-center bg-aubergine px-2.5 py-1 text-xs font-bold uppercase tracking-[0.16em] text-gold-light ${className}`}
     >
       Vendido
     </span>

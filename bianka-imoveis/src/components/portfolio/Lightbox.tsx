@@ -42,6 +42,7 @@ function VideoSlide({ video, title }: { video: PortfolioVideo; title: string }) 
         className="h-auto max-w-none bg-black"
         aria-label={`Vídeo: ${title}`}
       >
+        {video.srcWebm && <source src={video.srcWebm} type="video/webm" />}
         <source src={video.src} type="video/mp4" />
         Seu navegador não reproduz vídeos.{" "}
         <a href={video.src} className="underline">Baixar o vídeo</a>.
@@ -234,7 +235,7 @@ export function Lightbox({ item, startIndex, onClose }: Props) {
         <aside className="max-h-[34dvh] shrink-0 overflow-y-auto border-t border-ivory/10 bg-aubergine-deep px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5 sm:px-6 lg:max-h-none lg:w-[24rem] lg:border-l lg:border-t-0 lg:px-8 lg:pt-16">
           <StatusBadge item={item} />
           {meta && (
-            <p className="mt-5 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-gold-light">{meta}</p>
+            <p className="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-gold-light">{meta}</p>
           )}
           <h2 id="lightbox-title" className="mt-2 font-serif text-3xl font-normal leading-tight text-ivory">
             {title}

@@ -12,7 +12,7 @@ function PortraitPlaceholder() {
         </g>
       </svg>
       <span className="relative font-serif text-[5.5rem] font-normal italic leading-none text-gold-light">BR</span>
-      <span className="relative mt-4 text-[0.65rem] font-semibold uppercase tracking-[0.4em] text-ivory/70">
+      <span className="relative mt-4 text-xs font-semibold uppercase tracking-[0.4em] text-ivory/70">
         {site.city} · {site.state}
       </span>
     </div>
@@ -66,7 +66,7 @@ export function About() {
                 key={f.label}
                 className="flex flex-col-reverse justify-end border-r border-line py-5 pr-3 last:border-r-0 [&:not(:first-child)]:pl-4 sm:[&:not(:first-child)]:pl-6"
               >
-                <dt className="mt-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted sm:text-xs">
+                <dt className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
                   {f.label}
                 </dt>
                 <dd className="font-serif text-[1.9rem] leading-none text-aubergine sm:text-4xl">{f.value}</dd>

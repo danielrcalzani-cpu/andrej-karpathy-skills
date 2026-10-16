@@ -30,7 +30,7 @@ export function PortfolioGallery({ items }: { items: PortfolioItem[] }) {
                 onClick={() => setOpen({ item, index: 0 })}
                 aria-label={`Ver ${item.photos.length} ${item.photos.length === 1 ? "foto" : "fotos"}: ${title}${item.isDemo ? " (demonstração)" : ""}`}
                 className={`group relative block w-full overflow-hidden bg-aubergine/10 ${
-                  featured ? "aspect-[4/5] md:aspect-[16/10] lg:aspect-auto lg:min-h-[30rem] lg:flex-1" : "aspect-[4/5]"
+                  featured ? "aspect-[4/3] md:aspect-[16/10] lg:aspect-auto lg:min-h-[30rem] lg:flex-1" : "aspect-[4/3] sm:aspect-[4/5]"
                 }`}
               >
                 <Image
@@ -61,7 +61,7 @@ export function PortfolioGallery({ items }: { items: PortfolioItem[] }) {
 
               <div className="pt-5">
                 {meta && (
-                  <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-gold-ink">{meta}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-ink">{meta}</p>
                 )}
                 <h3 className={`mt-2 font-serif font-normal leading-tight text-aubergine ${featured ? "text-3xl" : "text-2xl"}`}>
                   {title}
@@ -79,7 +79,7 @@ export function PortfolioGallery({ items }: { items: PortfolioItem[] }) {
                   <button
                     type="button"
                     onClick={() => setOpen({ item, index: videoIndex })}
-                    className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-aubergine underline decoration-gold decoration-1 underline-offset-[6px] hover:decoration-aubergine"
+                    className="mt-2 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-aubergine underline decoration-gold decoration-1 underline-offset-[6px] hover:decoration-aubergine"
                   >
                     <LuPlay aria-hidden="true" className="size-4" />
                     Assistir ao vídeo

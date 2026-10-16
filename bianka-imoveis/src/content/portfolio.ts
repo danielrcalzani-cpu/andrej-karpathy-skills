@@ -30,6 +30,8 @@ export type PortfolioVideo =
       /** Arquivo MP4 local em /public. */
       type: "file";
       src: string;
+      /** Opcional: versão WebM do mesmo vídeo, para navegadores sem suporte a MP4/H.264. */
+      srcWebm?: string;
       /** Imagem exibida antes do play (obrigatória, evita baixar o vídeo). */
       poster: string;
       width: number;
@@ -109,6 +111,7 @@ export const portfolio: PortfolioItem[] = [
     video: {
       type: "file",
       src: "/portfolio/demo/demo-1-video.mp4",
+      srcWebm: "/portfolio/demo/demo-1-video.webm",
       poster: "/portfolio/demo/demo-1-video-poster.jpg",
       width: 720,
       height: 1280,

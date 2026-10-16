@@ -49,6 +49,20 @@ The monogram placeholder disappears automatically. The large hero illustration c
 - Set `SHOW_DEMO_PORTFOLIO = false` in `src/content/portfolio.ts` (and delete the demo entries and `public/portfolio/demo/` when you no longer need them).
 - If there are no real entries yet, the "Imóveis vendidos" section and its menu link are hidden automatically.
 
+## Standalone HTML version (`html/`)
+
+`html/index.html` is the same landing page as plain HTML, CSS and a little JavaScript — no build step, no Node.js. Upload the whole `html/` folder (the page plus `assets/`) to any static host (Hostinger, Netlify, GitHub Pages, cPanel…) and it works.
+
+Everything editable is in the `CONFIGURAÇÃO` block near the end of `index.html`:
+
+- `YEARS_OF_EXPERIENCE`, `WHATSAPP_NUMBER`, `WHATSAPP_MESSAGES`
+- `SHOW_DEMO_PORTFOLIO` — set to `false` before launch
+- `PORTFOLIO` — one entry per sold property (commented example included); put the files in `html/assets/portfolio/<property>/`
+
+Portrait and hero photo: replace the marked placeholder blocks in the HTML (comments show the exact `<img>` to paste). Replace `SEU-DOMINIO` in the `<head>` with the real domain so link previews (WhatsApp, Instagram, Facebook) show the `assets/og-image.png` card.
+
+The HTML and the Next.js app are separate copies of the same content: if you keep both, update both, or pick one to publish.
+
 ## Analytics (later)
 
 No tracking is installed. Every call-to-action carries `data-cta="…"` (e.g. `hero-comprar`, `servico-avaliacao`, `mobile-whatsapp`) and WhatsApp links also carry `data-intent`, so a tag manager can track clicks without changing components.

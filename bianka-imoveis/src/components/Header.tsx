@@ -28,7 +28,7 @@ export function Header({ showPortfolio }: Props) {
   return (
     <header className="sticky top-0 z-40 border-b border-line/70 bg-ivory/92 backdrop-blur-md">
       <div className="mx-auto flex h-[4.25rem] max-w-7xl items-center justify-between gap-6 px-5 sm:px-8 lg:h-20">
-        <a href="#inicio" aria-label="Bianka Rodrigues Imóveis — início" className="shrink-0">
+        <a href="#inicio" aria-label="Bianka Rodrigues Imóveis — início" className="shrink-0 py-1">
           <Wordmark />
         </a>
 

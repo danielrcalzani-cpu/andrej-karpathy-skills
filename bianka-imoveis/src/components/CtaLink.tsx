@@ -12,7 +12,7 @@ const styles: Record<Variant, string> = {
   light: "bg-gold-light text-aubergine-deep hover:bg-ivory px-7 py-4",
   "outline-light":
     "border border-ivory/35 text-ivory hover:border-ivory hover:bg-ivory/[0.06] px-6 py-3.5",
-  text: "text-aubergine underline decoration-gold decoration-1 underline-offset-[6px] hover:decoration-aubergine",
+  text: "min-h-11 text-aubergine underline decoration-gold decoration-1 underline-offset-[6px] hover:decoration-aubergine",
 };
 
 type Props = {
