@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory: #f7f2ea;
+  --color-ivory-deep: #eee6d9;
+  --color-paper: #fbf8f3;
+  --color-aubergine: #3a2140;
+  --color-aubergine-deep: #2a1730;
+  --color-aubergine-soft: #5b3c62;
+  --color-gold: #b8955a;
+  --color-gold-light: #d9bf8c;
+  --color-gold-ink: #7d5f2c;
+  --color-charcoal: #2b2730;
+  --color-muted: #5f5862;
+  --color-line: #d9cfbf;
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-garamond), Garamond, "Times New Roman", serif;
+
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --animate-rise: rise 0.9s var(--ease-soft) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .font-serif {
+    font-variant-numeric: lining-nums;
+  }
+
+  body {
+    background: var(--color-ivory);
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-aubergine);
+    color: var(--color-ivory);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-aubergine);
+    outline-offset: 3px;
+  }
+
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: var(--color-gold-light);
+  }
+
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  dialog::backdrop {
+    background: rgb(26 14 30 / 0.92);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
