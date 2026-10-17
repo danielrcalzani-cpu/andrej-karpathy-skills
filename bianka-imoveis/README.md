@@ -31,14 +31,9 @@ Set `NEXT_PUBLIC_SITE_URL` (e.g. `https://yourdomain.com.br`) in production so c
 
 `EXPERIENCE_YEARS` at the top of `site.ts` feeds every place that mentions the 22 years.
 
-## Adding Bianka's portrait
+## Bianka's portrait
 
-The portrait is the first thing visitors see, so this is the most important placeholder to replace.
-
-1. Save a vertical photo (about 1200×1500 px, 4:5, face in the upper half) as `public/bianka/retrato.jpg`.
-2. In `src/content/site.ts`, set `portrait.src = "/bianka/retrato.jpg"` and update `width`/`height` to the real pixel size.
-
-The "BR" monogram placeholder disappears automatically.
+The hero uses `public/bianka/retrato.jpg` (713×894). To change it, replace that file with another vertical photo (4:5, face in the upper half, ideally 1200×1500 px or larger) and update `portrait.width`/`height` in `src/content/site.ts`. Setting `portrait.src` to `null` brings back the "BR" monogram placeholder.
 
 ## Adding properties (photos and video tours)
 
@@ -70,7 +65,7 @@ Everything editable is in the `CONFIGURAÇÃO` block near the end of `index.html
 - `SHOW_DEMO_PROPERTIES` — set to `false` before launch
 - `PROPERTIES` — one entry per property with `status: "venda" | "aluguel" | "vendido"` (commented example included); put the files in `html/assets/imoveis/<property>/`
 
-Portrait: replace the marked placeholder block in the hero (comments show the exact `<img>` to paste). Replace `SEU-DOMINIO` in the `<head>` with the real domain so link previews (WhatsApp, Instagram, Facebook) show the `assets/og-image.png` card.
+Portrait: replace `html/assets/bianka/retrato.jpg` (and the `width`/`height` on its `<img>` in the hero) (comments show the exact `<img>` to paste). Replace `SEU-DOMINIO` in the `<head>` with the real domain so link previews (WhatsApp, Instagram, Facebook) show the `assets/og-image.png` card.
 
 The HTML and the Next.js app are separate copies of the same content: if you keep both, update both, or pick one to publish.
 

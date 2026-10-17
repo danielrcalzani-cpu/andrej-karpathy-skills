@@ -151,15 +151,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .creds li::before, .specs li::before { content: ""; width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
 .portrait__frame { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--aub); display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .portrait__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.portrait__frame svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.monogram { position: relative; font-family: var(--serif); font-style: italic; font-size: 2.25rem; line-height: 1; color: var(--gold-light); }
-.monogram + span { display: none; position: relative; margin-top: 14px; font-size: .75rem; font-weight: 600; letter-spacing: .4em; text-transform: uppercase; color: rgb(247 242 234 / .72); }
 .years { display: none; }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @media (min-width: 640px) {
   .hero__grid { grid-template-columns: 9rem 1fr; column-gap: 32px; padding-top: 56px; }
   .hero .eyebrow { letter-spacing: .28em; }
-  .monogram { font-size: 3rem; }
   .hero__ctas { grid-template-columns: auto auto; justify-content: start; }
 }
 @media (min-width: 1024px) {
@@ -171,8 +167,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .hero__copy { padding-top: 32px; }
   .hero__photo { margin-top: 8px; }
   .hero__photo::before { inset: 32px 32px -20px -20px; }
-  .monogram { font-size: 7rem; }
-  .monogram + span { display: block; }
   .years { display: block; position: absolute; left: -24px; bottom: -24px; max-width: 13rem; padding: 20px 24px; background: var(--aub-deep); color: var(--ivory); box-shadow: 0 12px 32px rgb(42 23 48 / .25); }
   .years strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 3.75rem; line-height: 1; color: var(--gold-light); font-variant-numeric: lining-nums; }
   .years span { display: block; margin-top: 8px; font-size: .875rem; line-height: 1.4; color: rgb(247 242 234 / .85); }
@@ -490,16 +484,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   <div class="wrap hero__grid">
     <div class="hero__photo">
       <div class="portrait__frame">
-        <!-- Retrato: substitua o <svg> e os dois <span> abaixo por
-             <img src="assets/bianka/retrato.jpg" alt="Retrato de Bianka Rodrigues, corretora de imóveis em Manaus" width="1200" height="1500" fetchpriority="high"> -->
-        <svg viewBox="0 0 200 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <g fill="none" stroke="#d9bf8c" stroke-opacity=".35" stroke-width=".6">
-            <path d="M40 250V110a60 60 0 0 1 120 0v140"/>
-            <path d="M52 250V112a48 48 0 0 1 96 0v138" stroke-opacity=".2"/>
-          </g>
-        </svg>
-        <span class="monogram" role="img" aria-label="Espaço reservado para o retrato de Bianka Rodrigues">BR</span>
-        <span aria-hidden="true">Manaus · AM</span>
+        <!-- Para trocar o retrato, substitua o arquivo assets/bianka/retrato.jpg (vertical, 4:5) e ajuste width/height. -->
+        <img src="assets/bianka/retrato.jpg" alt="Retrato de Bianka Rodrigues, corretora de imóveis em Manaus" width="713" height="894" fetchpriority="high" decoding="async">
       </div>
       <p class="years"><strong data-years>22</strong><span>anos ajudando a realizar sonhos</span></p>
     </div>

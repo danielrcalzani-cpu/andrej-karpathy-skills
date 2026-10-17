@@ -42,10 +42,10 @@ export const portrait: {
   width: number;
   height: number;
 } = {
-  src: null, // ex.: "/bianka/retrato.jpg"
+  src: "/bianka/retrato.jpg",
   alt: "Retrato de Bianka Rodrigues, corretora de imóveis em Manaus",
-  width: 1200,
-  height: 1500,
+  width: 713,
+  height: 894,
 };
 
 const credibility = `${EXPERIENCE_YEARS} anos de experiência · ${site.city}, ${site.state} · ${site.creci}`;
