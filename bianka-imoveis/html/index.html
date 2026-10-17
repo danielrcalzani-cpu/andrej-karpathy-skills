@@ -198,12 +198,19 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 /* ---------- Services ---------- */
-.services__list { margin-top: 28px; border-top: 1px solid rgb(58 33 64 / .2); }
-.service { display: flex; flex-direction: column; padding-block: 26px; border-bottom: 1px solid var(--line); }
-.service h3 { margin-top: 0; font-family: var(--serif); font-weight: 400; font-size: 1.85rem; line-height: 1.15; color: var(--aub); }
-.service p { margin-top: 12px; color: var(--muted); line-height: 1.7; flex: 1; }
-.service .link { margin-top: 16px; align-self: flex-start; }
-.rental { display: flex; flex-wrap: wrap; align-items: center; column-gap: 12px; padding-top: 16px; color: var(--muted); }
+/* Celular: um cartão por serviço, com botão largo; a partir de 768px, três colunas. */
+.services__list { display: grid; gap: 12px; margin-top: 28px; }
+.service { display: flex; flex-direction: column; padding: 20px; border: 1px solid rgb(58 33 64 / .15); background: var(--paper); }
+.service h3 { margin-top: 0; font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1.15; color: var(--aub); }
+.service p { margin-top: 8px; color: var(--muted); font-size: .95rem; line-height: 1.65; flex: 1; }
+.service .link, .rental .link {
+  justify-content: space-between; width: 100%; margin-top: 16px; padding: 0 16px;
+  border: 1px solid rgb(58 33 64 / .3); background: var(--ivory); text-decoration: none;
+}
+.service .link:hover, .rental .link:hover { border-color: var(--aub); }
+.rental { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; padding: 20px; background: rgb(58 33 64 / .06); }
+.rental p { font-weight: 500; color: var(--aub); }
+.rental .link { margin-top: 8px; }
 
 /* ---------- Imóveis disponíveis ---------- */
 .listings { background: var(--ivory-deep); border-top: 1px solid rgb(217 207 191 / .7); }
@@ -419,11 +426,20 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (min-width: 768px) {
   .contact-bar { display: none; }
   .section { padding-block: 104px; }
-  .services__list { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .service { padding: 40px 32px; border-bottom: 0; border-right: 1px solid var(--line); }
+  .services__list { grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 44px; border-top: 1px solid rgb(58 33 64 / .2); }
+  .service { padding: 40px 32px; border: 0; border-right: 1px solid var(--line); background: none; }
   .service:first-child { padding-left: 0; }
   .service:last-child { padding-right: 0; border-right: 0; }
-  .rental { border-top: 1px solid var(--line); }
+  .service h3 { font-size: 1.85rem; }
+  .service p { margin-top: 12px; font-size: 1rem; }
+  .service .link, .rental .link {
+    justify-content: flex-start; width: auto; padding: 0; border: 0; background: none;
+    text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 6px;
+  }
+  .service .link { align-self: flex-start; margin-top: 16px; }
+  .rental { flex-direction: row; flex-wrap: wrap; align-items: center; column-gap: 12px; margin-top: 0; padding: 16px 0 0; border-top: 1px solid var(--line); background: none; }
+  .rental p { font-weight: 400; color: var(--muted); }
+  .rental .link { margin-top: 0; }
 }
 @media (min-width: 1024px) {
   :root { --header: 80px; }
@@ -728,9 +744,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
         <a class="link" data-wa="avaliacao" data-cta="servico-avaliacao" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20solicitar%20uma%20avalia%C3%A7%C3%A3o%20do%20meu%20im%C3%B3vel." target="_blank" rel="noopener noreferrer">Solicitar avaliação<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </li>
     </ul>
-    <p class="rental">Procura um imóvel para alugar?
-      <a class="link" data-wa="locacao" data-cta="servico-locacao" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20loca%C3%A7%C3%A3o%20de%20im%C3%B3veis." target="_blank" rel="noopener noreferrer">Falar sobre locação</a>
-    </p>
+    <div class="rental">
+      <p>Procura um imóvel para alugar?</p>
+      <a class="link" data-wa="locacao" data-cta="servico-locacao" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20loca%C3%A7%C3%A3o%20de%20im%C3%B3veis." target="_blank" rel="noopener noreferrer">Falar sobre locação<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
   </div>
 </section>
 
