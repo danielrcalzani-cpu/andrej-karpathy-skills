@@ -216,8 +216,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .filters button[aria-pressed="true"] { background: var(--aub); border-color: var(--aub); color: var(--ivory); }
 .filters small { font-size: inherit; font-weight: 400; opacity: .75; }
 /* Mesma grade de 2 colunas do computador; no celular os cartões ficam compactos. */
-.listing-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 12px; margin-top: 24px; }
-.lcard { display: flex; flex-direction: column; min-width: 0; }
+.listing-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; margin-top: 24px; }
+/* Cada cartão ocupa 4 linhas da grade (foto, título, detalhes, botões) via subgrid,
+   para que essas partes fiquem alinhadas entre cartões lado a lado. */
+.lcard { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; min-width: 0; padding-bottom: 32px; }
 .only-desk { display: none; }
 .card__media .badges, .sold-card .badges { gap: 4px; }
 .card__media .badge, .sold-card .badge { padding: 2px 6px; font-size: .6875rem; letter-spacing: .06em; }
@@ -237,14 +239,14 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .chips span + span { padding-left: 8px; border-left: 1px solid rgb(58 33 64 / .2); }
 .chips .icon { width: 14px; height: 14px; }
 .chips .only-desk { display: none; }
-.lcard__body { display: flex; flex-direction: column; flex: 1; padding-top: 12px; }
-.lcard h3 { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; line-height: 1.2; color: var(--aub); }
+.lcard__body { display: contents; }
+.lcard h3 { padding-top: 12px; font-family: var(--serif); font-weight: 400; font-size: 1.15rem; line-height: 1.2; color: var(--aub); }
 .details { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; margin-top: 8px; font-size: .8rem; }
 .details dt { font-size: .6875rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; line-height: 1.25rem; color: var(--gold-ink); }
 .details dd { font-weight: 500; }
 .details dd.missing { font-weight: 400; font-style: italic; color: var(--muted); }
 .specs { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 8px; color: var(--muted); font-size: .8rem; }
-.lcard__actions { display: grid; gap: 4px; margin-top: auto; padding-top: 16px; }
+.lcard__actions { display: grid; align-content: start; gap: 4px; padding-top: 16px; }
 .lcard .btn { min-height: 44px; padding: 10px; gap: 6px; font-size: .8rem; line-height: 1.2; }
 .lcard__actions .link { justify-self: center; font-size: .8rem; }
 .listings__more { margin-top: 40px; padding-top: 24px; border-top: 1px solid rgb(58 33 64 / .2); }
@@ -275,7 +277,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 @media (min-width: 768px) {
   /* A partir de 768px: tamanhos da versão de computador */
-  .listing-cards { gap: 56px 32px; margin-top: 32px; }
+  .listing-cards { gap: 0 32px; margin-top: 32px; }
+  .lcard { padding-bottom: 56px; }
   .only-desk { display: inline; }
   .only-phone { display: none; }
   .card__media .badges { left: 14px; top: 14px; gap: 6px; }
@@ -284,8 +287,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .chips { right: 14px; bottom: 14px; gap: 12px; padding: 6px 12px; }
   .chips span + span { padding-left: 12px; }
   .chips .only-desk { display: inline; }
-  .lcard__body { padding-top: 20px; }
-  .lcard h3 { font-size: 1.75rem; }
+  .lcard h3 { padding-top: 20px; font-size: 1.75rem; }
   .details { gap: 4px 16px; margin-top: 12px; font-size: .95rem; }
   .details dt { font-size: .75rem; letter-spacing: .14em; line-height: 1.6rem; }
   .specs { gap: 4px 16px; margin-top: 10px; font-size: .9rem; }
@@ -299,7 +301,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 @media (min-width: 1024px) {
   .listings__head { grid-template-columns: 7fr 5fr; align-items: end; }
-  .lcard__actions { display: flex; flex-wrap: wrap; align-items: center; column-gap: 24px; }
+  .lcard__actions { display: flex; flex-wrap: wrap; align-items: flex-start; align-content: flex-start; column-gap: 24px; }
   .listings__head .lead { justify-self: end; max-width: 26rem; }
   .sold-grid { grid-template-columns: repeat(4, 1fr); }
 }
@@ -871,8 +873,7 @@ const PROPERTIES = [
       </button>
       <div class="lcard__body">
         <h3>${title}</h3>
-        ${details(item)}
-        ${specs(item)}
+        <div>${details(item)}${specs(item)}</div>
         <div class="lcard__actions">
           ${interestCta(item, "", true)}
           ${item.video ? `<button type="button" class="link" data-open="${esc(item.id)}" data-index="${n}">${icon("play")}Ver vídeo tour<span class="sr-only">: ${title}</span></button>` : ""}

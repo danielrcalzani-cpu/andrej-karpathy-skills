@@ -50,7 +50,9 @@ export function ListingsGallery({ items }: { items: Property[] }) {
       )}
 
       {/* Mesma grade de 2 colunas do computador; no celular os cartões ficam compactos. */}
-      <ul className="mt-6 grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5 md:mt-8 md:gap-x-8 md:gap-y-14">
+      {/* Cada cartão ocupa 4 linhas da grade (foto, título, detalhes, botões) via subgrid,
+          para que essas partes fiquem alinhadas entre cartões lado a lado. */}
+      <ul className="mt-6 grid grid-cols-2 gap-x-3 gap-y-0 sm:gap-x-5 md:mt-8 md:gap-x-8">
         {shown.map((item) => {
           const cover = item.photos[0];
           const title = itemTitle(item);
@@ -58,7 +60,7 @@ export function ListingsGallery({ items }: { items: Property[] }) {
           const n = item.photos.length;
 
           return (
-            <li key={item.id} className="flex min-w-0 flex-col">
+            <li key={item.id} className="row-span-4 grid min-w-0 grid-rows-subgrid gap-y-0 pb-8 md:pb-14">
               <button
                 type="button"
                 onClick={() => setOpen({ item, index: 0 })}
@@ -92,8 +94,8 @@ export function ListingsGallery({ items }: { items: Property[] }) {
                 </span>
               </button>
 
-              <div className="flex flex-1 flex-col pt-3 md:pt-5">
-                <h3 className="font-serif text-[1.15rem] leading-tight text-aubergine sm:text-[1.4rem] md:text-[1.75rem]">{title}</h3>
+              <h3 className="pt-3 font-serif md:pt-5 text-[1.15rem] leading-tight text-aubergine sm:text-[1.4rem] md:text-[1.75rem]">{title}</h3>
+                <div>
                 <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-2 gap-y-0.5 text-[0.8rem] md:mt-3 md:gap-x-4 md:gap-y-1 md:text-[0.95rem]">
                   {itemDetails(item).map((d) => (
                     <div key={d.label} className="contents">
@@ -111,8 +113,9 @@ export function ListingsGallery({ items }: { items: Property[] }) {
                     ))}
                   </ul>
                 )}
+                </div>
 
-                <div className="mt-auto flex flex-col gap-1 pt-4 md:pt-6 lg:flex-row lg:flex-wrap lg:items-center lg:gap-x-6">
+                <div className="flex flex-col gap-1 pt-4 md:pt-6 lg:flex-row lg:flex-wrap lg:items-center lg:gap-x-6">
                   <CtaLink ctaId={`interesse-${item.id}`} href={propertyWhatsappLink(item)} icon className="min-h-11 w-full !gap-1.5 !px-2.5 !py-2.5 text-[0.8rem] leading-tight md:!gap-2.5 md:!px-6 md:!py-3.5 md:text-[0.95rem] lg:w-auto">
                     <span className="md:hidden">
                       Tenho interesse<span className="sr-only"> neste imóvel</span>
@@ -131,7 +134,6 @@ export function ListingsGallery({ items }: { items: Property[] }) {
                     </button>
                   )}
                 </div>
-              </div>
             </li>
           );
         })}
