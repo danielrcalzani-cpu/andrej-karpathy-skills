@@ -198,19 +198,22 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 /* ---------- Services ---------- */
-/* Celular: um cartão por serviço, com botão largo; a partir de 768px, três colunas. */
-.services__list { display: grid; gap: 12px; margin-top: 28px; }
-.service { display: flex; flex-direction: column; padding: 20px; border: 1px solid rgb(58 33 64 / .15); background: var(--paper); }
-.service h3 { margin-top: 0; font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1.15; color: var(--aub); }
-.service p { margin-top: 8px; color: var(--muted); font-size: .95rem; line-height: 1.65; flex: 1; }
-.service .link, .rental .link {
-  justify-content: space-between; width: 100%; margin-top: 16px; padding: 0 16px;
-  border: 1px solid rgb(58 33 64 / .3); background: var(--ivory); text-decoration: none;
-}
-.service .link:hover, .rental .link:hover { border-color: var(--aub); }
-.rental { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; padding: 20px; background: rgb(58 33 64 / .06); }
-.rental p { font-weight: 500; color: var(--aub); }
-.rental .link { margin-top: 8px; }
+/* Um painel; cada serviço é um bloco inteiro clicável (empilhado no celular, 3 colunas a partir de 768px). */
+.services__list { display: grid; margin-top: 28px; border: 1px solid rgb(58 33 64 / .15); background: var(--paper); }
+.services__list > li + li { border-top: 1px solid rgb(58 33 64 / .1); }
+.svc { display: flex; flex-direction: column; height: 100%; padding: 20px; transition: background-color .3s var(--ease); -webkit-tap-highlight-color: transparent; }
+.svc:hover { background: var(--ivory); }
+.svc h3 { font-family: var(--serif); font-weight: 400; font-size: 1.55rem; line-height: 1.15; color: var(--aub); }
+.svc p { flex: 1; margin-top: 8px; color: var(--muted); font-size: .95rem; line-height: 1.65; }
+.svc__foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 20px; }
+.svc__cta { font-weight: 600; color: var(--aub); }
+.svc__chip { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%; background: var(--aub); color: var(--ivory); transition: background-color .3s var(--ease), color .3s var(--ease); }
+.svc__chip .icon { width: 20px; height: 20px; transition: transform .3s var(--ease); }
+.svc:hover .svc__chip { background: var(--gold-light); color: var(--aub-deep); }
+.svc:hover .svc__chip .icon { transform: translateX(2px); }
+.rental { display: flex; flex-direction: column; gap: 16px; margin-top: 12px; padding: 20px; background: var(--aub); color: var(--ivory); }
+.rental p { font-family: var(--serif); font-size: 1.45rem; line-height: 1.3; }
+.rental .btn { width: 100%; }
 
 /* ---------- Imóveis disponíveis ---------- */
 .listings { background: var(--ivory-deep); border-top: 1px solid rgb(217 207 191 / .7); }
@@ -426,20 +429,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (min-width: 768px) {
   .contact-bar { display: none; }
   .section { padding-block: 104px; }
-  .services__list { grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 44px; border-top: 1px solid rgb(58 33 64 / .2); }
-  .service { padding: 40px 32px; border: 0; border-right: 1px solid var(--line); background: none; }
-  .service:first-child { padding-left: 0; }
-  .service:last-child { padding-right: 0; border-right: 0; }
-  .service h3 { font-size: 1.85rem; }
-  .service p { margin-top: 12px; font-size: 1rem; }
-  .service .link, .rental .link {
-    justify-content: flex-start; width: auto; padding: 0; border: 0; background: none;
-    text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 6px;
-  }
-  .service .link { align-self: flex-start; margin-top: 16px; }
-  .rental { flex-direction: row; flex-wrap: wrap; align-items: center; column-gap: 12px; margin-top: 0; padding: 16px 0 0; border-top: 1px solid var(--line); background: none; }
-  .rental p { font-weight: 400; color: var(--muted); }
-  .rental .link { margin-top: 0; }
+  .services__list { grid-template-columns: repeat(3, 1fr); margin-top: 44px; }
+  .services__list > li + li { border-top: 0; border-left: 1px solid rgb(58 33 64 / .1); }
+  .svc { padding: 28px; }
+  .svc h3 { font-size: 1.85rem; }
+  .svc p { margin-top: 12px; font-size: 1rem; }
+  .svc__foot { margin-top: 32px; }
+  .rental { flex-direction: row; align-items: center; justify-content: space-between; margin-top: 16px; padding: 28px; }
+  .rental p { font-size: 1.7rem; }
+  .rental .btn { width: auto; }
 }
 @media (min-width: 1024px) {
   :root { --header: 80px; }
@@ -455,6 +453,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .final { padding-block: 128px; }
   .final__arches { right: -90px; }
   .footer__grid { grid-template-columns: 1fr auto; align-items: start; }
+  .svc, .rental { padding: 36px; }
   .footer__links { grid-auto-flow: column; gap: 40px; }
   .lb { flex-direction: row; }
   .lb__info { width: 24rem; max-height: none; padding: 64px 32px 32px; border-top: 0; border-left: 1px solid rgb(247 242 234 / .1); }
@@ -728,25 +727,33 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     <p class="eyebrow">Serviços</p>
     <h2 id="servicos-title" class="h2">Como posso ajudar você.</h2>
     <ul class="services__list">
-      <li class="service">
-        <h3>Comprar um imóvel</h3>
-        <p>Converse sobre o que você procura e dê o próximo passo na busca pelo seu novo endereço.</p>
-        <a class="link" data-wa="comprar" data-cta="servico-comprar" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20encontrar%20um%20im%C3%B3vel%20em%20Manaus." target="_blank" rel="noopener noreferrer">Quero comprar<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <li>
+        <a class="svc" data-wa="comprar" data-cta="servico-comprar" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20encontrar%20um%20im%C3%B3vel%20em%20Manaus." target="_blank" rel="noopener noreferrer">
+          <h3>Comprar um imóvel</h3>
+          <p>Converse sobre o que você procura e dê o próximo passo na busca pelo seu novo endereço.</p>
+          <span class="svc__foot"><span class="svc__cta">Quero comprar</span><span class="svc__chip" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></span></span>
+        </a>
       </li>
-      <li class="service">
-        <h3>Vender ou alugar</h3>
-        <p>Conte com orientação para apresentar seu imóvel e conversar sobre as possibilidades de negociação.</p>
-        <a class="link" data-wa="anunciar" data-cta="servico-vender" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20vender%20ou%20alugar%20o%20meu%20im%C3%B3vel." target="_blank" rel="noopener noreferrer">Quero anunciar meu imóvel<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <li>
+        <a class="svc" data-wa="anunciar" data-cta="servico-vender" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20vender%20ou%20alugar%20o%20meu%20im%C3%B3vel." target="_blank" rel="noopener noreferrer">
+          <h3>Vender ou alugar</h3>
+          <p>Conte com orientação para apresentar seu imóvel e conversar sobre as possibilidades de negociação.</p>
+          <span class="svc__foot"><span class="svc__cta">Quero anunciar meu imóvel</span><span class="svc__chip" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></span></span>
+        </a>
       </li>
-      <li class="service">
-        <h3>Avaliação de imóveis</h3>
-        <p>Entenda melhor o posicionamento do seu imóvel no mercado de Manaus.</p>
-        <a class="link" data-wa="avaliacao" data-cta="servico-avaliacao" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20solicitar%20uma%20avalia%C3%A7%C3%A3o%20do%20meu%20im%C3%B3vel." target="_blank" rel="noopener noreferrer">Solicitar avaliação<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <li>
+        <a class="svc" data-wa="avaliacao" data-cta="servico-avaliacao" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20solicitar%20uma%20avalia%C3%A7%C3%A3o%20do%20meu%20im%C3%B3vel." target="_blank" rel="noopener noreferrer">
+          <h3>Avaliação de imóveis</h3>
+          <p>Entenda melhor o posicionamento do seu imóvel no mercado de Manaus.</p>
+          <span class="svc__foot"><span class="svc__cta">Solicitar avaliação</span><span class="svc__chip" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></span></span>
+        </a>
       </li>
     </ul>
-    <div class="rental">
+    <div class="rental dark">
       <p>Procura um imóvel para alugar?</p>
-      <a class="link" data-wa="locacao" data-cta="servico-locacao" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20loca%C3%A7%C3%A3o%20de%20im%C3%B3veis." target="_blank" rel="noopener noreferrer">Falar sobre locação<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn--gold" data-wa="locacao" data-cta="servico-locacao" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20loca%C3%A7%C3%A3o%20de%20im%C3%B3veis." target="_blank" rel="noopener noreferrer">
+        <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Falar sobre locação
+      </a>
     </div>
   </div>
 </section>
