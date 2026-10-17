@@ -11,7 +11,7 @@ export function Portrait({ sizes, priority = false }: { sizes: string; priority?
         fill
         priority={priority}
         sizes={sizes}
-        className="object-cover object-top"
+        className="object-cover object-[50%_30%]"
       />
     );
   }

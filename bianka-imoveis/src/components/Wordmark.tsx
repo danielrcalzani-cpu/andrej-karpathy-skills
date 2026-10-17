@@ -15,11 +15,8 @@ export function Wordmark({ tone = "dark", className = "" }: Props) {
       <span className={`font-serif text-[1.6rem] font-normal tracking-[-0.01em] ${main}`}>
         Bianka <span className="italic">Rodrigues</span>
       </span>
-      <span className={`mt-1.5 flex items-center gap-2 ${sub}`}>
-        <span aria-hidden="true" className="h-px w-6 bg-current opacity-70" />
-        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.4em]">
-          {site.descriptor}
-        </span>
+      <span className={`mt-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.4em] ${sub}`}>
+        {site.descriptor}
       </span>
     </span>
   );

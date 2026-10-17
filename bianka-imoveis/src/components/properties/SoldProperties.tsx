@@ -9,11 +9,10 @@ export function SoldProperties() {
 
   return (
     <section id="vendidos" aria-labelledby="vendidos-title" className="border-t border-line/70 bg-paper">
-      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
+      <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16 lg:py-20">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-gold-ink">
-              <span aria-hidden="true" className="h-px w-8 bg-gold" />
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-ink">
               {c.eyebrow}
             </p>
             <h2 id="vendidos-title" className="mt-4 font-serif text-[1.9rem] leading-tight text-aubergine sm:text-4xl">

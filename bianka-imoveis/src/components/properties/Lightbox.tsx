@@ -255,7 +255,7 @@ export function Lightbox({ item, startIndex, onClose }: Props) {
           {item.specs && item.specs.length > 0 && (
             <ul className="mt-5 space-y-2 border-t border-ivory/10 pt-5 text-sm text-ivory/85">
               {item.specs.map((s) => (
-                <li key={s} className="flex items-center gap-3 before:size-1 before:rotate-45 before:bg-gold-light">
+                <li key={s}>
                   {s}
                 </li>
               ))}

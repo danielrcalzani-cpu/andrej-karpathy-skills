@@ -10,11 +10,10 @@ export function Listings() {
 
   return (
     <section id="imoveis" aria-labelledby="imoveis-title" className="border-t border-line/70 bg-ivory-deep">
-      <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
+      <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:py-28">
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
-            <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-gold-ink">
-              <span aria-hidden="true" className="h-px w-8 bg-gold" />
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-ink">
               {c.eyebrow}
             </p>
             <h2
@@ -30,7 +29,7 @@ export function Listings() {
         {hasDemo && (
           <p
             role="note"
-            className="mt-10 flex items-start gap-3 border border-dashed border-aubergine/40 bg-paper px-4 py-3 text-sm leading-relaxed text-charcoal"
+            className="mt-8 flex items-start gap-3 border border-dashed border-aubergine/40 bg-paper px-4 py-3 text-sm leading-relaxed text-charcoal"
           >
             <LuInfo aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-aubergine" />
             <span>
@@ -52,7 +51,7 @@ export function Listings() {
         )}
 
         {listings.length > 0 && (
-          <p className="mt-14 border-t border-aubergine/20 pt-8">
+          <p className="mt-10 border-t border-aubergine/20 pt-6 sm:mt-14 sm:pt-8">
             <CtaLink ctaId="imoveis-outros" intent="imoveis" variant="text">
               {c.moreCta}
             </CtaLink>

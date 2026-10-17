@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { LuImages, LuPlay } from "react-icons/lu";
+import { useRef, useState } from "react";
+import { LuArrowRight, LuImages, LuPlay } from "react-icons/lu";
 import { statusLabel, type Property, type PropertyStatus } from "@/content/properties";
 import { copy } from "@/content/site";
 import { propertyWhatsappLink } from "@/lib/whatsapp";
@@ -17,6 +17,7 @@ type Open = { item: Property; index: number } | null;
 export function ListingsGallery({ items }: { items: Property[] }) {
   const [filter, setFilter] = useState<Filter>("todos");
   const [open, setOpen] = useState<Open>(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
   const count = (s: Filter) => (s === "todos" ? items.length : items.filter((i) => i.status === s).length);
   const showFilter = count("venda") > 0 && count("aluguel") > 0;
@@ -30,13 +31,16 @@ export function ListingsGallery({ items }: { items: Property[] }) {
   return (
     <>
       {showFilter && (
-        <div role="group" aria-label="Filtrar imóveis" className="mt-10 flex gap-2 overflow-x-auto">
+        <div role="group" aria-label="Filtrar imóveis" className="mt-8 flex gap-2 overflow-x-auto sm:mt-10">
           {filters.map((f) => (
             <button
               key={f.id}
               type="button"
               aria-pressed={filter === f.id}
-              onClick={() => setFilter(f.id)}
+              onClick={() => {
+                setFilter(f.id);
+                listRef.current?.scrollTo({ left: 0 });
+              }}
               className={`min-h-11 shrink-0 border px-4 text-sm font-semibold transition-colors ${
                 filter === f.id
                   ? "border-aubergine bg-aubergine text-ivory"
@@ -49,7 +53,16 @@ export function ListingsGallery({ items }: { items: Property[] }) {
         </div>
       )}
 
-      <ul className="mt-8 grid gap-x-8 gap-y-14 md:grid-cols-2">
+      {shown.length > 1 && (
+        <p aria-hidden="true" className="mt-5 flex items-center gap-2 text-sm text-muted md:hidden">
+          Deslize para ver mais imóveis
+          <LuArrowRight className="size-4" />
+        </p>
+      )}
+      <ul
+        ref={listRef}
+        className="relative -mx-5 mt-4 flex items-start snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] sm:-mx-8 sm:scroll-px-8 sm:px-8 md:mx-0 md:mt-8 md:grid md:grid-cols-2 md:items-stretch md:gap-x-8 md:gap-y-14 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden"
+      >
         {shown.map((item) => {
           const cover = item.photos[0];
           const title = itemTitle(item);
@@ -57,7 +70,7 @@ export function ListingsGallery({ items }: { items: Property[] }) {
           const n = item.photos.length;
 
           return (
-            <li key={item.id} className="flex flex-col">
+            <li key={item.id} className="flex w-[86%] shrink-0 snap-start flex-col sm:w-[70%] md:w-auto">
               <button
                 type="button"
                 onClick={() => setOpen({ item, index: 0 })}
@@ -103,15 +116,15 @@ export function ListingsGallery({ items }: { items: Property[] }) {
                 {item.specs && item.specs.length > 0 && (
                   <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted">
                     {item.specs.map((s) => (
-                      <li key={s} className="flex items-center gap-2 before:size-1 before:rotate-45 before:bg-gold">
+                      <li key={s}>
                         {s}
                       </li>
                     ))}
                   </ul>
                 )}
 
-                <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
-                  <CtaLink ctaId={`interesse-${item.id}`} href={propertyWhatsappLink(item)} icon className="w-full sm:w-auto">
+                <div className="mt-auto flex flex-col gap-1 pt-6 lg:flex-row lg:flex-wrap lg:items-center lg:gap-x-6">
+                  <CtaLink ctaId={`interesse-${item.id}`} href={propertyWhatsappLink(item)} icon className="w-full lg:w-auto">
                     {copy.listings.cta}
                   </CtaLink>
                   {item.video && (

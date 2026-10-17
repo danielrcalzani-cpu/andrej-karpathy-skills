@@ -20,9 +20,8 @@ export function FinalCta() {
         </g>
       </svg>
 
-      <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-32">
-        <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em] text-gold-light sm:tracking-[0.28em]">
-          <span aria-hidden="true" className="h-px w-8 bg-gold-light" />
+      <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24 lg:py-32">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold-light sm:tracking-[0.28em]">
           {site.city}, {site.state} · {site.creci}
         </p>
         <h2
