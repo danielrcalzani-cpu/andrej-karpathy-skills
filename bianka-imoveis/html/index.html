@@ -210,43 +210,43 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .listings__head { display: grid; gap: 18px; }
 .note { display: flex; gap: 12px; align-items: flex-start; margin-top: 32px; padding: 14px 16px; border: 1px dashed rgb(58 33 64 / .4); background: var(--paper); font-size: .9rem; line-height: 1.6; }
 .note .icon { width: 18px; height: 18px; margin-top: 2px; color: var(--aub); }
-.filters { display: flex; gap: 8px; margin-top: 28px; overflow-x: auto; }
-.filters button { flex-shrink: 0; min-height: 44px; padding: 0 16px; border: 1px solid rgb(58 33 64 / .25); color: var(--aub); font-size: .875rem; font-weight: 600; transition: background-color .2s, color .2s; }
+.filters { display: flex; gap: 6px; margin-top: 28px; }
+.filters button { flex: 1; white-space: nowrap; min-height: 44px; padding: 0 6px; border: 1px solid rgb(58 33 64 / .25); color: var(--aub); font-size: .8rem; font-weight: 600; transition: background-color .2s, color .2s; }
 .filters button:hover { border-color: var(--aub); }
 .filters button[aria-pressed="true"] { background: var(--aub); border-color: var(--aub); color: var(--ivory); }
 .filters small { font-size: inherit; font-weight: 400; opacity: .75; }
-.listing-cards {
-  position: relative; display: flex; align-items: flex-start; gap: 16px; margin: 14px calc(-1 * var(--pad)) 0; padding: 0 var(--pad) 8px;
-  overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--pad); scrollbar-width: none; -webkit-overflow-scrolling: touch;
-}
-.listing-cards::-webkit-scrollbar { display: none; }
-.swipe-hint { display: flex; align-items: center; gap: 8px; margin-top: 18px; font-size: .875rem; color: var(--muted); }
-.swipe-hint .icon { width: 16px; height: 16px; }
-.lcard { display: flex; flex-direction: column; flex: 0 0 86%; scroll-snap-align: start; }
+/* Mesma grade de 2 colunas do computador; no celular os cartões ficam compactos. */
+.listing-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 12px; margin-top: 24px; }
+.lcard { display: flex; flex-direction: column; min-width: 0; }
+.only-desk { display: none; }
+.card__media .badges, .sold-card .badges { gap: 4px; }
+.card__media .badge, .sold-card .badge { padding: 2px 6px; font-size: .6875rem; letter-spacing: .06em; }
 .card__media { position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: rgb(58 33 64 / .1); }
 .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 .card__media:hover img { transform: scale(1.03); }
 .card__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgb(42 23 48 / .5), transparent 45%); }
 .badges { display: flex; flex-wrap: wrap; gap: 6px; }
-.card__media .badges { position: absolute; left: 14px; top: 14px; z-index: 1; }
+.card__media .badges { position: absolute; left: 8px; top: 8px; z-index: 1; }
 .badge { display: inline-flex; align-items: center; padding: 5px 10px; font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 .badge--venda { background: var(--aub); color: var(--gold-light); box-shadow: inset 0 0 0 1px rgb(217 191 140 / .45); }
 .badge--aluguel { background: var(--gold-light); color: var(--aub-deep); }
 .badge--vendido { background: rgb(43 39 48 / .85); color: var(--ivory); }
 .badge--demo { background: var(--ivory); color: var(--aub); border: 1px dashed rgb(58 33 64 / .6); }
-.chips { position: absolute; right: 14px; bottom: 14px; z-index: 1; display: flex; gap: 12px; align-items: center; padding: 6px 12px; background: rgb(247 242 234 / .95); color: var(--aub); font-size: .8rem; font-weight: 600; }
+.chips { position: absolute; right: 8px; bottom: 8px; z-index: 1; display: flex; gap: 8px; align-items: center; padding: 4px 8px; background: rgb(247 242 234 / .95); color: var(--aub); font-size: .8rem; font-weight: 600; }
 .chips span { display: flex; align-items: center; gap: 6px; }
-.chips span + span { padding-left: 12px; border-left: 1px solid rgb(58 33 64 / .2); }
+.chips span + span { padding-left: 8px; border-left: 1px solid rgb(58 33 64 / .2); }
 .chips .icon { width: 14px; height: 14px; }
-.lcard__body { display: flex; flex-direction: column; flex: 1; padding-top: 20px; }
-.lcard h3 { font-family: var(--serif); font-weight: 400; font-size: 1.75rem; line-height: 1.2; color: var(--aub); }
-.details { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; margin-top: 12px; font-size: .95rem; }
-.details dt { font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; line-height: 1.6rem; color: var(--gold-ink); }
+.chips .only-desk { display: none; }
+.lcard__body { display: flex; flex-direction: column; flex: 1; padding-top: 12px; }
+.lcard h3 { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; line-height: 1.2; color: var(--aub); }
+.details { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; margin-top: 8px; font-size: .8rem; }
+.details dt { font-size: .6875rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; line-height: 1.25rem; color: var(--gold-ink); }
 .details dd { font-weight: 500; }
 .details dd.missing { font-weight: 400; font-style: italic; color: var(--muted); }
-.specs { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; color: var(--muted); font-size: .9rem; }
-.lcard__actions { display: grid; gap: 4px; margin-top: auto; padding-top: 24px; }
-.lcard__actions .link { justify-self: center; font-size: .92rem; }
+.specs { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 8px; color: var(--muted); font-size: .8rem; }
+.lcard__actions { display: grid; gap: 4px; margin-top: auto; padding-top: 16px; }
+.lcard .btn { min-height: 44px; padding: 10px; gap: 6px; font-size: .8rem; line-height: 1.2; }
+.lcard__actions .link { justify-self: center; font-size: .8rem; }
 .listings__more { margin-top: 40px; padding-top: 24px; border-top: 1px solid rgb(58 33 64 / .2); }
 .empty { margin-top: 48px; padding: 48px 24px; border: 1px solid rgb(58 33 64 / .2); background: var(--paper); text-align: center; }
 .empty p:first-child { font-family: var(--serif); font-size: 1.9rem; color: var(--aub); }
@@ -259,21 +259,41 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .sold h2 { margin-top: 16px; font-family: var(--serif); font-weight: 400; font-size: clamp(1.9rem, 1.6rem + 1.2vw, 2.4rem); line-height: 1.15; color: var(--aub); }
 .sold__head p:not(.eyebrow) { margin-top: 8px; color: var(--muted); }
 .sold__demo { margin-top: 12px; font-size: .875rem; font-style: italic; color: var(--muted); }
-.sold-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 16px; margin-top: 32px; }
+.sold-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 10px; margin-top: 24px; }
 .sold-card { display: block; width: 100%; text-align: left; }
 .sold-card__img { position: relative; display: block; aspect-ratio: 1; overflow: hidden; background: rgb(58 33 64 / .1); }
 .sold-card__img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.35); transition: transform .7s var(--ease), filter .7s var(--ease); }
 .sold-card:hover img { transform: scale(1.03); filter: none; }
-.sold-card .badges { position: absolute; left: 8px; top: 8px; transform: scale(.9); transform-origin: top left; }
-.sold-card__title { display: block; margin-top: 8px; font-size: .875rem; font-weight: 500; line-height: 1.4; }
+.sold-card .badges { position: absolute; left: 6px; top: 6px; }
+.sold-card__title { display: block; margin-top: 6px; font-size: .75rem; font-weight: 500; line-height: 1.4; }
 .sold-card__place { display: block; font-size: .75rem; color: var(--muted); }
 @media (min-width: 640px) {
-  .lcard { flex-basis: 70%; }
-  .sold-grid { grid-template-columns: repeat(3, 1fr); }
+  .filters { gap: 8px; }
+  .filters button { flex: none; padding: 0 16px; font-size: .875rem; }
+  .listing-cards { column-gap: 20px; }
+  .sold-grid { column-gap: 16px; }
 }
 @media (min-width: 768px) {
-  .listing-cards { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; gap: 56px 32px; margin: 32px 0 0; padding: 0; overflow: visible; }
-  .swipe-hint { display: none; }
+  /* A partir de 768px: tamanhos da versão de computador */
+  .listing-cards { gap: 56px 32px; margin-top: 32px; }
+  .only-desk { display: inline; }
+  .only-phone { display: none; }
+  .card__media .badges { left: 14px; top: 14px; gap: 6px; }
+  .card__media .badge, .sold-card .badge { padding: 5px 10px; font-size: .75rem; letter-spacing: .14em; }
+  .sold-card .badges { left: 8px; top: 8px; }
+  .chips { right: 14px; bottom: 14px; gap: 12px; padding: 6px 12px; }
+  .chips span + span { padding-left: 12px; }
+  .chips .only-desk { display: inline; }
+  .lcard__body { padding-top: 20px; }
+  .lcard h3 { font-size: 1.75rem; }
+  .details { gap: 4px 16px; margin-top: 12px; font-size: .95rem; }
+  .details dt { font-size: .75rem; letter-spacing: .14em; line-height: 1.6rem; }
+  .specs { gap: 4px 16px; margin-top: 10px; font-size: .9rem; }
+  .lcard__actions { padding-top: 24px; }
+  .lcard .btn { padding: 14px 24px; gap: 10px; font-size: .97rem; }
+  .lcard__actions .link { font-size: .92rem; }
+  .sold-grid { gap: 24px 16px; margin-top: 32px; }
+  .sold-card__title { margin-top: 8px; font-size: .875rem; }
   .sold { padding-block: 80px; }
   .sold__head { grid-template-columns: 1fr auto; align-items: end; }
 }
@@ -553,7 +573,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
       <span><strong>Demonstração.</strong> Os imóveis abaixo são demonstrações do layout. As imagens não representam imóveis reais e as informações marcadas como "a confirmar" serão preenchidas com dados confirmados.</span>
     </p>
     <div class="filters" role="group" aria-label="Filtrar imóveis" hidden></div>
-    <p class="swipe-hint" id="swipe-hint" aria-hidden="true" hidden>Deslize para ver mais imóveis<svg class="icon"><use href="#i-arrow"/></svg></p>
     <ul class="listing-cards" id="listing-cards"></ul>
     <div class="empty" id="listings-empty" hidden>
       <p>Novos imóveis em breve.</p>
@@ -823,7 +842,9 @@ const PROPERTIES = [
   const sold = visible.filter((p) => p.status === "vendido");
   const slidesOf = (item) => [...item.photos.map((photo) => ({ kind: "photo", photo })), ...(item.video ? [{ kind: "video", video: item.video }] : [])];
   const titleOf = (item) => item.title || item.propertyType || "Imóvel";
-  const badges = (item) => `<span class="badges"><span class="badge badge--${item.status}">${STATUS[item.status]}</span>${item.isDemo ? '<span class="badge badge--demo">Demonstração</span>' : ""}</span>`;
+  // compact: rótulo "Demo" nos cartões pequenos do celular
+  const badges = (item, compact = false) => `<span class="badges"><span class="badge badge--${item.status}">${STATUS[item.status]}</span>${item.isDemo
+    ? `<span class="badge badge--demo">${compact ? '<span class="only-phone">Demo</span><span class="only-desk">Demonstração</span>' : "Demonstração"}</span>` : ""}</span>`;
   const specs = (item) => item.specs?.length ? `<ul class="specs">${item.specs.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>` : "";
   const details = (item) => {
     const rows = [["Tipo", item.propertyType, "Tipo a confirmar"], ["Bairro", item.neighborhood, "Bairro a confirmar"]];
@@ -835,22 +856,25 @@ const PROPERTIES = [
     const msg = `Olá, Bianka! Vim pelo seu site e tenho interesse no imóvel "${titleOf(item)}" (${STATUS[item.status].toLowerCase()}${where}, código ${item.id}). Pode me passar mais informações?`;
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   };
-  const interestCta = (item, extra = "") => `<a class="btn btn--primary ${extra}" data-cta="interesse-${esc(item.id)}" href="${interestLink(item)}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")}Tenho interesse neste imóvel<span class="sr-only"> (abre em nova aba)</span></a>`;
+  // compact: texto curto no cartão do celular ("Tenho interesse"), completo para leitores de tela
+  const interestCta = (item, extra = "", compact = false) => `<a class="btn btn--primary ${extra}" data-cta="interesse-${esc(item.id)}" href="${interestLink(item)}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")}${compact
+    ? '<span class="only-phone">Tenho interesse<span class="sr-only"> neste imóvel</span></span><span class="only-desk">Tenho interesse neste imóvel</span>'
+    : "Tenho interesse neste imóvel"}<span class="sr-only"> (abre em nova aba)</span></a>`;
 
   const listingCard = (item) => {
     const n = item.photos.length, cover = item.photos[0], title = esc(titleOf(item));
     return `<li class="lcard" data-status="${item.status}">
       <button type="button" class="card__media" data-open="${esc(item.id)}" data-index="0" aria-label="Ver ${n} ${n === 1 ? "foto" : "fotos"}: ${title} (${STATUS[item.status].toLowerCase()})">
         <img src="${esc(cover.src)}" alt="" width="${cover.width}" height="${cover.height}" loading="lazy" decoding="async">
-        ${badges(item)}
-        <span class="chips" aria-hidden="true"><span>${icon("images")}${n} ${n === 1 ? "foto" : "fotos"}</span>${item.video ? `<span>${icon("play")}Vídeo tour</span>` : ""}</span>
+        ${badges(item, true)}
+        <span class="chips" aria-hidden="true"><span>${icon("images")}${n}<span class="only-desk">&nbsp;${n === 1 ? "foto" : "fotos"}</span></span>${item.video ? `<span>${icon("play")}<span class="only-desk">Vídeo tour</span></span>` : ""}</span>
       </button>
       <div class="lcard__body">
         <h3>${title}</h3>
         ${details(item)}
         ${specs(item)}
         <div class="lcard__actions">
-          ${interestCta(item)}
+          ${interestCta(item, "", true)}
           ${item.video ? `<button type="button" class="link" data-open="${esc(item.id)}" data-index="${n}">${icon("play")}Ver vídeo tour<span class="sr-only">: ${title}</span></button>` : ""}
         </div>
       </div>
@@ -860,7 +884,6 @@ const PROPERTIES = [
   const listEl = $("#listing-cards");
   if (listings.length) {
     listEl.innerHTML = listings.map(listingCard).join("");
-    $("#swipe-hint").hidden = listings.length < 2;
     $("[data-demo-note]").hidden = !listings.some((i) => i.isDemo);
     const count = (f) => (f === "todos" ? listings.length : listings.filter((i) => i.status === f).length);
     if (count("venda") && count("aluguel")) {
@@ -873,8 +896,6 @@ const PROPERTIES = [
         if (!b) return;
         $$("[data-filter]", filters).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
         $$(".lcard", listEl).forEach((li) => (li.hidden = b.dataset.filter !== "todos" && li.dataset.status !== b.dataset.filter));
-        $("#swipe-hint").hidden = count(b.dataset.filter) < 2;
-        listEl.scrollTo({ left: 0 });
       });
     }
   } else {
@@ -888,7 +909,7 @@ const PROPERTIES = [
     $("[data-sold-demo]").hidden = !sold.some((i) => i.isDemo);
     $("#sold-cards").innerHTML = sold.map((item) => `<li>
       <button type="button" class="sold-card" data-open="${esc(item.id)}" data-index="0" aria-label="Ver fotos: ${esc(titleOf(item))} (vendido)">
-        <span class="sold-card__img"><img src="${esc(item.photos[0].src)}" alt="" loading="lazy" decoding="async">${badges(item)}</span>
+        <span class="sold-card__img"><img src="${esc(item.photos[0].src)}" alt="" loading="lazy" decoding="async">${badges(item, true)}</span>
         <span class="sold-card__title">${esc(titleOf(item))}</span>
         ${item.neighborhood ? `<span class="sold-card__place">${esc(item.neighborhood)}</span>` : ""}
       </button></li>`).join("");

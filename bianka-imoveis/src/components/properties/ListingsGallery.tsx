@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
-import { LuArrowRight, LuImages, LuPlay } from "react-icons/lu";
+import { useState } from "react";
+import { LuImages, LuPlay } from "react-icons/lu";
 import { statusLabel, type Property, type PropertyStatus } from "@/content/properties";
 import { copy } from "@/content/site";
 import { propertyWhatsappLink } from "@/lib/whatsapp";
@@ -17,7 +17,6 @@ type Open = { item: Property; index: number } | null;
 export function ListingsGallery({ items }: { items: Property[] }) {
   const [filter, setFilter] = useState<Filter>("todos");
   const [open, setOpen] = useState<Open>(null);
-  const listRef = useRef<HTMLUListElement>(null);
 
   const count = (s: Filter) => (s === "todos" ? items.length : items.filter((i) => i.status === s).length);
   const showFilter = count("venda") > 0 && count("aluguel") > 0;
@@ -31,17 +30,14 @@ export function ListingsGallery({ items }: { items: Property[] }) {
   return (
     <>
       {showFilter && (
-        <div role="group" aria-label="Filtrar imóveis" className="mt-8 flex gap-2 overflow-x-auto sm:mt-10">
+        <div role="group" aria-label="Filtrar imóveis" className="mt-8 flex gap-1.5 sm:mt-10 sm:gap-2">
           {filters.map((f) => (
             <button
               key={f.id}
               type="button"
               aria-pressed={filter === f.id}
-              onClick={() => {
-                setFilter(f.id);
-                listRef.current?.scrollTo({ left: 0 });
-              }}
-              className={`min-h-11 shrink-0 border px-4 text-sm font-semibold transition-colors ${
+              onClick={() => setFilter(f.id)}
+              className={`min-h-11 flex-1 border px-1.5 text-[0.8rem] font-semibold whitespace-nowrap transition-colors sm:flex-none sm:px-4 sm:text-sm ${
                 filter === f.id
                   ? "border-aubergine bg-aubergine text-ivory"
                   : "border-aubergine/25 text-aubergine hover:border-aubergine"
@@ -53,16 +49,8 @@ export function ListingsGallery({ items }: { items: Property[] }) {
         </div>
       )}
 
-      {shown.length > 1 && (
-        <p aria-hidden="true" className="mt-5 flex items-center gap-2 text-sm text-muted md:hidden">
-          Deslize para ver mais imóveis
-          <LuArrowRight className="size-4" />
-        </p>
-      )}
-      <ul
-        ref={listRef}
-        className="relative -mx-5 mt-4 flex items-start snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] sm:-mx-8 sm:scroll-px-8 sm:px-8 md:mx-0 md:mt-8 md:grid md:grid-cols-2 md:items-stretch md:gap-x-8 md:gap-y-14 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden"
-      >
+      {/* Mesma grade de 2 colunas do computador; no celular os cartões ficam compactos. */}
+      <ul className="mt-6 grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5 md:mt-8 md:gap-x-8 md:gap-y-14">
         {shown.map((item) => {
           const cover = item.photos[0];
           const title = itemTitle(item);
@@ -70,7 +58,7 @@ export function ListingsGallery({ items }: { items: Property[] }) {
           const n = item.photos.length;
 
           return (
-            <li key={item.id} className="flex w-[86%] shrink-0 snap-start flex-col sm:w-[70%] md:w-auto">
+            <li key={item.id} className="flex min-w-0 flex-col">
               <button
                 type="button"
                 onClick={() => setOpen({ item, index: 0 })}
@@ -81,40 +69,41 @@ export function ListingsGallery({ items }: { items: Property[] }) {
                   src={cover.src}
                   alt=""
                   fill
-                  sizes="(min-width: 768px) 50vw, 100vw"
+                  sizes="50vw"
                   className="object-cover transition-transform duration-[1200ms] ease-soft group-hover:scale-[1.03]"
                 />
                 <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-aubergine-deep/55 via-transparent to-transparent" />
-                <Badges item={item} className="absolute left-4 top-4" />
+                <Badges item={item} compact className="absolute left-2 top-2 md:left-4 md:top-4" />
                 <span
                   aria-hidden="true"
-                  className="absolute bottom-4 right-4 flex items-center gap-3 bg-ivory/95 px-3 py-1.5 text-xs font-semibold text-aubergine"
+                  className="absolute bottom-2 right-2 flex items-center gap-2 bg-ivory/95 px-2 py-1 text-xs font-semibold text-aubergine md:bottom-4 md:right-4 md:gap-3 md:px-3 md:py-1.5"
                 >
                   <span className="flex items-center gap-1.5">
                     <LuImages className="size-3.5" />
-                    {n} {n === 1 ? "foto" : "fotos"}
+                    {n}
+                    <span className="hidden md:inline">{n === 1 ? "foto" : "fotos"}</span>
                   </span>
                   {item.video && (
-                    <span className="flex items-center gap-1.5 border-l border-aubergine/20 pl-3">
+                    <span className="flex items-center gap-1.5 border-l border-aubergine/20 pl-2 md:pl-3">
                       <LuPlay className="size-3.5" />
-                      Vídeo tour
+                      <span className="hidden md:inline">Vídeo tour</span>
                     </span>
                   )}
                 </span>
               </button>
 
-              <div className="flex flex-1 flex-col pt-5">
-                <h3 className="font-serif text-[1.75rem] leading-tight text-aubergine">{title}</h3>
-                <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-[0.95rem]">
+              <div className="flex flex-1 flex-col pt-3 md:pt-5">
+                <h3 className="font-serif text-[1.15rem] leading-tight text-aubergine sm:text-[1.4rem] md:text-[1.75rem]">{title}</h3>
+                <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-2 gap-y-0.5 text-[0.8rem] md:mt-3 md:gap-x-4 md:gap-y-1 md:text-[0.95rem]">
                   {itemDetails(item).map((d) => (
                     <div key={d.label} className="contents">
-                      <dt className="text-xs font-semibold uppercase leading-6 tracking-[0.14em] text-gold-ink">{d.label}</dt>
+                      <dt className="text-[0.6875rem] font-semibold uppercase leading-5 tracking-[0.08em] text-gold-ink md:text-xs md:leading-6 md:tracking-[0.14em]">{d.label}</dt>
                       <dd className={d.missing ? "italic text-muted" : "font-medium text-charcoal"}>{d.value}</dd>
                     </div>
                   ))}
                 </dl>
                 {item.specs && item.specs.length > 0 && (
-                  <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted">
+                  <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-0.5 text-[0.8rem] text-muted md:mt-3 md:gap-x-4 md:gap-y-1 md:text-sm">
                     {item.specs.map((s) => (
                       <li key={s}>
                         {s}
@@ -123,15 +112,18 @@ export function ListingsGallery({ items }: { items: Property[] }) {
                   </ul>
                 )}
 
-                <div className="mt-auto flex flex-col gap-1 pt-6 lg:flex-row lg:flex-wrap lg:items-center lg:gap-x-6">
-                  <CtaLink ctaId={`interesse-${item.id}`} href={propertyWhatsappLink(item)} icon className="w-full lg:w-auto">
-                    {copy.listings.cta}
+                <div className="mt-auto flex flex-col gap-1 pt-4 md:pt-6 lg:flex-row lg:flex-wrap lg:items-center lg:gap-x-6">
+                  <CtaLink ctaId={`interesse-${item.id}`} href={propertyWhatsappLink(item)} icon className="min-h-11 w-full !gap-1.5 !px-2.5 !py-2.5 text-[0.8rem] leading-tight md:!gap-2.5 md:!px-6 md:!py-3.5 md:text-[0.95rem] lg:w-auto">
+                    <span className="md:hidden">
+                      Tenho interesse<span className="sr-only"> neste imóvel</span>
+                    </span>
+                    <span className="hidden md:inline">{copy.listings.cta}</span>
                   </CtaLink>
                   {item.video && (
                     <button
                       type="button"
                       onClick={() => setOpen({ item, index: videoIndex })}
-                      className="inline-flex min-h-11 items-center justify-center gap-2 text-sm font-semibold text-aubergine underline decoration-gold decoration-1 underline-offset-[6px] hover:decoration-aubergine"
+                      className="inline-flex min-h-11 items-center justify-center gap-1.5 text-[0.8rem] font-semibold text-aubergine underline md:gap-2 md:text-sm decoration-gold decoration-1 underline-offset-[6px] hover:decoration-aubergine"
                     >
                       <LuPlay aria-hidden="true" className="size-4" />
                       Ver vídeo tour

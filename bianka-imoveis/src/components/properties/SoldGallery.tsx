@@ -13,7 +13,7 @@ export function SoldGallery({ items }: { items: Property[] }) {
 
   return (
     <>
-      <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-3 lg:grid-cols-4">
+      <ul className="mt-6 grid grid-cols-3 gap-x-2.5 gap-y-5 sm:gap-x-4 md:mt-8 md:gap-y-6 lg:grid-cols-4">
         {items.map((item) => {
           const title = itemTitle(item);
           return (
@@ -29,12 +29,12 @@ export function SoldGallery({ items }: { items: Property[] }) {
                     src={item.photos[0].src}
                     alt=""
                     fill
-                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                    sizes="(min-width: 1024px) 25vw, 33vw"
                     className="object-cover grayscale-[35%] transition-[transform,filter] duration-700 ease-soft group-hover:scale-[1.03] group-hover:grayscale-0"
                   />
-                  <Badges item={item} className="absolute left-2 top-2 scale-90 origin-top-left" />
+                  <Badges item={item} compact className="absolute left-1.5 top-1.5 md:left-2 md:top-2" />
                 </span>
-                <span className="mt-2 block text-sm font-medium leading-snug text-charcoal">{title}</span>
+                <span className="mt-1.5 block text-xs font-medium leading-snug text-charcoal md:mt-2 md:text-sm">{title}</span>
                 {item.neighborhood && <span className="block text-xs text-muted">{item.neighborhood}</span>}
               </button>
             </li>
