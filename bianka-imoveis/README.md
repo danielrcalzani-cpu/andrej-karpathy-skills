@@ -59,11 +59,11 @@ The hero uses `public/bianka/retrato.jpg` (713×894). To change it, replace that
 
 `html/index.html` is the same landing page as plain HTML, CSS and a little JavaScript — no build step, no Node.js. Upload the whole `html/` folder (the page plus `assets/`) to any static host (Hostinger, Netlify, GitHub Pages, cPanel…) and it works.
 
-Everything editable is in the `CONFIGURAÇÃO` block near the end of `index.html`:
+The page is written so that every section, including all property cards, shows even in viewers that don't run JavaScript (for example some in-app previews). JavaScript adds the photo/video viewer, the À venda / Para alugar filter, the bottom contact bar and the phone menu.
 
-- `YEARS_OF_EXPERIENCE`, `WHATSAPP_NUMBER`, `WHATSAPP_MESSAGES`
-- `SHOW_DEMO_PROPERTIES` — set to `false` before launch
-- `PROPERTIES` — one entry per property with `status: "venda" | "aluguel" | "vendido"` (commented example included); put the files in `html/assets/imoveis/<property>/`
+- **Contact settings** — the `CONFIGURAÇÃO` block near the end of `index.html`: `YEARS_OF_EXPERIENCE`, `WHATSAPP_NUMBER`, `WHATSAPP_MESSAGES`. The WhatsApp links in the page also carry the messages already, so they work without JavaScript; if you change a message, change it in the link too.
+- **Properties** — written directly in the HTML, under the comment `IMÓVEIS À VENDA E PARA ALUGAR` (and `IMÓVEIS VENDIDOS` for sold ones). Each property is one `<li>` block: copy a block, then edit its code (`data-property`), status (`data-status` + the label), cover photo, title, Tipo/Bairro/Valor, and the photo/video list in its `<script type="application/json">`. Put the files in `html/assets/imoveis/<property>/`. The "Tenho interesse" message is rebuilt automatically from the title, status, neighborhood and code.
+- **Before launch** — delete the demonstration blocks (the ones with `data-demo`). The demo notices disappear on their own; with no sold properties the "Trajetória" section hides, and with no available properties the page shows "Novos imóveis em breve" with a WhatsApp button.
 
 Portrait: replace `html/assets/bianka/retrato.jpg` (and the `width`/`height` on its `<img>` in the hero) (comments show the exact `<img>` to paste). Replace `SEU-DOMINIO` in the `<head>` with the real domain so link previews (WhatsApp, Instagram, Facebook) show the `assets/og-image.png` card.
 

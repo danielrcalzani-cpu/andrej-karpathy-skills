@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -250,6 +250,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .lcard .btn { min-height: 44px; padding: 10px; gap: 6px; font-size: .8rem; line-height: 1.2; }
 .lcard__actions .link { justify-self: center; font-size: .8rem; }
 .listings__more { margin-top: 40px; padding-top: 24px; border-top: 1px solid rgb(58 33 64 / .2); }
+/* Sem JavaScript: avisos e seções aparecem ou somem conforme os cartões existentes. */
+.listings:not(:has(.lcard[data-demo])) .note,
+.sold:not(:has([data-demo])) .sold__demo,
+.sold:not(:has(.sold-grid > li)),
+.listing-cards:not(:has(> li)),
+.listing-cards:not(:has(> li)) ~ .listings__more { display: none; }
+.empty { display: none; }
+.listing-cards:not(:has(> li)) ~ .empty { display: block; }
+.no-js .menu-btn { display: none; }
 .empty { margin-top: 48px; padding: 48px 24px; border: 1px solid rgb(58 33 64 / .2); background: var(--paper); text-align: center; }
 .empty p:first-child { font-family: var(--serif); font-size: 1.9rem; color: var(--aub); }
 .empty p + p { max-width: 28rem; margin: 12px auto 0; color: var(--muted); }
@@ -476,7 +485,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
       </ul>
     </nav>
     <div style="display:flex;align-items:center;gap:8px">
-      <a class="btn btn--primary header__cta" data-wa="geral" data-cta="header-whatsapp" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
+      <a class="btn btn--primary header__cta" data-wa="geral" data-cta="header-whatsapp" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener noreferrer">
         <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Falar com Bianka
       </a>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-mobile">
@@ -493,7 +502,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
         <li><a href="#servicos">Serviços</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
-      <a class="btn btn--primary btn--block" data-wa="geral" data-cta="menu-whatsapp" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
+      <a class="btn btn--primary btn--block" data-wa="geral" data-cta="menu-whatsapp" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener noreferrer">
         <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Falar com Bianka
       </a>
     </div>
@@ -522,7 +531,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
       <p class="tagline">Seu próximo capítulo começa no imóvel certo.</p>
       <p class="lead">Há <span data-years>22</span> anos, Bianka ajuda pessoas a comprar, vender e alugar imóveis em Manaus — com atendimento direto e orientação próxima em cada etapa.</p>
       <div id="hero-ctas" class="hero__ctas">
-        <a class="btn btn--primary" data-wa="geral" data-cta="hero-whatsapp" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
+        <a class="btn btn--primary" data-wa="geral" data-cta="hero-whatsapp" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener noreferrer">
           <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Falar com Bianka
         </a>
         <a class="btn btn--secondary" data-cta="hero-imoveis" href="#imoveis">Ver imóveis disponíveis<svg class="icon" aria-hidden="true" style="width:1rem;height:1rem"><use href="#i-arrow-down"/></svg></a>
@@ -553,14 +562,14 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
         <li><strong>Escuta antes de indicar</strong><p>Entender o que você precisa vem antes de qualquer sugestão de imóvel.</p></li>
         <li><strong><span data-years>22</span> anos de experiência</strong><p>Venda, locação e avaliação de imóveis em Manaus fazem parte da sua trajetória.</p></li>
       </ol>
-      <a class="btn btn--primary" data-wa="geral" data-cta="sobre-whatsapp" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
+      <a class="btn btn--primary" data-wa="geral" data-cta="sobre-whatsapp" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener noreferrer">
         <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Conversar com Bianka
       </a>
     </div>
   </div>
 </section>
 
-<!-- ========== IMÓVEIS À VENDA E PARA ALUGAR (preenchido pelo PROPERTIES no fim da página) ========== -->
+<!-- ========== IMÓVEIS À VENDA E PARA ALUGAR ========== -->
 <section id="imoveis" class="section listings" aria-labelledby="imoveis-title">
   <div class="wrap">
     <div class="listings__head">
@@ -570,27 +579,103 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
       </div>
       <p class="lead">Imóveis que Bianka representa no momento. Viu algo que combina com você? Fale diretamente com ela sobre o imóvel.</p>
     </div>
-    <p class="note" role="note" data-demo-note hidden>
+    <p class="note" role="note" data-demo-note>
       <svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>
       <span><strong>Demonstração.</strong> Os imóveis abaixo são demonstrações do layout. As imagens não representam imóveis reais e as informações marcadas como "a confirmar" serão preenchidas com dados confirmados.</span>
     </p>
     <div class="filters" role="group" aria-label="Filtrar imóveis" hidden></div>
-    <ul class="listing-cards" id="listing-cards"></ul>
-    <div class="empty" id="listings-empty" hidden>
+    <!--
+      IMÓVEIS À VENDA E PARA ALUGAR — cada <li class="lcard"> abaixo é um imóvel.
+      Para adicionar: copie um bloco <li class="lcard"> ... </li> inteiro e edite:
+        - data-property: código único do imóvel (vai na mensagem do WhatsApp)
+        - data-status: "venda" ou "aluguel" (e o rótulo: badge--venda "À venda" / badge--aluguel "Para alugar")
+        - remova data-demo e o rótulo "Demonstração" em imóveis reais
+        - fotos: o href/src da capa e a lista "photos" no <script type="application/json"> do fim do bloco
+        - título (<h3>), Tipo/Bairro/Valor (use class="missing" + "a confirmar" quando não houver a informação)
+        - vídeo tour (opcional): "video" no JSON + o link "Ver vídeo tour" (data-index = número de fotos)
+      A mensagem do WhatsApp de "Tenho interesse" é montada automaticamente a partir do título,
+      da situação, do bairro e do código; o href já preenchido é usado em visualizadores sem JavaScript.
+      Antes de publicar, apague os blocos de demonstração (data-demo).
+    -->
+    <ul class="listing-cards" id="listing-cards">
+      <li class="lcard" data-property="demo-venda-1" data-status="venda" data-demo>
+        <a class="card__media" href="assets/portfolio/demo/demo-1-fachada.jpg" data-open data-index="0" aria-label="Ver 3 fotos: Exemplo de casa à venda com vídeo tour (à venda)">
+          <img src="assets/portfolio/demo/demo-1-fachada.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async">
+          <span class="badges"><span class="badge badge--venda">À venda</span><span class="badge badge--demo"><span class="only-phone">Demo</span><span class="only-desk">Demonstração</span></span></span>
+          <span class="chips" aria-hidden="true"><span><svg class="icon" aria-hidden="true"><use href="#i-images"/></svg>3<span class="only-desk">&nbsp;fotos</span></span><span><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg><span class="only-desk">Vídeo tour</span></span></span>
+        </a>
+        <div class="lcard__body">
+          <h3>Exemplo de casa à venda com vídeo tour</h3>
+          <div><dl class="details"><dt>Tipo</dt><dd>Casa</dd><dt>Bairro</dt><dd class="missing">Bairro a confirmar</dd><dt>Valor</dt><dd class="missing">Valor sob consulta</dd></dl></div>
+          <div class="lcard__actions">
+            <a class="btn btn--primary" data-interest data-cta="interesse-demo-venda-1" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20tenho%20interesse%20no%20im%C3%B3vel%20%22Exemplo%20de%20casa%20%C3%A0%20venda%20com%20v%C3%ADdeo%20tour%22%20(%C3%A0%20venda%2C%20c%C3%B3digo%20demo-venda-1).%20Pode%20me%20passar%20mais%20informa%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg><span class="only-phone">Tenho interesse<span class="sr-only"> neste imóvel</span></span><span class="only-desk">Tenho interesse neste imóvel</span></a>
+            <a class="link" href="assets/portfolio/demo/demo-1-video.mp4" data-open data-index="3"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>Ver vídeo tour<span class="sr-only">: Exemplo de casa à venda com vídeo tour</span></a>
+          </div>
+        </div>
+        <script type="application/json">{"photos":[{"src":"assets/portfolio/demo/demo-1-fachada.jpg","alt":"Ilustração de demonstração de uma fachada","width":1600,"height":1067},{"src":"assets/portfolio/demo/demo-1-sala.jpg","alt":"Ilustração de demonstração de uma sala","width":1600,"height":1067},{"src":"assets/portfolio/demo/demo-1-detalhe.jpg","alt":"Ilustração vertical de demonstração de um ambiente","width":1080,"height":1350}],"video":{"type":"file","src":"assets/portfolio/demo/demo-1-video.mp4","srcWebm":"assets/portfolio/demo/demo-1-video.webm","poster":"assets/portfolio/demo/demo-1-video-poster.jpg","width":720,"height":1280},"description":"Item de demonstração para visualizar fotos e vídeo tour de um imóvel à venda."}</script>
+      </li>
+      <li class="lcard" data-property="demo-aluguel-1" data-status="aluguel" data-demo>
+        <a class="card__media" href="assets/portfolio/demo/demo-4-fachada.jpg" data-open data-index="0" aria-label="Ver 2 fotos: Exemplo de apartamento para alugar (para alugar)">
+          <img src="assets/portfolio/demo/demo-4-fachada.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async">
+          <span class="badges"><span class="badge badge--aluguel">Para alugar</span><span class="badge badge--demo"><span class="only-phone">Demo</span><span class="only-desk">Demonstração</span></span></span>
+          <span class="chips" aria-hidden="true"><span><svg class="icon" aria-hidden="true"><use href="#i-images"/></svg>2<span class="only-desk">&nbsp;fotos</span></span></span>
+        </a>
+        <div class="lcard__body">
+          <h3>Exemplo de apartamento para alugar</h3>
+          <div><dl class="details"><dt>Tipo</dt><dd>Apartamento</dd><dt>Bairro</dt><dd class="missing">Bairro a confirmar</dd><dt>Valor</dt><dd class="missing">Valor sob consulta</dd></dl></div>
+          <div class="lcard__actions">
+            <a class="btn btn--primary" data-interest data-cta="interesse-demo-aluguel-1" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20tenho%20interesse%20no%20im%C3%B3vel%20%22Exemplo%20de%20apartamento%20para%20alugar%22%20(para%20alugar%2C%20c%C3%B3digo%20demo-aluguel-1).%20Pode%20me%20passar%20mais%20informa%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg><span class="only-phone">Tenho interesse<span class="sr-only"> neste imóvel</span></span><span class="only-desk">Tenho interesse neste imóvel</span></a>
+          </div>
+        </div>
+        <script type="application/json">{"photos":[{"src":"assets/portfolio/demo/demo-4-fachada.jpg","alt":"Ilustração de demonstração de uma fachada","width":1600,"height":1067},{"src":"assets/portfolio/demo/demo-4-sala.jpg","alt":"Ilustração vertical de demonstração de uma sala","width":1080,"height":1350}]}</script>
+      </li>
+      <li class="lcard" data-property="demo-venda-2" data-status="venda" data-demo>
+        <a class="card__media" href="assets/portfolio/demo/demo-5-fachada.jpg" data-open data-index="0" aria-label="Ver 2 fotos: Exemplo de imóvel à venda (à venda)">
+          <img src="assets/portfolio/demo/demo-5-fachada.jpg" alt="" width="1080" height="1350" loading="lazy" decoding="async">
+          <span class="badges"><span class="badge badge--venda">À venda</span><span class="badge badge--demo"><span class="only-phone">Demo</span><span class="only-desk">Demonstração</span></span></span>
+          <span class="chips" aria-hidden="true"><span><svg class="icon" aria-hidden="true"><use href="#i-images"/></svg>2<span class="only-desk">&nbsp;fotos</span></span></span>
+        </a>
+        <div class="lcard__body">
+          <h3>Exemplo de imóvel à venda</h3>
+          <div><dl class="details"><dt>Tipo</dt><dd class="missing">Tipo a confirmar</dd><dt>Bairro</dt><dd class="missing">Bairro a confirmar</dd><dt>Valor</dt><dd class="missing">Valor sob consulta</dd></dl></div>
+          <div class="lcard__actions">
+            <a class="btn btn--primary" data-interest data-cta="interesse-demo-venda-2" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20tenho%20interesse%20no%20im%C3%B3vel%20%22Exemplo%20de%20im%C3%B3vel%20%C3%A0%20venda%22%20(%C3%A0%20venda%2C%20c%C3%B3digo%20demo-venda-2).%20Pode%20me%20passar%20mais%20informa%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg><span class="only-phone">Tenho interesse<span class="sr-only"> neste imóvel</span></span><span class="only-desk">Tenho interesse neste imóvel</span></a>
+          </div>
+        </div>
+        <script type="application/json">{"photos":[{"src":"assets/portfolio/demo/demo-5-fachada.jpg","alt":"Ilustração vertical de demonstração de uma fachada","width":1080,"height":1350},{"src":"assets/portfolio/demo/demo-5-sala.jpg","alt":"Ilustração de demonstração de uma sala","width":1600,"height":1067}]}</script>
+      </li>
+      <li class="lcard" data-property="demo-aluguel-2" data-status="aluguel" data-demo>
+        <a class="card__media" href="assets/portfolio/demo/demo-6-fachada.jpg" data-open data-index="0" aria-label="Ver 2 fotos: Exemplo de casa para alugar com vídeo tour (para alugar)">
+          <img src="assets/portfolio/demo/demo-6-fachada.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async">
+          <span class="badges"><span class="badge badge--aluguel">Para alugar</span><span class="badge badge--demo"><span class="only-phone">Demo</span><span class="only-desk">Demonstração</span></span></span>
+          <span class="chips" aria-hidden="true"><span><svg class="icon" aria-hidden="true"><use href="#i-images"/></svg>2<span class="only-desk">&nbsp;fotos</span></span><span><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg><span class="only-desk">Vídeo tour</span></span></span>
+        </a>
+        <div class="lcard__body">
+          <h3>Exemplo de casa para alugar com vídeo tour</h3>
+          <div><dl class="details"><dt>Tipo</dt><dd>Casa</dd><dt>Bairro</dt><dd class="missing">Bairro a confirmar</dd><dt>Valor</dt><dd class="missing">Valor sob consulta</dd></dl></div>
+          <div class="lcard__actions">
+            <a class="btn btn--primary" data-interest data-cta="interesse-demo-aluguel-2" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20tenho%20interesse%20no%20im%C3%B3vel%20%22Exemplo%20de%20casa%20para%20alugar%20com%20v%C3%ADdeo%20tour%22%20(para%20alugar%2C%20c%C3%B3digo%20demo-aluguel-2).%20Pode%20me%20passar%20mais%20informa%C3%A7%C3%B5es%3F" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg><span class="only-phone">Tenho interesse<span class="sr-only"> neste imóvel</span></span><span class="only-desk">Tenho interesse neste imóvel</span></a>
+            <a class="link" href="assets/portfolio/demo/demo-1-video.mp4" data-open data-index="2"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>Ver vídeo tour<span class="sr-only">: Exemplo de casa para alugar com vídeo tour</span></a>
+          </div>
+        </div>
+        <script type="application/json">{"photos":[{"src":"assets/portfolio/demo/demo-6-fachada.jpg","alt":"Ilustração de demonstração de uma fachada","width":1600,"height":1067},{"src":"assets/portfolio/demo/demo-6-sala.jpg","alt":"Ilustração de demonstração de uma sala","width":1600,"height":1067}],"video":{"type":"file","src":"assets/portfolio/demo/demo-1-video.mp4","srcWebm":"assets/portfolio/demo/demo-1-video.webm","poster":"assets/portfolio/demo/demo-1-video-poster.jpg","width":720,"height":1280}}</script>
+      </li>
+    </ul>
+    <div class="empty" id="listings-empty">
       <p>Novos imóveis em breve.</p>
       <p>Fale com Bianka para saber quais imóveis estão disponíveis agora.</p>
-      <a class="btn btn--primary" data-wa="imoveis" data-cta="imoveis-vazio" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
+      <a class="btn btn--primary" data-wa="imoveis" data-cta="imoveis-vazio" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20quais%20im%C3%B3veis%20voc%C3%AA%20tem%20dispon%C3%ADveis%20no%20momento." target="_blank" rel="noopener noreferrer">
         <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Perguntar sobre imóveis disponíveis
       </a>
     </div>
     <p class="listings__more" id="listings-more">
-      <a class="link" data-wa="imoveis" data-cta="imoveis-outros" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">Não encontrou o que procura? Fale com Bianka</a>
+      <a class="link" data-wa="imoveis" data-cta="imoveis-outros" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20quais%20im%C3%B3veis%20voc%C3%AA%20tem%20dispon%C3%ADveis%20no%20momento." target="_blank" rel="noopener noreferrer">Não encontrou o que procura? Fale com Bianka</a>
     </p>
   </div>
 </section>
 
 <!-- ========== IMÓVEIS VENDIDOS (compacto) ========== -->
-<section id="vendidos" class="sold" aria-labelledby="vendidos-title" hidden>
+<section id="vendidos" class="sold" aria-labelledby="vendidos-title">
   <div class="wrap">
     <div class="sold__head">
       <div>
@@ -598,10 +683,26 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
         <h2 id="vendidos-title">Imóveis vendidos. Novos capítulos iniciados.</h2>
         <p>Alguns imóveis que fizeram parte da trajetória de Bianka.</p>
       </div>
-      <a class="link" data-wa="portfolio" data-cta="vendidos-whatsapp" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">Quero encontrar um imóvel como esse</a>
+      <a class="link" data-wa="portfolio" data-cta="vendidos-whatsapp" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vi%20os%20im%C3%B3veis%20vendidos%20no%20seu%20site%20e%20gostaria%20de%20encontrar%20op%C3%A7%C3%B5es%20semelhantes." target="_blank" rel="noopener noreferrer">Quero encontrar um imóvel como esse</a>
     </div>
-    <p class="sold__demo" data-sold-demo hidden>Demonstração: estes itens não representam imóveis reais nem negociações realizadas.</p>
-    <ul class="sold-grid" id="sold-cards"></ul>
+    <p class="sold__demo" data-sold-demo>Demonstração: estes itens não representam imóveis reais nem negociações realizadas.</p>
+    <!-- IMÓVEIS VENDIDOS — mesmo formato dos cartões acima, com data-status="vendido". -->
+    <ul class="sold-grid" id="sold-cards">
+      <li data-property="demo-vendido-1" data-status="vendido" data-demo>
+        <a class="sold-card" href="assets/portfolio/demo/demo-2-fachada.jpg" data-open data-index="0" aria-label="Ver fotos: Exemplo de imóvel vendido (vendido)">
+          <span class="sold-card__img"><img src="assets/portfolio/demo/demo-2-fachada.jpg" alt="" width="1080" height="1350" loading="lazy" decoding="async"><span class="badges"><span class="badge badge--vendido">Vendido</span><span class="badge badge--demo"><span class="only-phone">Demo</span><span class="only-desk">Demonstração</span></span></span></span>
+          <span class="sold-card__title">Exemplo de imóvel vendido</span>
+        </a>
+        <script type="application/json">{"photos":[{"src":"assets/portfolio/demo/demo-2-fachada.jpg","alt":"Ilustração vertical de demonstração de uma fachada","width":1080,"height":1350},{"src":"assets/portfolio/demo/demo-2-sala.jpg","alt":"Ilustração vertical de demonstração de uma sala","width":1080,"height":1350}]}</script>
+      </li>
+      <li data-property="demo-vendido-2" data-status="vendido" data-demo>
+        <a class="sold-card" href="assets/portfolio/demo/demo-3-fachada.jpg" data-open data-index="0" aria-label="Ver fotos: Exemplo de imóvel vendido (vendido)">
+          <span class="sold-card__img"><img src="assets/portfolio/demo/demo-3-fachada.jpg" alt="" width="1600" height="1067" loading="lazy" decoding="async"><span class="badges"><span class="badge badge--vendido">Vendido</span><span class="badge badge--demo"><span class="only-phone">Demo</span><span class="only-desk">Demonstração</span></span></span></span>
+          <span class="sold-card__title">Exemplo de imóvel vendido</span>
+        </a>
+        <script type="application/json">{"photos":[{"src":"assets/portfolio/demo/demo-3-fachada.jpg","alt":"Ilustração de demonstração de uma fachada","width":1600,"height":1067},{"src":"assets/portfolio/demo/demo-3-sala.jpg","alt":"Ilustração de demonstração de uma sala","width":1600,"height":1067}]}</script>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -614,21 +715,21 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
       <li class="service">
         <h3>Comprar um imóvel</h3>
         <p>Converse sobre o que você procura e dê o próximo passo na busca pelo seu novo endereço.</p>
-        <a class="link" data-wa="comprar" data-cta="servico-comprar" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">Quero comprar<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="link" data-wa="comprar" data-cta="servico-comprar" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20encontrar%20um%20im%C3%B3vel%20em%20Manaus." target="_blank" rel="noopener noreferrer">Quero comprar<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </li>
       <li class="service">
         <h3>Vender ou alugar</h3>
         <p>Conte com orientação para apresentar seu imóvel e conversar sobre as possibilidades de negociação.</p>
-        <a class="link" data-wa="anunciar" data-cta="servico-vender" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">Quero anunciar meu imóvel<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="link" data-wa="anunciar" data-cta="servico-vender" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20vender%20ou%20alugar%20o%20meu%20im%C3%B3vel." target="_blank" rel="noopener noreferrer">Quero anunciar meu imóvel<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </li>
       <li class="service">
         <h3>Avaliação de imóveis</h3>
         <p>Entenda melhor o posicionamento do seu imóvel no mercado de Manaus.</p>
-        <a class="link" data-wa="avaliacao" data-cta="servico-avaliacao" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">Solicitar avaliação<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="link" data-wa="avaliacao" data-cta="servico-avaliacao" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20solicitar%20uma%20avalia%C3%A7%C3%A3o%20do%20meu%20im%C3%B3vel." target="_blank" rel="noopener noreferrer">Solicitar avaliação<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </li>
     </ul>
     <p class="rental">Procura um imóvel para alugar?
-      <a class="link" data-wa="locacao" data-cta="servico-locacao" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">Falar sobre locação</a>
+      <a class="link" data-wa="locacao" data-cta="servico-locacao" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20loca%C3%A7%C3%A3o%20de%20im%C3%B3veis." target="_blank" rel="noopener noreferrer">Falar sobre locação</a>
     </p>
   </div>
 </section>
@@ -663,7 +764,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     <h2 id="contato-title">Vamos conversar sobre o seu próximo imóvel?</h2>
     <p>Seja para comprar, vender ou alugar em Manaus, o primeiro passo é entender o que você precisa.</p>
     <div class="final__ctas">
-      <a class="btn btn--gold" data-wa="geral" data-cta="final-whatsapp" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
+      <a class="btn btn--gold" data-wa="geral" data-cta="final-whatsapp" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener noreferrer">
         <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Falar com Bianka no WhatsApp
       </a>
       <a class="link" data-cta="final-instagram" href="https://www.instagram.com/bianka.imoveis/" target="_blank" rel="noopener noreferrer">
@@ -682,7 +783,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     </div>
     <nav aria-label="Contato e redes">
       <ul class="footer__links">
-        <li><a data-wa="geral" data-cta="footer-whatsapp" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp (92) 98423-1601</a></li>
+        <li><a data-wa="geral" data-cta="footer-whatsapp" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp (92) 98423-1601</a></li>
         <li><a data-cta="footer-instagram" href="https://www.instagram.com/bianka.imoveis/" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg>Instagram @bianka.imoveis</a></li>
       </ul>
     </nav>
@@ -690,7 +791,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   <div class="footer__copy"><div class="wrap">© <span data-year>2026</span> Bianka Rodrigues Imóveis. Todos os direitos reservados.</div></div>
 </footer>
 
-<a class="contact-bar" data-wa="geral" data-cta="mobile-whatsapp" data-hidden="true" aria-hidden="true" tabindex="-1" href="https://wa.me/5592984231601" target="_blank" rel="noopener noreferrer">
+<a class="contact-bar" data-wa="geral" data-cta="mobile-whatsapp" data-hidden="true" aria-hidden="true" tabindex="-1" href="https://wa.me/5592984231601?text=Ol%C3%A1%2C%20Bianka!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener noreferrer">
   <img src="assets/bianka/retrato.jpg" alt="" width="44" height="44" loading="lazy" decoding="async">
   <span class="contact-bar__text"><strong>Bianka Rodrigues</strong><small>Corretora · CRECI 1259 PF</small></span>
   <span class="contact-bar__btn"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</span>
@@ -732,93 +833,7 @@ const WHATSAPP_MESSAGES = {
   geral: "Olá, Bianka! Vim pelo seu site e gostaria de conversar.",
 };
 
-/* Antes de publicar, mude para false. */
-const SHOW_DEMO_PROPERTIES = true;
-
-/* Imóveis da Bianka.
-   status: "venda" | "aluguel" -> seção "Imóveis à venda e para alugar com Bianka"
-           "vendido"           -> seção menor de imóveis já vendidos
-   Use apenas informações confirmadas. Campos vazios aparecem como
-   "a confirmar" / "Valor sob consulta". Não informe endereço completo.
-   Fotos em assets/imoveis/<imovel>/. Exemplo de imóvel real:
-   {
-     id: "casa-ponta-negra",              // código único; vai na mensagem do WhatsApp
-     status: "venda",
-     title: "Casa em condomínio",
-     neighborhood: "Ponta Negra",          // opcional
-     propertyType: "Casa",                  // opcional
-     price: "R$ 000.000",                   // opcional; sem ele: "Valor sob consulta"
-     description: "Casa térrea com área de lazer.", // opcional
-     specs: ["3 quartos", "1 suíte"],       // opcional
-     photos: [
-       { src: "assets/imoveis/casa-ponta-negra/01.jpg", alt: "Fachada", width: 1600, height: 1067 },
-     ],
-     // vídeo tour opcional — um destes formatos:
-     video: { type: "file", src: "assets/imoveis/casa-ponta-negra/tour.mp4", poster: "assets/imoveis/casa-ponta-negra/capa.jpg", width: 1080, height: 1920 },
-     // video: { type: "youtube", id: "ID_DO_VIDEO", poster: "...", width: 1920, height: 1080 },
-     // video: { type: "vimeo", id: "123456789", poster: "...", width: 1920, height: 1080 },
-   },
-*/
-const DEMO = "assets/portfolio/demo/";
-const DEMO_VIDEO = { type: "file", src: DEMO + "demo-1-video.mp4", srcWebm: DEMO + "demo-1-video.webm", poster: DEMO + "demo-1-video-poster.jpg", width: 720, height: 1280 };
-const PROPERTIES = [
-  // Itens de demonstração: bairro e valor ficam vazios de propósito.
-  {
-    id: "demo-venda-1", status: "venda", isDemo: true,
-    title: "Exemplo de casa à venda com vídeo tour",
-    propertyType: "Casa",
-    description: "Item de demonstração para visualizar fotos e vídeo tour de um imóvel à venda.",
-    photos: [
-      { src: DEMO + "demo-1-fachada.jpg", alt: "Ilustração de demonstração de uma fachada", width: 1600, height: 1067 },
-      { src: DEMO + "demo-1-sala.jpg", alt: "Ilustração de demonstração de uma sala", width: 1600, height: 1067 },
-      { src: DEMO + "demo-1-detalhe.jpg", alt: "Ilustração vertical de demonstração de um ambiente", width: 1080, height: 1350 },
-    ],
-    video: DEMO_VIDEO,
-  },
-  {
-    id: "demo-aluguel-1", status: "aluguel", isDemo: true,
-    title: "Exemplo de apartamento para alugar",
-    propertyType: "Apartamento",
-    photos: [
-      { src: DEMO + "demo-4-fachada.jpg", alt: "Ilustração de demonstração de uma fachada", width: 1600, height: 1067 },
-      { src: DEMO + "demo-4-sala.jpg", alt: "Ilustração vertical de demonstração de uma sala", width: 1080, height: 1350 },
-    ],
-  },
-  {
-    id: "demo-venda-2", status: "venda", isDemo: true,
-    title: "Exemplo de imóvel à venda",
-    photos: [
-      { src: DEMO + "demo-5-fachada.jpg", alt: "Ilustração vertical de demonstração de uma fachada", width: 1080, height: 1350 },
-      { src: DEMO + "demo-5-sala.jpg", alt: "Ilustração de demonstração de uma sala", width: 1600, height: 1067 },
-    ],
-  },
-  {
-    id: "demo-aluguel-2", status: "aluguel", isDemo: true,
-    title: "Exemplo de casa para alugar com vídeo tour",
-    propertyType: "Casa",
-    photos: [
-      { src: DEMO + "demo-6-fachada.jpg", alt: "Ilustração de demonstração de uma fachada", width: 1600, height: 1067 },
-      { src: DEMO + "demo-6-sala.jpg", alt: "Ilustração de demonstração de uma sala", width: 1600, height: 1067 },
-    ],
-    video: DEMO_VIDEO,
-  },
-  {
-    id: "demo-vendido-1", status: "vendido", isDemo: true,
-    title: "Exemplo de imóvel vendido",
-    photos: [
-      { src: DEMO + "demo-2-fachada.jpg", alt: "Ilustração vertical de demonstração de uma fachada", width: 1080, height: 1350 },
-      { src: DEMO + "demo-2-sala.jpg", alt: "Ilustração vertical de demonstração de uma sala", width: 1080, height: 1350 },
-    ],
-  },
-  {
-    id: "demo-vendido-2", status: "vendido", isDemo: true,
-    title: "Exemplo de imóvel vendido",
-    photos: [
-      { src: DEMO + "demo-3-fachada.jpg", alt: "Ilustração de demonstração de uma fachada", width: 1600, height: 1067 },
-      { src: DEMO + "demo-3-sala.jpg", alt: "Ilustração de demonstração de uma sala", width: 1600, height: 1067 },
-    ],
-  },
-];
+/* Os imóveis ficam escritos no HTML (procure "IMÓVEIS À VENDA E PARA ALUGAR" acima). */
 
 /* =====================================================================
    Comportamento — não é preciso editar abaixo
@@ -830,90 +845,62 @@ const PROPERTIES = [
   const icon = (id, cls = "icon") => `<svg class="${cls}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
   const waLink = (intent) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGES[intent] || WHATSAPP_MESSAGES.geral)}`;
 
+  document.documentElement.classList.remove("no-js");
   $$("[data-years]").forEach((el) => (el.textContent = YEARS_OF_EXPERIENCE));
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 
   // External links: announce new tab for screen readers.
   $$('a[target="_blank"]').forEach((a) => a.insertAdjacentHTML("beforeend", '<span class="sr-only"> (abre em nova aba)</span>'));
 
-  /* ---------- Imóveis ---------- */
+  /* ---------- Imóveis (cartões escritos no HTML) ---------- */
   const STATUS = { venda: "À venda", aluguel: "Para alugar", vendido: "Vendido" };
-  const visible = PROPERTIES.filter((p) => !p.isDemo || SHOW_DEMO_PROPERTIES);
-  const byId = Object.fromEntries(visible.map((p) => [p.id, p]));
-  const listings = visible.filter((p) => p.status !== "vendido");
-  const sold = visible.filter((p) => p.status === "vendido");
-  const slidesOf = (item) => [...item.photos.map((photo) => ({ kind: "photo", photo })), ...(item.video ? [{ kind: "video", video: item.video }] : [])];
-  const titleOf = (item) => item.title || item.propertyType || "Imóvel";
-  // compact: rótulo "Demo" nos cartões pequenos do celular
-  const badges = (item, compact = false) => `<span class="badges"><span class="badge badge--${item.status}">${STATUS[item.status]}</span>${item.isDemo
-    ? `<span class="badge badge--demo">${compact ? '<span class="only-phone">Demo</span><span class="only-desk">Demonstração</span>' : "Demonstração"}</span>` : ""}</span>`;
-  const specs = (item) => item.specs?.length ? `<ul class="specs">${item.specs.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>` : "";
-  const details = (item) => {
-    const rows = [["Tipo", item.propertyType, "Tipo a confirmar"], ["Bairro", item.neighborhood, "Bairro a confirmar"]];
-    if (item.status !== "vendido") rows.push(["Valor", item.price, "Valor sob consulta"]);
-    return `<dl class="details">${rows.map(([l, v, ph]) => `<dt>${l}</dt><dd${v ? "" : ' class="missing"'}>${esc(v || ph)}</dd>`).join("")}</dl>`;
+  // Lê um cartão: textos visíveis + fotos/vídeo/descrição do <script type="application/json">.
+  const readItem = (li) => {
+    const data = JSON.parse($('script[type="application/json"]', li)?.textContent || "{}");
+    const bairro = $$(".details dt", li).find((dt) => dt.textContent.trim() === "Bairro")?.nextElementSibling;
+    const img = $("img", li);
+    return {
+      ...data,
+      id: li.dataset.property,
+      status: li.dataset.status,
+      isDemo: li.hasAttribute("data-demo"),
+      title: ($("h3, .sold-card__title", li)?.textContent || "Imóvel").trim(),
+      neighborhood: bairro && !bairro.classList.contains("missing") ? bairro.textContent.trim() : "",
+      detailsEl: $(".details", li),
+      specsEl: $(".specs", li),
+      photos: data.photos?.length ? data.photos : [{ src: img.getAttribute("src"), alt: "", width: img.width || 1600, height: img.height || 1067 }],
+    };
   };
+  const slidesOf = (item) => [...item.photos.map((photo) => ({ kind: "photo", photo })), ...(item.video ? [{ kind: "video", video: item.video }] : [])];
+  const badges = (item) => `<span class="badges"><span class="badge badge--${item.status}">${STATUS[item.status]}</span>${item.isDemo ? '<span class="badge badge--demo">Demonstração</span>' : ""}</span>`;
   const interestLink = (item) => {
     const where = item.neighborhood ? `, no bairro ${item.neighborhood}` : "";
-    const msg = `Olá, Bianka! Vim pelo seu site e tenho interesse no imóvel "${titleOf(item)}" (${STATUS[item.status].toLowerCase()}${where}, código ${item.id}). Pode me passar mais informações?`;
+    const msg = `Olá, Bianka! Vim pelo seu site e tenho interesse no imóvel "${item.title}" (${STATUS[item.status].toLowerCase()}${where}, código ${item.id}). Pode me passar mais informações?`;
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   };
-  // compact: texto curto no cartão do celular ("Tenho interesse"), completo para leitores de tela
-  const interestCta = (item, extra = "", compact = false) => `<a class="btn btn--primary ${extra}" data-cta="interesse-${esc(item.id)}" href="${interestLink(item)}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")}${compact
-    ? '<span class="only-phone">Tenho interesse<span class="sr-only"> neste imóvel</span></span><span class="only-desk">Tenho interesse neste imóvel</span>'
-    : "Tenho interesse neste imóvel"}<span class="sr-only"> (abre em nova aba)</span></a>`;
+  const interestCta = (item, extra = "") => `<a class="btn btn--primary ${extra}" data-cta="interesse-${esc(item.id)}" href="${interestLink(item)}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")}Tenho interesse neste imóvel<span class="sr-only"> (abre em nova aba)</span></a>`;
 
-  const listingCard = (item) => {
-    const n = item.photos.length, cover = item.photos[0], title = esc(titleOf(item));
-    return `<li class="lcard" data-status="${item.status}">
-      <button type="button" class="card__media" data-open="${esc(item.id)}" data-index="0" aria-label="Ver ${n} ${n === 1 ? "foto" : "fotos"}: ${title} (${STATUS[item.status].toLowerCase()})">
-        <img src="${esc(cover.src)}" alt="" width="${cover.width}" height="${cover.height}" loading="lazy" decoding="async">
-        ${badges(item, true)}
-        <span class="chips" aria-hidden="true"><span>${icon("images")}${n}<span class="only-desk">&nbsp;${n === 1 ? "foto" : "fotos"}</span></span>${item.video ? `<span>${icon("play")}<span class="only-desk">Vídeo tour</span></span>` : ""}</span>
-      </button>
-      <div class="lcard__body">
-        <h3>${title}</h3>
-        <div>${details(item)}${specs(item)}</div>
-        <div class="lcard__actions">
-          ${interestCta(item, "", true)}
-          ${item.video ? `<button type="button" class="link" data-open="${esc(item.id)}" data-index="${n}">${icon("play")}Ver vídeo tour<span class="sr-only">: ${title}</span></button>` : ""}
-        </div>
-      </div>
-    </li>`;
-  };
+  // Mantém a mensagem de "Tenho interesse" em dia com o título, o bairro e o código do cartão.
+  $$("[data-property]").forEach((li) => {
+    const a = $("[data-interest]", li);
+    if (a) a.href = interestLink(readItem(li));
+  });
 
+  // Filtro À venda / Para alugar
   const listEl = $("#listing-cards");
-  if (listings.length) {
-    listEl.innerHTML = listings.map(listingCard).join("");
-    $("[data-demo-note]").hidden = !listings.some((i) => i.isDemo);
-    const count = (f) => (f === "todos" ? listings.length : listings.filter((i) => i.status === f).length);
-    if (count("venda") && count("aluguel")) {
-      const filters = $(".filters");
-      filters.hidden = false;
-      filters.innerHTML = [["todos", "Todos"], ["venda", STATUS.venda], ["aluguel", STATUS.aluguel]]
-        .map(([f, l]) => `<button type="button" data-filter="${f}" aria-pressed="${f === "todos"}">${l} <small>(${count(f)})</small></button>`).join("");
-      filters.addEventListener("click", (e) => {
-        const b = e.target.closest("[data-filter]");
-        if (!b) return;
-        $$("[data-filter]", filters).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-        $$(".lcard", listEl).forEach((li) => (li.hidden = b.dataset.filter !== "todos" && li.dataset.status !== b.dataset.filter));
-      });
-    }
-  } else {
-    listEl.hidden = true;
-    $("#listings-more").hidden = true;
-    $("#listings-empty").hidden = false;
-  }
-
-  if (sold.length) {
-    $("#vendidos").hidden = false;
-    $("[data-sold-demo]").hidden = !sold.some((i) => i.isDemo);
-    $("#sold-cards").innerHTML = sold.map((item) => `<li>
-      <button type="button" class="sold-card" data-open="${esc(item.id)}" data-index="0" aria-label="Ver fotos: ${esc(titleOf(item))} (vendido)">
-        <span class="sold-card__img"><img src="${esc(item.photos[0].src)}" alt="" loading="lazy" decoding="async">${badges(item, true)}</span>
-        <span class="sold-card__title">${esc(titleOf(item))}</span>
-        ${item.neighborhood ? `<span class="sold-card__place">${esc(item.neighborhood)}</span>` : ""}
-      </button></li>`).join("");
+  const cards = $$(".lcard", listEl);
+  const countOf = (f) => (f === "todos" ? cards.length : cards.filter((li) => li.dataset.status === f).length);
+  if (countOf("venda") && countOf("aluguel")) {
+    const filters = $(".filters");
+    filters.hidden = false;
+    filters.innerHTML = [["todos", "Todos"], ["venda", STATUS.venda], ["aluguel", STATUS.aluguel]]
+      .map(([f, l]) => `<button type="button" data-filter="${f}" aria-pressed="${f === "todos"}">${l} <small>(${countOf(f)})</small></button>`).join("");
+    filters.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-filter]");
+      if (!b) return;
+      $$("[data-filter]", filters).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      cards.forEach((li) => (li.hidden = b.dataset.filter !== "todos" && li.dataset.status !== b.dataset.filter));
+    });
   }
 
   /* ---------- Lightbox ---------- */
@@ -932,7 +919,7 @@ const PROPERTIES = [
 
   function render() {
     const s = slides[index];
-    const title = esc(titleOf(current));
+    const title = esc(current.title);
     if (s.kind === "photo") {
       stage.innerHTML = `<img src="${esc(s.photo.src)}" alt="${esc(s.photo.alt)}" width="${s.photo.width}" height="${s.photo.height}">`;
     } else if (s.video.type === "file") {
@@ -970,11 +957,11 @@ const PROPERTIES = [
       <img src="${esc(s.kind === "photo" ? s.photo.src : s.video.poster)}" alt="" loading="lazy">
       ${s.kind === "video" ? icon("play") : ""}<span class="sr-only">Mostrar ${label(s, i).toLowerCase()}</span></button></li>`).join("");
     info.innerHTML = `${badges(item)}
-      <h2 id="lb-title">${esc(titleOf(item))}</h2>
+      <h2 id="lb-title">${esc(item.title)}</h2>
       ${item.isDemo ? "<p>Item de demonstração. As imagens não representam um imóvel real.</p>" : ""}
-      ${details(item)}
+      ${item.detailsEl ? item.detailsEl.outerHTML : ""}
       ${item.description ? `<p>${esc(item.description)}</p>` : ""}
-      ${specs(item)}
+      ${item.specsEl ? item.specsEl.outerHTML : ""}
       <div class="lb__cta">${item.status === "vendido"
         ? `<a class="btn btn--gold btn--block" data-cta="lightbox-vendido" href="${waLink("portfolio")}" target="_blank" rel="noopener noreferrer">${icon("whatsapp")}Quero encontrar um imóvel como esse<span class="sr-only"> (abre em nova aba)</span></a>`
         : interestCta(item, "btn--gold btn--block")}</div>`;
@@ -995,9 +982,13 @@ const PROPERTIES = [
     opener?.focus();
   });
 
+  // Fotos e vídeos abrem na galeria; sem JavaScript, os links abrem o arquivo direto.
   document.addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-open]");
-    if (btn && byId[btn.dataset.open]) openLightbox(byId[btn.dataset.open], +btn.dataset.index, btn);
+    const trigger = e.target.closest("[data-open]");
+    const li = trigger?.closest("[data-property]");
+    if (!li) return;
+    e.preventDefault();
+    openLightbox(readItem(li), +trigger.dataset.index, trigger);
   });
   $(".lb__close").addEventListener("click", closeLightbox);
   $(".lb__nav--prev").addEventListener("click", () => go(-1));
