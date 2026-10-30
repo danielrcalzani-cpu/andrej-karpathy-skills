@@ -1,0 +1,9 @@
+{
+  "name": "Entregas · Mercatto Decor",
+  "short_name": "Entregas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F9FA",
+  "theme_color": "#1F2937",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
