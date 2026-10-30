@@ -319,7 +319,7 @@ export function DeliveryDrawer({ id, onClose, onEdit }: { id: number | null; onC
       subtitle={d ? [d.order_number && `Pedido #${d.order_number}`, `Atualizada em ${formatDateTime(d.updated_at)}`].filter(Boolean).join(' · ') : undefined}
       footer={
         d && (
-          <div className="row wrap" style={{ width: '100%', justifyContent: 'flex-end' }}>
+          <div className="row wrap foot-actions" style={{ width: '100%', justifyContent: 'flex-end' }}>
             {!final && (
               <Button variant="danger-outline" icon={<Ban size={15} />} onClick={() => action('cancel', { title: 'Cancelar entrega?', reason: 'Motivo do cancelamento', label: 'Cancelar entrega', danger: true, ok: 'Entrega cancelada.' })}>
                 Cancelar entrega

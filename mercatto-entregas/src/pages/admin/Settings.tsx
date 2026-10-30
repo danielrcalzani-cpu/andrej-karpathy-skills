@@ -169,7 +169,7 @@ function UsersSection() {
         </div>
       ) : (
         <div className="table-wrap">
-          <table className="table">
+          <table className="table responsive">
             <thead>
               <tr>
                 <th>Nome</th>
@@ -182,13 +182,13 @@ function UsersSection() {
             <tbody>
               {res.data.users.map((u) => (
                 <tr key={u.id}>
-                  <td className="strong">
+                  <td className="strong cell-title">
                     {u.name} {u.id === me.id && <span className="tiny muted">(você)</span>}
                   </td>
-                  <td>{u.username}</td>
-                  <td>{u.role === 'admin' ? 'Administrador' : `Entregador${u.driver_name ? ` — ${u.driver_name}` : ''}`}</td>
-                  <td>{u.active ? <Badge tone="success">Ativo</Badge> : <Badge>Bloqueado</Badge>}</td>
-                  <td>
+                  <td data-label="Usuário">{u.username}</td>
+                  <td data-label="Perfil">{u.role === 'admin' ? 'Administrador' : `Entregador${u.driver_name ? ` — ${u.driver_name}` : ''}`}</td>
+                  <td data-label="Situação">{u.active ? <Badge tone="success">Ativo</Badge> : <Badge>Bloqueado</Badge>}</td>
+                  <td className="cell-action">
                     <Button size="sm" variant="ghost" icon={<KeyRound size={14} />} onClick={() => setEdit(u)}>
                       Editar
                     </Button>

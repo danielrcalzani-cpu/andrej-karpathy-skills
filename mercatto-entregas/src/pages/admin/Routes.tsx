@@ -151,8 +151,7 @@ function RouteColumn({ driverId, driverName, stops: initial, date }: { driverId:
               </div>
               {!isFinal(s.status) && (
                 <select
-                  className="select"
-                  style={{ minHeight: 30, fontSize: 12.5, marginTop: 6, maxWidth: 220, padding: '2px 30px 2px 8px' }}
+                  className="select route-select"
                   value={s.driver_id ?? ''}
                   disabled={busy || dirty}
                   title={dirty ? 'Salve a ordem antes de remanejar' : undefined}

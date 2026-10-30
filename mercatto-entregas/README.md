@@ -24,6 +24,13 @@ No primeiro início, o administrador definido em `ADMIN_USERNAME`/`ADMIN_PASSWOR
 3. **Configurações → Usuários**: crie o acesso de cada entregador (perfil *Entregador*, vinculado ao cadastro).
    O entregador entra pelo mesmo endereço no celular e vê somente as próprias entregas.
 
+**Sem `npm install`:** o servidor usa apenas módulos nativos do Node. Se a pasta `dist/` já estiver presente
+(como no arquivo .zip distribuído), basta `cp .env.example .env`, definir a senha e rodar `npm start`.
+`npm install` só é necessário para desenvolver ou gerar um novo build.
+
+**Celular:** o app pode ser instalado na tela inicial (Android: menu → *Instalar app*; iPhone: Compartilhar →
+*Adicionar à Tela de Início*). Ele abre rápido e abre mesmo sem sinal; os dados de entregas continuam vindo do servidor.
+
 Desenvolvimento: `npm run dev` (API na porta 3000 + Vite na 5173 com proxy).
 
 ### Variáveis de ambiente

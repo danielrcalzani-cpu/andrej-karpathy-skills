@@ -133,17 +133,21 @@ export function DeliveryCard({ d, compact }: { d: Delivery; compact?: boolean })
         <PrepIndicator d={d} />
         {d.open_problems > 0 && d.status !== 'problema' && <Badge tone="danger">{d.open_problems} problema(s) em aberto</Badge>}
       </div>
-      <div className="row wrap">
-        <PrimaryAction d={d} />
-        {!final && !compact && (
-          <>
-            <NavButtons delivery={d} />
-            <WhatsAppButton delivery={d} />
-          </>
-        )}
-        <Button size="sm" variant="ghost" onClick={() => openDelivery(d.id)}>
-          Detalhes
-        </Button>
+      <div className="row wrap actions">
+        <div className="primary-slot">
+          <PrimaryAction d={d} />
+        </div>
+        <div className="quick-actions">
+          {!final && !compact && (
+            <>
+              <NavButtons delivery={d} compact />
+              <WhatsAppButton delivery={d} />
+            </>
+          )}
+          <Button size="sm" variant="ghost" className={!final && !compact ? 'desktop-only' : undefined} onClick={() => openDelivery(d.id)}>
+            Detalhes
+          </Button>
+        </div>
       </div>
     </article>
   );

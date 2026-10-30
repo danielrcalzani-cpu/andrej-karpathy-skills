@@ -23,7 +23,7 @@ function Workload() {
         <span className="tiny muted">entregas agendadas</span>
       </div>
       <div className="table-wrap">
-        <table className="table">
+        <table className="table responsive">
           <thead>
             <tr>
               <th>Entregador</th>
@@ -35,11 +35,11 @@ function Workload() {
           <tbody>
             {drivers.map((dr) => (
               <tr key={dr.id}>
-                <td className="small strong">{dr.name}</td>
+                <td className="small strong cell-title">{dr.name}</td>
                 {all.map((r, i) => {
                   const n = r.data?.drivers.find((x) => x.id === dr.id)?.day_count ?? 0;
                   return (
-                    <td key={i} className="small mono">
+                    <td key={i} className="small mono" data-label={relativeDay(days[i]!, config.today)}>
                       {n} {n === 1 ? 'entrega' : 'entregas'}
                     </td>
                   );

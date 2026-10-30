@@ -72,8 +72,15 @@ export function useNavQuery(d: Delivery) {
   return useMemo(() => navigationQuery(d, { city: config.default_city, state: config.default_state }), [d, config]);
 }
 
-export function NavButtons({ delivery, tiles }: { delivery: Delivery; tiles?: boolean }) {
+export function NavButtons({ delivery, tiles, compact }: { delivery: Delivery; tiles?: boolean; compact?: boolean }) {
   const q = useNavQuery(delivery);
+  if (!q && compact) {
+    return (
+      <Badge tone="warning" icon={<MapPinOff size={12} />}>
+        Endereço incompleto
+      </Badge>
+    );
+  }
   if (!q) {
     return (
       <div className="banner tone-warning small" role="note">

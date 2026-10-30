@@ -156,6 +156,7 @@ export function Agenda() {
               onChange={(e) => set({ q: e.target.value })}
             />
           </div>
+          <div className="chip-scroll">
           <button type="button" className="chip" aria-pressed={f.separated === 'no'} onClick={() => set({ separated: f.separated === 'no' ? '' : 'no' })}>
             Só o que falta separar
           </button>
@@ -170,6 +171,7 @@ export function Agenda() {
               Limpar
             </Button>
           )}
+          </div>
         </div>
         {advanced && (
           <div className="form-grid">

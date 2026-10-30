@@ -42,7 +42,7 @@ export function HistoryPage() {
       ) : (
         <div className="card">
           <div className="table-wrap">
-            <table className="table">
+            <table className="table responsive">
               <thead>
                 <tr>
                   <th>Cliente</th>
@@ -57,15 +57,17 @@ export function HistoryPage() {
               <tbody>
                 {res.data.items.map((d) => (
                   <tr key={d.id}>
-                    <td className="strong">{d.customer_name}</td>
-                    <td>{d.order_number ?? '—'}</td>
-                    <td>{d.delivery_date ? formatDateBR(d.delivery_date) : '—'}</td>
-                    <td>{d.driver_name ?? '—'}</td>
-                    <td className="small">{formatDateTime(d.completed_at ?? d.updated_at)}</td>
-                    <td>
+                    <td className="strong cell-title">{d.customer_name}</td>
+                    <td data-label="Pedido">{d.order_number ?? '—'}</td>
+                    <td data-label="Data agendada">{d.delivery_date ? formatDateBR(d.delivery_date) : '—'}</td>
+                    <td data-label="Entregador">{d.driver_name ?? '—'}</td>
+                    <td data-label={status === 'entregue' ? 'Concluída em' : 'Atualizada em'} className="small">
+                      {formatDateTime(d.completed_at ?? d.updated_at)}
+                    </td>
+                    <td data-label="Situação">
                       <StatusBadge status={d.status} />
                     </td>
-                    <td>
+                    <td className="cell-action">
                       <Button size="sm" icon={status === 'entregue' ? <Camera size={14} /> : undefined} onClick={() => openDelivery(d.id)}>
                         {status === 'entregue' ? 'Comprovante' : 'Detalhes'}
                       </Button>

@@ -128,7 +128,7 @@ export function Reports() {
                 <div className="card-body stack">
                   <Bars rows={r.per_driver.map((d) => ({ label: d.driver, value: d.total, title: `${d.driver}: ${d.total} agendadas, ${d.delivered} entregues, ${d.problems} com problema` }))} unit="entregas" />
                   <div className="table-wrap">
-                    <table className="table">
+                    <table className="table responsive">
                       <thead>
                         <tr>
                           <th>Entregador</th>
@@ -140,10 +140,10 @@ export function Reports() {
                       <tbody>
                         {r.per_driver.map((d) => (
                           <tr key={d.driver}>
-                            <td>{d.driver}</td>
-                            <td className="mono">{d.total}</td>
-                            <td className="mono">{d.delivered}</td>
-                            <td className="mono">{d.problems}</td>
+                            <td className="strong cell-title">{d.driver}</td>
+                            <td data-label="Agendadas" className="mono">{d.total}</td>
+                            <td data-label="Entregues" className="mono">{d.delivered}</td>
+                            <td data-label="Com problema" className="mono">{d.problems}</td>
                           </tr>
                         ))}
                       </tbody>

@@ -244,7 +244,7 @@ export function Drivers() {
       ) : (
         <div className="card">
           <div className="table-wrap">
-            <table className="table">
+            <table className="table responsive">
               <thead>
                 <tr>
                   <th>Veículo</th>
@@ -258,12 +258,12 @@ export function Drivers() {
               <tbody>
                 {vlist.map((v) => (
                   <tr key={v.id}>
-                    <td className="strong">{v.name}</td>
-                    <td>{v.plate ?? '—'}</td>
-                    <td>{v.type ?? '—'}</td>
-                    <td>{v.capacity_kg != null ? `${v.capacity_kg.toLocaleString('pt-BR')} kg` : '—'}</td>
-                    <td>{v.active ? <Badge tone="success">Em uso</Badge> : <Badge>Fora de uso</Badge>}</td>
-                    <td>
+                    <td className="strong cell-title">{v.name}</td>
+                    <td data-label="Placa">{v.plate ?? '—'}</td>
+                    <td data-label="Tipo">{v.type ?? '—'}</td>
+                    <td data-label="Capacidade">{v.capacity_kg != null ? `${v.capacity_kg.toLocaleString('pt-BR')} kg` : '—'}</td>
+                    <td data-label="Situação">{v.active ? <Badge tone="success">Em uso</Badge> : <Badge>Fora de uso</Badge>}</td>
+                    <td className="cell-action">
                       <Button size="sm" variant="ghost" onClick={() => setEditVehicle(v)}>
                         Editar
                       </Button>
