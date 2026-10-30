@@ -15,6 +15,9 @@ As duas versões usam o **mesmo servidor e os mesmos dados**: o que o escritóri
 do entregador, e vice-versa. O link “Usar/Abrir versão para computador/celular” (tela de login, menu e app do
 entregador) troca de versão e a escolha fica lembrada naquele aparelho.
 
+> **Guia passo a passo para instalar e dar acesso aos funcionários: [COMO-INSTALAR.md](COMO-INSTALAR.md)**
+> (Windows: dois cliques em `INICIAR.bat`.)
+
 ## Requisitos
 
 - Node.js **22.6 ou superior** (usa o SQLite embutido do Node e execução direta de TypeScript)

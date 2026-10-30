@@ -1,4 +1,6 @@
+import fs from 'node:fs';
 import http from 'node:http';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { openDatabase, now } from './db.ts';
@@ -39,8 +41,30 @@ if (!users) {
   console.log(`Administrador "${username}" criado.`);
 }
 
-const staticDir = process.env.NODE_ENV === 'production' ? path.join(root, 'dist') : null;
+// Serve a interface compilada sempre que ela existir (funciona igual no Windows, Mac e Linux).
+const dist = path.join(root, 'dist');
+const staticDir = fs.existsSync(path.join(dist, 'index.html')) ? dist : null;
 const port = Number(process.env.PORT) || 3000;
-http.createServer(createApp(db, config, staticDir)).listen(port, () => {
-  console.log(`Mercatto Entregas rodando em http://localhost:${port} (fuso ${config.timezone})`);
+const server = http.createServer(createApp(db, config, staticDir));
+server.on('error', (err: NodeJS.ErrnoException) => {
+  console.error(
+    err.code === 'EADDRINUSE'
+      ? `A porta ${port} já está em uso. O sistema já está aberto em outra janela? Feche-a ou defina outra PORT no .env.`
+      : `Não foi possível iniciar o servidor: ${err.message}`,
+  );
+  process.exit(1);
+});
+server.listen(port, () => {
+  // Endereços da rede local para os funcionários abrirem no celular/computador.
+  const lan = Object.values(os.networkInterfaces())
+    .flat()
+    .filter((i) => i && i.family === 'IPv4' && !i.internal)
+    .map((i) => `http://${i!.address}:${port}`);
+  console.log('');
+  console.log('  Mercatto Entregas está funcionando.');
+  console.log(`  Neste computador:     http://localhost:${port}`);
+  for (const url of lan) console.log(`  Na rede da empresa:   ${url}`);
+  console.log(`  Fuso horário: ${config.timezone}. Para encerrar, feche esta janela.`);
+  if (!staticDir) console.log('  Atenção: pasta dist/ não encontrada — execute "npm run build".');
+  console.log('');
 });
