@@ -30,7 +30,7 @@ import {
   problemLabel,
 } from '../../shared/domain.ts';
 import type { Delivery, FieldErrors, Status } from '../../shared/domain.ts';
-import { ApiError, api, post } from '../api.ts';
+import { ApiError, api, photoUrl, post } from '../api.ts';
 import { invalidateAll, useResource, useSession } from '../lib.tsx';
 import { Badge, Button, ErrorState, Field, Modal, Skeleton, StatusBadge, UrgencyBadge, useConfirm, useToast } from './ui.tsx';
 import { Checklist, NavButtons, ProblemDialog, ProofDialog, ScheduleDialog, ScheduleFields, WhatsAppButton, scheduleState, useAction } from './actions.tsx';
@@ -180,8 +180,8 @@ export function ProofView({ proof }: { proof: Proof }) {
       <span className="small muted">Entregador: {proof.completed_by_name}</span>
       {proof.notes && <p className="small">{proof.notes}</p>}
       {proof.photo_id ? (
-        <a href={`/api/photos/${proof.photo_id}`} target="_blank" rel="noopener noreferrer">
-          <img src={`/api/photos/${proof.photo_id}`} alt={`Foto da entrega recebida por ${proof.receiver_name}`} className="photo-thumb" loading="lazy" />
+        <a href={photoUrl(proof.photo_id)} target="_blank" rel="noopener noreferrer">
+          <img src={photoUrl(proof.photo_id)} alt={`Foto da entrega recebida por ${proof.receiver_name}`} className="photo-thumb" loading="lazy" />
         </a>
       ) : (
         <span className="tiny muted row">

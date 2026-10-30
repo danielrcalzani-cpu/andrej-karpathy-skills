@@ -33,8 +33,9 @@ import {
 } from '../../../shared/domain.ts';
 import type { Delivery } from '../../../shared/domain.ts';
 import { post } from '../../api.ts';
-import { navigate, safeStorage, useOnline, useResource, useRoute, useSession } from '../../lib.tsx';
-import { UI, switchUI } from '../../ui.ts';
+import { goBack, navigate, safeStorage, useOnline, useResource, useRoute, useSession } from '../../lib.tsx';
+import { currentUI, switchUI } from '../../ui.ts';
+import { IS_ARTIFACT } from '../../target.ts';
 import { Badge, Button, EmptyState, ErrorState, ProgressBar, Skeleton, StatusBadge, UrgencyBadge, cx } from '../../components/ui.tsx';
 import { Checklist, NavButtons, ProblemDialog, ProofDialog, WhatsAppButton, WhatsAppDialog, useAction } from '../../components/actions.tsx';
 import type { Detail } from '../../components/DeliveryDrawer.tsx';
@@ -232,7 +233,7 @@ function Home() {
           </div>
         </div>
         <Button variant="ghost" iconOnly aria-label="Atualizar" onClick={res.reload} icon={<RefreshCw size={18} className={res.loading ? 'spin' : undefined} />} />
-        <Button variant="ghost" iconOnly aria-label="Sair" onClick={logout} icon={<LogOut size={18} />} />
+        {!IS_ARTIFACT && <Button variant="ghost" iconOnly aria-label="Sair" onClick={logout} icon={<LogOut size={18} />} />}
       </header>
 
       {res.stale && (
@@ -338,8 +339,8 @@ function Home() {
           <Button variant="ghost" icon={<History size={16} />} onClick={() => navigate('/anteriores')}>
             Entregas anteriores
           </Button>
-          <button type="button" className="btn ghost sm" style={{ alignSelf: 'center', color: 'var(--text-2)' }} onClick={() => switchUI(UI === 'pc' ? 'mobile' : 'pc')}>
-            {UI === 'pc' ? 'Usar versão para celular' : 'Usar versão para computador'}
+          <button type="button" className="btn ghost sm" style={{ alignSelf: 'center', color: 'var(--text-2)' }} onClick={() => switchUI(currentUI() === 'pc' ? 'mobile' : 'pc')}>
+            {currentUI() === 'pc' ? 'Usar versão para celular' : 'Usar versão para computador'}
           </button>
         </div>
       )}
@@ -358,7 +359,7 @@ function DeliveryDetail({ id }: { id: number }) {
   return (
     <div className="driver">
       <header className="driver-top">
-        <Button variant="ghost" iconOnly aria-label="Voltar" onClick={() => (window.history.length > 1 ? window.history.back() : navigate('/'))} icon={<ArrowLeft size={20} />} />
+        <Button variant="ghost" iconOnly aria-label="Voltar" onClick={goBack} icon={<ArrowLeft size={20} />} />
         <div className="grow">
           <h1 className="h-section truncate" style={{ fontSize: 18 }}>
             {d?.customer_name ?? 'Entrega'}

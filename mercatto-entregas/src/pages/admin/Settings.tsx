@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Download, KeyRound, Plug, Upload, UserPlus } from 'lucide-react';
 import type { FieldErrors } from '../../../shared/domain.ts';
-import { ApiError, post, put } from '../../api.ts';
+import { ApiError, exportBackup, post, put } from '../../api.ts';
+import { IS_ARTIFACT } from '../../target.ts';
 import { invalidateAll, useResource, useRoute, useSession } from '../../lib.tsx';
 import { Badge, Button, Field, Modal, Skeleton, useConfirm, useToast } from '../../components/ui.tsx';
 import { PageHeader } from './AdminApp.tsx';
@@ -204,6 +205,36 @@ function UsersSection() {
   );
 }
 
+/** Versão claude.ai: o acesso é dado pelo compartilhamento da página. */
+function AccessInfo() {
+  return (
+    <section className="card">
+      <div className="card-head">
+        <h3 className="h-section">Acessos da equipe</h3>
+      </div>
+      <div className="card-body stack small">
+        <p>
+          Quem pode abrir o sistema é definido no botão <b>Compartilhar</b> desta página no claude.ai. Só entra quem você convidar.
+        </p>
+        <div className="stack tight">
+          <span>
+            <Badge tone="accent">Escritório</Badge> compartilhe como <b>Editor</b>: vê e gerencia todas as entregas, rotas, separação, relatórios e
+            configurações.
+          </span>
+          <span>
+            <Badge tone="info">Entregador</Badge> compartilhe como <b>Colaborador</b> e depois vincule a pessoa ao cadastro em <b>Entregadores → Editar →
+            Pessoa no claude.ai</b>. Ele abre direto no app “Minhas Entregas”, só com as entregas dele.
+          </span>
+        </div>
+        <p className="muted">
+          Para tirar o acesso de alguém, remova a pessoa no Compartilhar. Links para enviar: termine o endereço com <b>#pc</b> (versão computador) ou{' '}
+          <b>#celular</b> (versão celular).
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function ImportSection() {
   const toast = useToast();
   const confirm = useConfirm();
@@ -247,9 +278,13 @@ function ImportSection() {
             <Upload size={16} /> Importar agenda antiga (JSON)
             <input type="file" accept="application/json,.json" className="sr-only" onChange={(e) => (onFile(e.target.files?.[0]), (e.target.value = ''))} disabled={busy} />
           </label>
-          <a className="btn" href="/api/export" download>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => exportBackup().then(() => toast('Cópia de segurança gerada.'), (e) => toast(e instanceof Error ? e.message : 'Não foi possível gerar a cópia.', 'error'))}
+          >
             <Download size={16} /> Baixar cópia de segurança
-          </a>
+          </button>
         </div>
         <p className="tiny muted">
           A importação reconhece os campos Cliente, Vendedor, WhatsApp de quem recebe, Nº do pedido ou nota, Endereço de entrega, Materiais a entregar, Data da entrega,
@@ -278,7 +313,7 @@ export function SettingsPage() {
     <div className="stack loose" style={{ maxWidth: 860 }}>
       <PageHeader title="Configurações" />
       <GeneralSettings />
-      <UsersSection />
+      {IS_ARTIFACT ? <AccessInfo /> : <UsersSection />}
       <ImportSection />
       <section className="card">
         <div className="card-head">

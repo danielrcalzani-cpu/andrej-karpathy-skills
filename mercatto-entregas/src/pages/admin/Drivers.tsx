@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Car, Edit3, Phone, Plus, Truck, UserPlus, Users } from 'lucide-react';
 import { formatPhone, maskPhoneInput } from '../../../shared/domain.ts';
 import type { FieldErrors } from '../../../shared/domain.ts';
-import { ApiError, post, put } from '../../api.ts';
+import { ApiError, api, post, put } from '../../api.ts';
+import { IS_ARTIFACT } from '../../target.ts';
 import { invalidateAll, navigate, useResource } from '../../lib.tsx';
 import { Badge, Button, EmptyState, ErrorState, Field, Modal, Skeleton, useToast } from '../../components/ui.tsx';
 import { PageHeader } from './AdminApp.tsx';
@@ -18,6 +19,7 @@ interface DriverRow {
   day_count: number;
   open_count: number;
   username: string | null;
+  user_id?: string | null;
 }
 interface Vehicle {
   id: number;
@@ -51,13 +53,64 @@ function useSaver() {
   return { errors, busy, save };
 }
 
+/** Versão claude.ai: escolhe a pessoa (conta claude.ai) que usará o app deste entregador. */
+function PersonPicker({ value, label, onChange }: { value: string; label: string; onChange: (id: string, name: string) => void }) {
+  const [q, setQ] = useState('');
+  const [hits, setHits] = useState<{ id: string; name: string }[]>([]);
+  const [open, setOpen] = useState(false);
+  const search = async (text: string) => {
+    setQ(text);
+    try {
+      setHits((await api<{ people: { id: string; name: string }[] }>(`/api/people?q=${encodeURIComponent(text)}`)).people);
+    } catch {
+      setHits([]);
+    }
+  };
+  return (
+    <Field label="Pessoa no claude.ai" htmlFor="dr-person" hint="Quem vai usar o app Minhas Entregas com este cadastro. Compartilhe a página com ela como Colaborador.">
+      {value ? (
+        <div className="row between card pad" style={{ padding: '8px 12px' }}>
+          <span className="small strong">{label || 'Pessoa vinculada'}</span>
+          <Button size="sm" variant="ghost" onClick={() => onChange('', '')}>
+            Desvincular
+          </Button>
+        </div>
+      ) : (
+        <div className="stack tight">
+          <input
+            id="dr-person"
+            className="input"
+            placeholder="Buscar pelo nome"
+            autoComplete="off"
+            value={q}
+            onFocus={() => (setOpen(true), search(q))}
+            onChange={(e) => search(e.target.value)}
+          />
+          {open && hits.length > 0 && (
+            <div className="checklist">
+              {hits.map((h) => (
+                <button key={h.id} type="button" className="check-row" style={{ border: 0, textAlign: 'left', cursor: 'pointer' }} onClick={() => (onChange(h.id, h.name), setOpen(false))}>
+                  {h.name}
+                </button>
+              ))}
+            </div>
+          )}
+          {open && q && hits.length === 0 && <span className="tiny muted">Ninguém encontrado com esse nome na sua organização.</span>}
+        </div>
+      )}
+    </Field>
+  );
+}
+
 function DriverDialog({ driver, vehicles, onClose }: { driver: DriverRow | null; vehicles: Vehicle[]; onClose: () => void }) {
   const [v, setV] = useState({
     name: driver?.name ?? '',
     phone: driver?.phone ? formatPhone(driver.phone) : '',
     vehicle_id: driver?.vehicle_id ? String(driver.vehicle_id) : '',
     active: driver?.active ?? true,
+    user_id: driver?.user_id ?? '',
   });
+  const [personName, setPersonName] = useState(driver?.username ?? '');
   const { errors, busy, save } = useSaver();
   const submit = async () => {
     const ok = await save(() => (driver ? put(`/api/drivers/${driver.id}`, v) : post('/api/drivers', v)), driver ? 'Entregador atualizado.' : 'Entregador cadastrado.');
@@ -97,6 +150,16 @@ function DriverDialog({ driver, vehicles, onClose }: { driver: DriverRow | null;
               ))}
           </select>
         </Field>
+        {IS_ARTIFACT && (
+          <PersonPicker
+            value={v.user_id}
+            label={personName}
+            onChange={(id, name) => {
+              setV({ ...v, user_id: id });
+              setPersonName(name);
+            }}
+          />
+        )}
         <label className="check">
           <input type="checkbox" checked={v.active} onChange={(e) => setV({ ...v, active: e.target.checked })} />
           Ativo (pode receber entregas)
@@ -188,7 +251,7 @@ export function Drivers() {
                   </span>
                   <div>
                     <div className="strong">{d.name}</div>
-                    <div className="tiny muted">{d.username ? `Acesso: ${d.username}` : 'Sem acesso ao app'}</div>
+                    <div className="tiny muted">{d.username ? `${IS_ARTIFACT ? 'Pessoa' : 'Acesso'}: ${d.username}` : 'Sem acesso ao app'}</div>
                   </div>
                 </div>
                 {d.active ? <Badge tone="success">Ativo</Badge> : <Badge>Inativo</Badge>}
@@ -223,7 +286,7 @@ export function Drivers() {
                 <Button size="sm" variant="ghost" onClick={() => navigate('/agenda', { view: 'list', driver: String(d.id) })}>
                   Ver entregas
                 </Button>
-                {!d.username && d.active && (
+                {!IS_ARTIFACT && !d.username && d.active && (
                   <Button size="sm" variant="ghost" icon={<UserPlus size={14} />} onClick={() => navigate('/configuracoes', { novo_entregador: String(d.id) })}>
                     Criar acesso
                   </Button>

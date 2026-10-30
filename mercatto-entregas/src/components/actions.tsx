@@ -83,7 +83,7 @@ export function NavButtons({ delivery, tiles, compact }: { delivery: Delivery; t
   }
   if (!q) {
     return (
-      <div className="banner tone-warning small" role="note">
+      <div className="banner tone-warning small" role="note" style={tiles ? { gridColumn: '1 / -1' } : undefined}>
         <MapPinOff size={16} />
         <span>Endereço incompleto para navegação. Confira rua, número e cidade com o escritório.</span>
       </div>
@@ -217,15 +217,10 @@ export function ProofDialog({ delivery, open, onClose }: { delivery: Delivery; o
   const [photoError, setPhotoError] = useState<string | null>(null);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [busy, setBusy] = useState(false);
-  const [done, setDone] = useState(false);
-  const [waOpen, setWaOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (open) {
-      setDone(false);
-      setErrors({});
-    }
+    if (open) setErrors({});
   }, [open]);
   useEffect(() => () => void (preview && URL.revokeObjectURL(preview)), [preview]);
 
@@ -286,8 +281,10 @@ export function ProofDialog({ delivery, open, onClose }: { delivery: Delivery; o
         }
       }
       await post(`/api/deliveries/${delivery.id}/complete`, { receiver_name: receiver, notes, photo_id: skipPhoto ? null : pid });
-      setDone(true);
       reset();
+      onClose();
+      // A confirmação aparece fora deste cartão: ele some da lista assim que a entrega vira "Entregue".
+      window.dispatchEvent(new CustomEvent('mercatto:entregue', { detail: delivery }));
       invalidateAll();
     } catch (e) {
       if (e instanceof ApiError && e.fields) setErrors(e.fields);
@@ -296,39 +293,6 @@ export function ProofDialog({ delivery, open, onClose }: { delivery: Delivery; o
       setBusy(false);
     }
   };
-
-  if (done)
-    return (
-      <>
-        <Modal
-          open={open && !waOpen}
-          onClose={onClose}
-          title="Entrega confirmada"
-          icon={<CheckCircle2 size={22} color="#16A34A" />}
-          footer={
-            <>
-              <Button onClick={onClose}>Concluir</Button>
-              <Button variant="success" icon={<MessageCircle size={16} />} onClick={() => setWaOpen(true)}>
-                Avisar cliente
-              </Button>
-            </>
-          }
-        >
-          <p>
-            A entrega de <b>{delivery.customer_name}</b> foi registrada como concluída e o comprovante foi salvo.
-          </p>
-        </Modal>
-        <WhatsAppDialog
-          delivery={delivery}
-          open={open && waOpen}
-          template="concluida"
-          onClose={() => {
-            setWaOpen(false);
-            onClose();
-          }}
-        />
-      </>
-    );
 
   return (
     <Modal
@@ -413,6 +377,48 @@ export function ProofDialog({ delivery, open, onClose }: { delivery: Delivery; o
         <p className="tiny muted">Data, hora e entregador são registrados automaticamente.</p>
       </div>
     </Modal>
+  );
+}
+
+/** Aviso de entrega confirmada, montado no topo do app para não sumir quando a lista atualiza. */
+export function DeliveredHost() {
+  const [delivery, setDelivery] = useState<Delivery | null>(null);
+  const [waOpen, setWaOpen] = useState(false);
+  useEffect(() => {
+    const h = (e: Event) => {
+      setWaOpen(false);
+      setDelivery((e as CustomEvent<Delivery>).detail);
+    };
+    window.addEventListener('mercatto:entregue', h);
+    return () => window.removeEventListener('mercatto:entregue', h);
+  }, []);
+  if (!delivery) return null;
+  const close = () => {
+    setDelivery(null);
+    setWaOpen(false);
+  };
+  return (
+    <>
+      <Modal
+        open={!waOpen}
+        onClose={close}
+        title="Entrega confirmada"
+        icon={<CheckCircle2 size={22} color="#16A34A" />}
+        footer={
+          <>
+            <Button onClick={close}>Concluir</Button>
+            <Button variant="success" icon={<MessageCircle size={16} />} onClick={() => setWaOpen(true)}>
+              Avisar cliente
+            </Button>
+          </>
+        }
+      >
+        <p>
+          A entrega de <b>{delivery.customer_name}</b> foi registrada como concluída e o comprovante foi salvo.
+        </p>
+      </Modal>
+      <WhatsAppDialog delivery={delivery} open={waOpen} template="concluida" onClose={close} />
+    </>
   );
 }
 

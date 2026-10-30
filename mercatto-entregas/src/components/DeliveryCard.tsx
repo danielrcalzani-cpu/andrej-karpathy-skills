@@ -122,7 +122,7 @@ export function DeliveryCard({ d, compact }: { d: Delivery; compact?: boolean })
       </div>
       <div className="meta">
         <span className="truncate" style={{ maxWidth: '100%' }}>
-          <MapPin size={13} aria-hidden /> {compact ? shortLocation(d) : [addr.line1, addr.line2].filter(Boolean).join(' — ')}
+          <MapPin size={13} aria-hidden /> {(compact ? shortLocation(d) : [addr.line1, addr.line2].filter(Boolean).join(' — ')) || 'Endereço não informado'}
         </span>
         <span>
           <User size={13} aria-hidden /> {d.driver_name ?? 'Sem entregador'}

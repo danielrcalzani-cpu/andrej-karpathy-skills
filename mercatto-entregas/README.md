@@ -3,6 +3,15 @@
 Painel administrativo + app do entregador (**Minhas Entregas**) para a agenda de entregas da Mercatto Decor.
 Interface em português (pt-BR), datas DD/MM/AAAA, horário 24h, fuso `America/Manaus`.
 
+## Versão no claude.ai (sem servidor)
+
+`npm run build:artifact` gera `dist-artifact/agenda-entregas.html`: a mesma interface, publicada como página do
+claude.ai. Os dados ficam no banco compartilhado da página e as fotos no armazenamento dela
+(`src/artifact/api.ts` substitui o servidor). O link termina em `#pc` (computador) ou `#celular`.
+Acesso pelo botão Compartilhar: escritório como **Editor**, entregadores como **Colaborador** (vinculados em
+Entregadores → Pessoa no claude.ai). Limitação: a separação “cada entregador vê só as suas” é feita pela interface;
+o banco permite a qualquer Colaborador ler as entregas da página.
+
 ## Duas versões
 
 | Endereço | Versão | Para quem |

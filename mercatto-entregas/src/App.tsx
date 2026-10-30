@@ -1,10 +1,12 @@
 import { Component, Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Lock } from 'lucide-react';
+import { IS_ARTIFACT } from './target.ts';
 import { api, post } from './api.ts';
 import { SessionProvider } from './lib.tsx';
 import type { AppConfig, User } from './lib.tsx';
 import { Button, ConfirmProvider, Skeleton, ToastProvider } from './components/ui.tsx';
+import { DeliveredHost } from './components/actions.tsx';
 import { Login } from './pages/Login.tsx';
 
 // O painel administrativo e o app do entregador são carregados separadamente: o celular do entregador não baixa o painel.
@@ -35,6 +37,29 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | 
   }
 }
 
+/** Versão claude.ai: quem ainda não tem acesso vê como pedir. */
+function NoAccess({ reason }: { reason?: string }) {
+  return (
+    <main className="login">
+      <div className="card pad stack" style={{ maxWidth: 440, padding: 24 }} role="alert">
+        <div className="row">
+          <span className="stat-icon tone-accent" style={{ width: 36, height: 36, borderRadius: 10, display: 'grid', placeItems: 'center' }}>
+            <Lock size={18} />
+          </span>
+          <h1 className="h-section" style={{ fontSize: 18 }}>
+            Mercatto Decor · Entregas
+          </h1>
+        </div>
+        <p>{reason ?? 'Você ainda não tem acesso a este sistema.'}</p>
+        <p className="small muted">
+          O acesso é liberado pelo escritório no botão Compartilhar do claude.ai. Entregadores também precisam ser vinculados ao seu cadastro em
+          Entregadores.
+        </p>
+      </div>
+    </main>
+  );
+}
+
 function Loading() {
   return (
     <div style={{ padding: 24, maxWidth: 640, margin: '0 auto' }}>
@@ -44,12 +69,19 @@ function Loading() {
 }
 
 export function App() {
-  const [state, setState] = useState<{ status: 'loading' | 'out' | 'in'; user?: User; config?: AppConfig }>({ status: 'loading' });
+  const [state, setState] = useState<{ status: 'loading' | 'out' | 'in'; user?: User; config?: AppConfig; reason?: string }>({ status: 'loading' });
+  // Troca de versão (computador/celular) redesenha tudo com o novo layout.
+  const [uiKey, setUiKey] = useState(0);
+  useEffect(() => {
+    const h = () => setUiKey((k) => k + 1);
+    window.addEventListener('mercatto:ui', h);
+    return () => window.removeEventListener('mercatto:ui', h);
+  }, []);
 
   const load = useCallback(async () => {
     try {
-      const { user } = await api<{ user: User | null }>('/api/auth/me');
-      if (!user) return setState({ status: 'out' });
+      const { user, reason } = await api<{ user: User | null; reason?: string }>('/api/auth/me');
+      if (!user) return setState({ status: 'out', reason });
       const config = await api<AppConfig>('/api/config');
       setState({ status: 'in', user, config });
     } catch {
@@ -84,10 +116,17 @@ export function App() {
           {state.status === 'loading' ? (
             <Loading />
           ) : state.status === 'out' ? (
-            <Login onLogin={load} />
+            IS_ARTIFACT ? (
+              <NoAccess reason={state.reason} />
+            ) : (
+              <Login onLogin={load} />
+            )
           ) : (
             <SessionProvider value={{ user: state.user!, config: state.config!, logout }}>
-              <Suspense fallback={<Loading />}>{state.user!.role === 'admin' ? <AdminApp /> : <DriverApp />}</Suspense>
+              <Suspense fallback={<Loading />}>
+                <div key={uiKey}>{state.user!.role === 'admin' ? <AdminApp /> : <DriverApp />}</div>
+              </Suspense>
+              <DeliveredHost />
             </SessionProvider>
           )}
         </ConfirmProvider>

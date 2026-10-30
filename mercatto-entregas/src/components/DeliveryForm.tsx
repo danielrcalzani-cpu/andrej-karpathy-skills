@@ -5,6 +5,7 @@ import { UNITS, URGENCIES, formatDateBR, formatDateTime, formatPhone, maskPhoneI
 import type { Delivery, FieldErrors, Status } from '../../shared/domain.ts';
 import { ApiError, api, post, put } from '../api.ts';
 import { invalidateAll, newRequestId, useSession } from '../lib.tsx';
+import { IS_ARTIFACT } from '../target.ts';
 import { Button, Field, Modal, Segmented, cx, useConfirm, useToast } from './ui.tsx';
 import { ScheduleFields, scheduleState } from './actions.tsx';
 
@@ -131,7 +132,8 @@ export function DeliveryForm({ delivery, open, onClose, onSaved }: { delivery: D
 
   const lookupCep = async (raw: string) => {
     const digits = raw.replace(/\D/g, '');
-    if (digits.length !== 8) return;
+    // Na versão claude.ai a página não pode consultar sites externos: o endereço é preenchido à mão.
+    if (digits.length !== 8 || IS_ARTIFACT) return;
     setCep({ loading: true });
     try {
       const res = await fetch(`https://viacep.com.br/ws/${digits}/json/`);

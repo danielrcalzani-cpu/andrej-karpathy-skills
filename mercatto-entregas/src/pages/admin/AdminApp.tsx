@@ -22,7 +22,8 @@ import { STATUS_META, formatDateTime, longDate } from '../../../shared/domain.ts
 import type { Delivery, Status } from '../../../shared/domain.ts';
 import { post } from '../../api.ts';
 import { initials, navigate, useResource, useRoute, useSession } from '../../lib.tsx';
-import { UI, switchUI } from '../../ui.ts';
+import { currentUI, switchUI } from '../../ui.ts';
+import { IS_ARTIFACT } from '../../target.ts';
 import { Button, Modal, cx } from '../../components/ui.tsx';
 import { PanelCtx } from '../../components/DeliveryCard.tsx';
 import { DeliveryDrawer } from '../../components/DeliveryDrawer.tsx';
@@ -147,7 +148,7 @@ export default function AdminApp() {
     [],
   );
 
-  const current = NAV.find((n) => route.path.startsWith(n.path)) ?? NAV[0]!;
+  const current = NAV.find((n) => route.path === n.path || route.path.startsWith(n.path + '/')) ?? NAV[0]!;
   const s = summary.data;
   const page = (() => {
     switch (current.path) {
@@ -195,7 +196,7 @@ export default function AdminApp() {
               {NAV.map((n) => {
                 const c = s && n.count ? n.count(s) : 0;
                 return (
-                  <a key={n.path} href={`#${n.path}`} aria-current={current.path === n.path ? 'page' : undefined}>
+                  <a key={n.path} href={`#${n.path}`} onClick={(e) => (e.preventDefault(), navigate(n.path))} aria-current={current.path === n.path ? 'page' : undefined}>
                     {n.icon}
                     {n.label}
                     {c > 0 && <span className="count">{c}</span>}
@@ -203,9 +204,9 @@ export default function AdminApp() {
                 );
               })}
             </nav>
-            <button type="button" className="nav-switch" onClick={() => switchUI(UI === 'pc' ? 'mobile' : 'pc')}>
-              {UI === 'pc' ? <Smartphone size={16} /> : <Monitor size={16} />}
-              {UI === 'pc' ? 'Abrir versão para celular' : 'Abrir versão para computador'}
+            <button type="button" className="nav-switch" onClick={() => switchUI(currentUI() === 'pc' ? 'mobile' : 'pc')}>
+              {currentUI() === 'pc' ? <Smartphone size={16} /> : <Monitor size={16} />}
+              {currentUI() === 'pc' ? 'Abrir versão para celular' : 'Abrir versão para computador'}
             </button>
             <div className="sidebar-foot">
               <div className="avatar" aria-hidden>
@@ -219,9 +220,11 @@ export default function AdminApp() {
                   Administrador
                 </div>
               </div>
-              <button type="button" className="btn ghost icon sm" style={{ color: '#d1d5db' }} onClick={logout} aria-label="Sair">
-                <LogOut size={16} />
-              </button>
+              {!IS_ARTIFACT && (
+                <button type="button" className="btn ghost icon sm" style={{ color: '#d1d5db' }} onClick={logout} aria-label="Sair">
+                  <LogOut size={16} />
+                </button>
+              )}
             </div>
           </aside>
 
@@ -250,10 +253,10 @@ export default function AdminApp() {
           </div>
 
           <nav className="bottom-nav" aria-label="Navegação rápida">
-            <a href="#/visao-geral" aria-current={current.path === '/visao-geral' ? 'page' : undefined}>
+            <a href="#/visao-geral" onClick={(e) => (e.preventDefault(), navigate('/visao-geral'))} aria-current={current.path === '/visao-geral' ? 'page' : undefined}>
               <LayoutDashboard size={20} /> Início
             </a>
-            <a href="#/agenda" aria-current={current.path === '/agenda' ? 'page' : undefined}>
+            <a href="#/agenda" onClick={(e) => (e.preventDefault(), navigate('/agenda'))} aria-current={current.path === '/agenda' ? 'page' : undefined}>
               <CalendarDays size={20} /> Agenda
             </a>
             <button type="button" onClick={() => panel.openForm(null)} aria-label="Nova entrega">
@@ -261,7 +264,7 @@ export default function AdminApp() {
                 <Plus size={22} />
               </span>
             </button>
-            <a href="#/separacao" aria-current={current.path === '/separacao' ? 'page' : undefined}>
+            <a href="#/separacao" onClick={(e) => (e.preventDefault(), navigate('/separacao'))} aria-current={current.path === '/separacao' ? 'page' : undefined}>
               <ClipboardCheck size={20} /> Separação
               {s && s.aguardando_separacao > 0 && <span className="bell-dot" style={{ right: '22%' }}>{s.aguardando_separacao}</span>}
             </a>

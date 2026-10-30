@@ -44,20 +44,21 @@ export async function api<T = any>(path: string, opts: { method?: string; body?:
 export const post = <T = any>(path: string, body: unknown = {}, headers?: Record<string, string>) => api<T>(path, { method: 'POST', body, headers });
 export const put = <T = any>(path: string, body: unknown) => api<T>(path, { method: 'PUT', body });
 
-/** Reduz a foto no aparelho antes do envio (máx. 1600 px, JPEG). */
-export async function compressImage(file: File, maxSide = 1600, quality = 0.8): Promise<Blob> {
-  const bitmap = await createImageBitmap(file).catch(() => null);
-  if (!bitmap) throw new Error('Não foi possível ler esta imagem. Tente tirar a foto novamente.');
-  const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
-  const canvas = document.createElement('canvas');
-  canvas.width = Math.round(bitmap.width * scale);
-  canvas.height = Math.round(bitmap.height * scale);
-  canvas.getContext('2d')!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
-  bitmap.close();
-  return new Promise((resolve, reject) =>
-    canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('Falha ao processar a imagem.'))), 'image/jpeg', quality),
-  );
+/** Endereço para exibir a foto de um comprovante. */
+export const photoUrl = (photoId: number | string) => `/api/photos/${photoId}`;
+
+/** Baixa a cópia de segurança completa (JSON). */
+export function exportBackup() {
+  const a = document.createElement('a');
+  a.href = '/api/export';
+  a.download = '';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  return Promise.resolve();
 }
+
+export { compressImage } from './image.ts';
 
 /** Envio com progresso (XHR, pois fetch não informa progresso de upload). */
 export function uploadPhoto(deliveryId: number, blob: Blob, onProgress: (pct: number) => void): Promise<{ photo_id: number }> {

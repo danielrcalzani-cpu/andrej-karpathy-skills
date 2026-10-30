@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import type { ReactNode } from 'react';
 import { api } from './api.ts';
+import { IS_ARTIFACT } from './target.ts';
 
 // ---------------------------------------------------------------------------
 // Roteamento por hash (#/agenda?view=list)
@@ -20,16 +21,44 @@ const subscribeHash = (cb: () => void) => {
   return () => window.removeEventListener('hashchange', h);
 };
 
+// Na versão claude.ai o endereço só aceita "#nome" (usado para escolher a versão), então as telas
+// internas ficam num roteador em memória.
+let memRoute = '/';
+let memVersion = 0;
+const memListeners = new Set<() => void>();
+const subscribeMem = (cb: () => void) => {
+  memListeners.add(cb);
+  return () => memListeners.delete(cb);
+};
+
+function readRoute() {
+  if (!IS_ARTIFACT) return readHash();
+  const [path, query = ''] = memRoute.split('?');
+  return { path: path || '/', params: new URLSearchParams(query) };
+}
+
 export function useRoute() {
-  useSyncExternalStore(subscribeHash, () => hashSnapshot);
-  return readHash();
+  useSyncExternalStore<string | number>(IS_ARTIFACT ? subscribeMem : subscribeHash, IS_ARTIFACT ? () => memVersion : () => hashSnapshot);
+  return readRoute();
 }
 
 export function navigate(path: string, params?: Record<string, string | undefined | null>) {
   const q = new URLSearchParams();
   Object.entries(params ?? {}).forEach(([k, v]) => v != null && v !== '' && q.set(k, v));
   const s = q.toString();
+  if (IS_ARTIFACT) {
+    memRoute = path + (s ? `?${s}` : '');
+    memVersion++;
+    memListeners.forEach((l) => l());
+    window.scrollTo(0, 0);
+    return;
+  }
   window.location.hash = path + (s ? `?${s}` : '');
+}
+
+export function goBack() {
+  if (!IS_ARTIFACT && window.history.length > 1) window.history.back();
+  else navigate('/');
 }
 
 // ---------------------------------------------------------------------------
