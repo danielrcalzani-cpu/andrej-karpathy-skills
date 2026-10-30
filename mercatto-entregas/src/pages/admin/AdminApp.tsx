@@ -10,6 +10,9 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  Monitor,
+  MoreHorizontal,
+  Smartphone,
   Plus,
   Route,
   Settings,
@@ -19,6 +22,7 @@ import { STATUS_META, formatDateTime, longDate } from '../../../shared/domain.ts
 import type { Delivery, Status } from '../../../shared/domain.ts';
 import { post } from '../../api.ts';
 import { initials, navigate, useResource, useRoute, useSession } from '../../lib.tsx';
+import { UI, switchUI } from '../../ui.ts';
 import { Button, Modal, cx } from '../../components/ui.tsx';
 import { PanelCtx } from '../../components/DeliveryCard.tsx';
 import { DeliveryDrawer } from '../../components/DeliveryDrawer.tsx';
@@ -199,6 +203,10 @@ export default function AdminApp() {
                 );
               })}
             </nav>
+            <button type="button" className="nav-switch" onClick={() => switchUI(UI === 'pc' ? 'mobile' : 'pc')}>
+              {UI === 'pc' ? <Smartphone size={16} /> : <Monitor size={16} />}
+              {UI === 'pc' ? 'Abrir versão para celular' : 'Abrir versão para computador'}
+            </button>
             <div className="sidebar-foot">
               <div className="avatar" aria-hidden>
                 {initials(user.name)}
@@ -257,9 +265,9 @@ export default function AdminApp() {
               <ClipboardCheck size={20} /> Separação
               {s && s.aguardando_separacao > 0 && <span className="bell-dot" style={{ right: '22%' }}>{s.aguardando_separacao}</span>}
             </a>
-            <a href="#/rotas" aria-current={current.path === '/rotas' ? 'page' : undefined}>
-              <Route size={20} /> Rotas
-            </a>
+            <button type="button" onClick={() => setMenuOpen(true)} aria-current={['/visao-geral', '/agenda', '/separacao'].includes(current.path) ? undefined : 'page'}>
+              <MoreHorizontal size={20} /> Mais
+            </button>
           </nav>
 
           <DeliveryDrawer id={drawerId} onClose={() => setDrawerId(null)} onEdit={(d) => panel.openForm(d)} />

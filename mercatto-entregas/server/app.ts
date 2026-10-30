@@ -66,9 +66,18 @@ function serveStatic(dir: string | null, pathname: string, res: ServerResponse) 
     res.writeHead(404).end();
     return;
   }
+  // Versões: /pc/ (computador) e /m/ (celular); "/" escolhe automaticamente.
+  if (pathname === '/pc' || pathname === '/m') {
+    res.writeHead(301, { Location: `${pathname}/` }).end();
+    return;
+  }
   const safe = path.normalize(decodeURIComponent(pathname)).replace(/^(\.\.[/\\])+/, '');
   let file = path.join(dir, safe);
-  if (!file.startsWith(dir) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) file = path.join(dir, 'index.html');
+  if (file.startsWith(dir) && fs.existsSync(file) && fs.statSync(file).isDirectory()) file = path.join(file, 'index.html');
+  if (!file.startsWith(dir) || !fs.existsSync(file)) {
+    const version = pathname.startsWith('/pc/') ? 'pc' : pathname.startsWith('/m/') ? 'm' : '';
+    file = path.join(dir, version, 'index.html');
+  }
   if (!fs.existsSync(file)) {
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }).end('Execute "npm run build" para gerar a interface.');
     return;

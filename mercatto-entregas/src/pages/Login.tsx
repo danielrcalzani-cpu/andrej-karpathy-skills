@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { Lock, LogIn, User } from 'lucide-react';
+import { Lock, LogIn, Monitor, Smartphone, User } from 'lucide-react';
+import { UI, switchUI } from '../ui.ts';
 import { post } from '../api.ts';
 import { Button, Field } from '../components/ui.tsx';
 
@@ -74,6 +75,10 @@ export function Login({ onLogin }: { onLogin: () => void }) {
             Entrar
           </Button>
         </form>
+        <button type="button" className="btn ghost sm" style={{ alignSelf: 'center' }} onClick={() => switchUI(UI === 'pc' ? 'mobile' : 'pc')}>
+          {UI === 'pc' ? <Smartphone size={15} /> : <Monitor size={15} />}
+          {UI === 'pc' ? 'Usar versão para celular' : 'Usar versão para computador'}
+        </button>
       </div>
     </main>
   );

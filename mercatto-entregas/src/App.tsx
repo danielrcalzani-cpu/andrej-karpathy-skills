@@ -66,8 +66,11 @@ export function App() {
 
   const logout = useCallback(async () => {
     await post('/api/auth/logout').catch(() => {});
+    // Remove as listas de entregas salvas no aparelho (LGPD); mantém a escolha de versão.
     try {
-      localStorage.clear();
+      Object.keys(localStorage)
+        .filter((k) => k.startsWith('mercatto:entregas'))
+        .forEach((k) => localStorage.removeItem(k));
     } catch {
       /* ignore */
     }

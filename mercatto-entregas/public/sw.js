@@ -1,7 +1,7 @@
 // Service worker: guarda apenas a "casca" do app (HTML, JS, CSS, fontes) para abrir rápido e sem internet.
 // Nunca guarda respostas da API — dados de clientes não ficam no cache do aparelho por aqui.
-const CACHE = 'mercatto-shell-v1';
-const SHELL = ['/', '/manifest.webmanifest', '/favicon.svg', '/icon-192.png'];
+const CACHE = 'mercatto-shell-v2';
+const SHELL = ['/', '/pc/', '/m/', '/manifest.webmanifest', '/favicon.svg', '/icon-192.png'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -38,13 +38,15 @@ self.addEventListener('fetch', (event) => {
 
   // Páginas: rede primeiro (sempre a versão nova), cache se estiver sem internet.
   if (req.mode === 'navigate') {
+    // Cada versão (/, /pc/, /m/) tem sua própria página guardada.
+    const key = url.pathname.startsWith('/m') ? '/m/' : url.pathname.startsWith('/pc') ? '/pc/' : '/';
     event.respondWith(
       fetch(req)
         .then((res) => {
-          if (res.ok) caches.open(CACHE).then((c) => c.put('/', res.clone()));
+          if (res.ok && !res.redirected) caches.open(CACHE).then((c) => c.put(key, res.clone()));
           return res;
         })
-        .catch(() => caches.match('/')),
+        .catch(() => caches.match(key)),
     );
   }
 });

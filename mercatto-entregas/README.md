@@ -3,6 +3,18 @@
 Painel administrativo + app do entregador (**Minhas Entregas**) para a agenda de entregas da Mercatto Decor.
 Interface em português (pt-BR), datas DD/MM/AAAA, horário 24h, fuso `America/Manaus`.
 
+## Duas versões
+
+| Endereço | Versão | Para quem |
+|---|---|---|
+| `/pc/` | **Computador**: menu lateral fixo, tabelas, painéis laterais | Escritório |
+| `/m/` | **Celular**: abas inferiores, menu “Mais”, botões grandes, cartões, folhas que sobem da parte de baixo | Entregadores e uso no celular |
+| `/` | Escolhe sozinho pelo aparelho (celular/tablet → `/m/`, computador → `/pc/`) | Link para divulgar |
+
+As duas versões usam o **mesmo servidor e os mesmos dados**: o que o escritório faz no computador aparece no celular
+do entregador, e vice-versa. O link “Usar/Abrir versão para computador/celular” (tela de login, menu e app do
+entregador) troca de versão e a escolha fica lembrada naquele aparelho.
+
 ## Requisitos
 
 - Node.js **22.6 ou superior** (usa o SQLite embutido do Node e execução direta de TypeScript)

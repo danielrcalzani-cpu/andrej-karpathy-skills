@@ -463,15 +463,15 @@ a {
 .span-2 {
   grid-column: span 2;
 }
-@media (max-width: 640px) {
-  .form-grid .span-4,
-  .form-grid .span-3 {
+/* versão celular (antes: tela ≤ 640px) */
+  .ui-mobile .form-grid .span-4,
+.ui-mobile .form-grid .span-3 {
     grid-column: span 6;
   }
-  .form-grid .span-2 {
+  .ui-mobile .form-grid .span-2 {
     grid-column: span 3;
   }
-}
+
 .check {
   display: flex;
   align-items: center;
@@ -629,10 +629,10 @@ dialog.modal::backdrop {
   background: var(--surface);
   padding-bottom: max(14px, env(safe-area-inset-bottom));
 }
-@media (max-width: 640px) {
-  dialog.modal,
-  dialog.modal.wide,
-  dialog.modal.drawer {
+/* versão celular (antes: tela ≤ 640px) */
+  .ui-mobile dialog.modal,
+.ui-mobile dialog.modal.wide,
+.ui-mobile dialog.modal.drawer {
     margin: auto 0 0 0;
     width: 100vw;
     max-width: 100vw;
@@ -640,19 +640,19 @@ dialog.modal::backdrop {
     height: auto;
     border-radius: 18px 18px 0 0;
   }
-  dialog.modal.full {
+  .ui-mobile dialog.modal.full {
     height: 100dvh;
     max-height: 100dvh;
     border-radius: 0;
   }
-  dialog.modal[open],
-  dialog.modal.drawer[open] {
+  .ui-mobile dialog.modal[open],
+.ui-mobile dialog.modal.drawer[open] {
     animation: sheet-in 0.25s var(--ease);
   }
-  .modal-foot .btn {
+  .ui-mobile .modal-foot .btn {
     flex: 1;
   }
-}
+
 
 /* Toast ----------------------------------------------------------------- */
 .toasts {
@@ -886,40 +886,40 @@ dialog.modal::backdrop {
 .bottom-nav {
   display: none;
 }
-@media (max-width: 960px) {
-  .sidebar {
+/* versão celular (antes: tela ≤ 960px) */
+  .ui-mobile .sidebar {
     transform: translateX(-100%);
     transition: transform 0.25s var(--ease);
     box-shadow: var(--shadow-lg);
   }
-  .sidebar.open {
+  .ui-mobile .sidebar.open {
     transform: none;
   }
-  .scrim {
+  .ui-mobile .scrim {
     position: fixed;
     inset: 0;
     background: rgb(17 24 39 / 0.4);
     z-index: 19;
   }
-  .main {
+  .ui-mobile .main {
     margin-left: 0;
   }
-  .topbar {
+  .ui-mobile .topbar {
     padding: 10px 16px;
   }
-  .content {
+  .ui-mobile .content {
     padding: 16px 16px 96px;
   }
-  .mobile-only {
+  .ui-mobile .mobile-only {
     display: inline-flex !important;
   }
-  .stack.mobile-only {
+  .ui-mobile .stack.mobile-only {
     display: flex !important;
   }
-  .desktop-only {
+  .ui-mobile .desktop-only {
     display: none !important;
   }
-  .bottom-nav {
+  .ui-mobile .bottom-nav {
     display: flex;
     position: fixed;
     z-index: 15;
@@ -931,8 +931,8 @@ dialog.modal::backdrop {
     border-top: 1px solid var(--border);
     padding: 6px 6px max(6px, env(safe-area-inset-bottom));
   }
-  .bottom-nav a,
-  .bottom-nav button {
+  .ui-mobile .bottom-nav a,
+.ui-mobile .bottom-nav button {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -948,13 +948,13 @@ dialog.modal::backdrop {
     border-radius: 10px;
     position: relative;
   }
-  .bottom-nav a[aria-current='page'] {
+  .ui-mobile .bottom-nav a[aria-current='page'] {
     color: var(--brand);
   }
-  .bottom-nav a[aria-current='page'] svg {
+  .ui-mobile .bottom-nav a[aria-current='page'] svg {
     color: var(--accent-strong);
   }
-  .bottom-nav .fab {
+  .ui-mobile .bottom-nav .fab {
     width: 46px;
     height: 46px;
     border-radius: 14px;
@@ -965,7 +965,7 @@ dialog.modal::backdrop {
     margin-top: -18px;
     box-shadow: var(--shadow-lg);
   }
-}
+
 .bell-dot {
   pointer-events: none;
   position: absolute;
@@ -994,12 +994,12 @@ dialog.modal::backdrop {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
-@media (max-width: 560px) {
-  .stats {
+/* versão celular (antes: tela ≤ 560px) */
+  .ui-mobile .stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
-}
+
 .stat {
   text-align: left;
   cursor: pointer;
@@ -1037,15 +1037,15 @@ dialog.modal::backdrop {
   color: var(--text-2);
   font-weight: 520;
 }
-@media (max-width: 560px) {
-  .stat {
+/* versão celular (antes: tela ≤ 560px) */
+  .ui-mobile .stat {
     padding: 12px;
     gap: 8px;
   }
-  .stat .stat-value {
+  .ui-mobile .stat .stat-value {
     font-size: 24px;
   }
-}
+
 
 /* Entregas --------------------------------------------------------------- */
 .dcard {
@@ -1114,11 +1114,11 @@ dialog.modal::backdrop {
   gap: 12px;
   grid-template-columns: repeat(auto-fill, minmax(min(330px, 100%), 1fr));
 }
-@media (max-width: 420px) {
-  .card-grid {
+/* versão celular (antes: tela ≤ 420px) */
+  .ui-mobile .card-grid {
     grid-template-columns: 1fr;
   }
-}
+
 
 .table-wrap {
   overflow-x: auto;
@@ -1205,14 +1205,14 @@ table.table {
   white-space: nowrap;
   border-left: 3px solid var(--border-strong);
 }
-@media (max-width: 960px) {
-  .week {
+/* versão celular (antes: tela ≤ 960px) */
+  .ui-mobile .week {
     grid-template-columns: 1fr;
   }
-  .week-day {
+  .ui-mobile .week-day {
     min-height: 0;
   }
-}
+
 
 /* Linha do tempo ------------------------------------------------------- */
 .timeline {
@@ -1501,6 +1501,9 @@ table.table {
    Celular — camada de otimização (≤ 640 px)
    ====================================================================== */
 .quick-actions {
+  display: contents;
+}
+.ui-mobile .quick-actions {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
@@ -1510,96 +1513,98 @@ table.table {
   gap: 8px;
   align-items: center;
 }
-@media (max-width: 960px) {
-  .topbar {
+/* versão celular (antes: tela ≤ 960px) */
+  .ui-mobile .topbar {
     padding-top: max(10px, env(safe-area-inset-top));
   }
-}
-@media (max-width: 640px) {
-  body {
+
+/* versão celular (antes: tela ≤ 640px) */
+  html.ui-mobile body {
     font-size: 15px;
   }
-  /* 16 px evita o zoom automático do iPhone ao tocar em campos */
+  .ui-mobile /* 16 px evita o zoom automático do iPhone ao tocar em campos */
   .input,
-  .select,
-  .textarea {
+.ui-mobile .select,
+.ui-mobile .textarea {
     font-size: 16px;
     min-height: 46px;
   }
-  /* Alvos de toque de pelo menos 44 px */
+  .ui-mobile /* Alvos de toque de pelo menos 44 px */
   .btn {
     min-height: 44px;
   }
-  .btn.sm {
+  .ui-mobile .btn.sm {
     min-height: 40px;
     font-size: 13.5px;
     padding: 0 12px;
   }
-  .btn.icon.sm {
+  .ui-mobile .btn.icon.sm {
     width: 40px;
   }
-  .chip {
+  .ui-mobile .chip {
     min-height: 40px;
   }
-  .stage-btn {
+  .ui-mobile .stage-btn {
     min-height: 40px;
   }
-  .content {
+  .ui-mobile .content {
     padding: 12px 12px 104px;
   }
-  .h-page {
+  .ui-mobile .h-page {
     font-size: 20px;
   }
 
-  /* Resumo compacto: 3 por linha, sem ícone */
+  .ui-mobile /* Resumo compacto: 3 por linha,
+.ui-mobile sem ícone */
   .stats {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
   }
-  .stat {
+  .ui-mobile .stat {
     padding: 10px;
     gap: 2px;
     border-radius: 14px;
   }
-  .stat .stat-icon {
+  .ui-mobile .stat .stat-icon {
     display: none;
   }
-  .stat .stat-value {
+  .ui-mobile .stat .stat-value {
     font-size: 22px;
   }
-  .stat .stat-label {
+  .ui-mobile .stat .stat-label {
     font-size: 11.5px;
     line-height: 1.25;
   }
-  .stat:hover {
+  .ui-mobile .stat:hover {
     transform: none;
   }
 
-  /* Cartão de entrega: ação principal larga + atalhos em linha */
+  .ui-mobile /* Cartão de entrega: ação principal larga + atalhos em linha */
   .dcard {
     padding: 14px;
     border-radius: 16px;
   }
-  .dcard .actions {
+  .ui-mobile .dcard .actions {
     flex-direction: column;
     align-items: stretch;
   }
-  .dcard .actions > .btn,
-  .dcard .actions > .primary-slot .btn {
+  .ui-mobile .dcard .actions > .btn,
+.ui-mobile .dcard .actions > .primary-slot .btn {
     width: 100%;
   }
-  .dcard .quick-actions {
+  .ui-mobile .dcard .quick-actions {
     flex-wrap: nowrap;
   }
-  .dcard .quick-actions > * {
+  .ui-mobile .dcard .quick-actions > * {
     flex: 1;
     min-width: 0;
   }
-  .card-grid {
+  .ui-mobile .card-grid {
     gap: 10px;
   }
 
-  /* Filtros: chips roláveis na horizontal, sem quebrar o layout */
+  .ui-mobile /* Filtros: chips roláveis na horizontal,
+.ui-mobile sem quebrar o layout */
   .chip-scroll {
     overflow-x: auto;
     scrollbar-width: none;
@@ -1607,32 +1612,32 @@ table.table {
     padding: 2px 12px;
     width: calc(100% + 24px);
   }
-  .chip-scroll::-webkit-scrollbar {
+  .ui-mobile .chip-scroll::-webkit-scrollbar {
     display: none;
   }
-  .chip-scroll > * {
+  .ui-mobile .chip-scroll > * {
     flex-shrink: 0;
   }
 
-  /* Tabelas viram cartões empilhados */
+  .ui-mobile /* Tabelas viram cartões empilhados */
   table.responsive thead {
     display: none;
   }
-  table.responsive,
-  table.responsive tbody,
-  table.responsive tr,
-  table.responsive td {
+  .ui-mobile table.responsive,
+.ui-mobile table.responsive tbody,
+.ui-mobile table.responsive tr,
+.ui-mobile table.responsive td {
     display: block;
     width: 100%;
   }
-  table.responsive tr {
+  .ui-mobile table.responsive tr {
     padding: 12px 14px;
     border-bottom: 1px solid var(--border);
   }
-  table.responsive tbody tr:last-child {
+  .ui-mobile table.responsive tbody tr:last-child {
     border-bottom: 0;
   }
-  table.responsive td {
+  .ui-mobile table.responsive td {
     border: 0;
     padding: 3px 0;
     display: flex;
@@ -1640,38 +1645,38 @@ table.table {
     gap: 12px;
     text-align: right;
   }
-  table.responsive td[data-label]::before {
+  .ui-mobile table.responsive td[data-label]::before {
     content: attr(data-label);
     color: var(--text-2);
     font-size: 12.5px;
     text-align: left;
     flex-shrink: 0;
   }
-  table.responsive td.cell-title {
+  .ui-mobile table.responsive td.cell-title {
     font-size: 15px;
     justify-content: flex-start;
     text-align: left;
     padding-bottom: 6px;
   }
-  table.responsive td.cell-action {
+  .ui-mobile table.responsive td.cell-action {
     justify-content: stretch;
     padding-top: 8px;
   }
-  table.responsive td.cell-action .btn {
+  .ui-mobile table.responsive td.cell-action .btn {
     width: 100%;
   }
 
-  /* Folhas/modais */
+  .ui-mobile /* Folhas/modais */
   .modal-head {
     padding: 14px 16px;
   }
-  .modal-body {
+  .ui-mobile .modal-body {
     padding: 16px;
   }
-  .modal-foot {
+  .ui-mobile .modal-foot {
     padding: 12px 16px max(12px, env(safe-area-inset-bottom));
   }
-  dialog.modal::before {
+  .ui-mobile dialog.modal::before {
     content: '';
     display: block;
     width: 40px;
@@ -1680,33 +1685,33 @@ table.table {
     background: var(--border-strong);
     margin: 8px auto 0;
   }
-  dialog.modal.full::before {
+  .ui-mobile dialog.modal.full::before {
     display: none;
   }
-  .toasts {
+  .ui-mobile .toasts {
     bottom: calc(84px + env(safe-area-inset-bottom));
   }
 
-  /* App do entregador */
+  .ui-mobile /* App do entregador */
   .driver {
     padding: 0 14px calc(32px + env(safe-area-inset-bottom));
   }
-  .next-body {
+  .ui-mobile .next-body {
     padding: 14px;
   }
-  .action-tile {
+  .ui-mobile .action-tile {
     min-height: 68px;
   }
-  .week-day {
+  .ui-mobile .week-day {
     padding: 12px;
   }
-  .routes {
+  .ui-mobile .routes {
     gap: 12px;
   }
-  .bar-row {
+  .ui-mobile .bar-row {
     grid-template-columns: minmax(80px, 110px) 1fr auto;
   }
-}
+
 @media (hover: none) {
   .card.hoverable:hover,
   .stat:hover {
@@ -1718,16 +1723,16 @@ table.table {
 .primary-slot {
   display: contents;
 }
-@media (max-width: 640px) {
-  .dcard .actions > .primary-slot {
+/* versão celular (antes: tela ≤ 640px) */
+  .ui-mobile .dcard .actions > .primary-slot {
     display: block;
   }
-  .dcard .actions > .primary-slot .btn {
+  .ui-mobile .dcard .actions > .primary-slot .btn {
     width: 100%;
     min-height: 46px;
     font-size: 15px;
   }
-}
+
 .route-select {
   min-height: 32px;
   font-size: 12.5px;
@@ -1735,29 +1740,63 @@ table.table {
   max-width: 220px;
   padding: 2px 30px 2px 8px;
 }
-@media (max-width: 640px) {
-  .route-select {
+/* versão celular (antes: tela ≤ 640px) */
+  .ui-mobile .route-select {
     font-size: 16px;
     min-height: 40px;
     max-width: 100%;
   }
-  .foot-actions {
+  .ui-mobile .foot-actions {
     display: grid !important;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
   }
-  .foot-actions .btn {
+  .ui-mobile .foot-actions .btn {
     min-height: 44px;
     font-size: 14px;
     padding: 0 8px;
   }
-  .foot-actions .btn.primary,
-  .foot-actions .btn.success {
+  .ui-mobile .foot-actions .btn.primary,
+.ui-mobile .foot-actions .btn.success {
     grid-column: 1 / -1;
     min-height: 50px;
     font-size: 16px;
   }
-  .foot-actions .btn.primary + .btn.success {
+  .ui-mobile .foot-actions .btn.primary + .btn.success {
     grid-column: auto;
   }
+
+
+/* Troca de versão (menu lateral) */
+.nav-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0 4px;
+  padding: 9px 10px;
+  border: 1px dashed rgb(255 255 255 / 0.18);
+  border-radius: 9px;
+  background: none;
+  color: #d1d5db;
+  font-size: 13px;
+  font-weight: 520;
+  cursor: pointer;
+}
+.nav-switch:hover {
+  background: rgb(255 255 255 / 0.06);
+  color: #fff;
+}
+/* Versão celular: o menu lateral é rolável quando aberto */
+.ui-mobile .sidebar {
+  overflow-y: auto;
+  padding-top: max(18px, env(safe-area-inset-top));
+  padding-bottom: max(18px, env(safe-area-inset-bottom));
+}
+.ui-mobile .nav a {
+  padding: 12px 10px;
+  font-size: 15px;
+}
+/* Versão computador: largura mínima confortável para o layout com menu lateral */
+.ui-pc .shell {
+  min-width: 1024px;
 }

@@ -34,6 +34,7 @@ import {
 import type { Delivery } from '../../../shared/domain.ts';
 import { post } from '../../api.ts';
 import { navigate, safeStorage, useOnline, useResource, useRoute, useSession } from '../../lib.tsx';
+import { UI, switchUI } from '../../ui.ts';
 import { Badge, Button, EmptyState, ErrorState, ProgressBar, Skeleton, StatusBadge, UrgencyBadge, cx } from '../../components/ui.tsx';
 import { Checklist, NavButtons, ProblemDialog, ProofDialog, WhatsAppButton, WhatsAppDialog, useAction } from '../../components/actions.tsx';
 import type { Detail } from '../../components/DeliveryDrawer.tsx';
@@ -337,6 +338,9 @@ function Home() {
           <Button variant="ghost" icon={<History size={16} />} onClick={() => navigate('/anteriores')}>
             Entregas anteriores
           </Button>
+          <button type="button" className="btn ghost sm" style={{ alignSelf: 'center', color: 'var(--text-2)' }} onClick={() => switchUI(UI === 'pc' ? 'mobile' : 'pc')}>
+            {UI === 'pc' ? 'Usar versão para celular' : 'Usar versão para computador'}
+          </button>
         </div>
       )}
     </div>
