@@ -166,6 +166,16 @@ const MIGRATIONS: string[] = [
   );
   CREATE INDEX idx_events_delivery ON delivery_events(delivery_id);
   `,
+  `
+  -- Várias fotos por comprovante. A coluna photo_id de delivery_proofs continua com a primeira foto.
+  CREATE TABLE proof_photos (
+    proof_id INTEGER NOT NULL REFERENCES delivery_proofs(id),
+    photo_id INTEGER NOT NULL REFERENCES photos(id),
+    position INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (proof_id, photo_id)
+  );
+  INSERT INTO proof_photos (proof_id, photo_id, position) SELECT id, photo_id, 0 FROM delivery_proofs WHERE photo_id IS NOT NULL;
+  `,
 ];
 
 export function openDatabase(dataDir: string): DB {

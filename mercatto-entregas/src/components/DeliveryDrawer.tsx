@@ -50,7 +50,9 @@ export interface Problem {
 interface Proof {
   id: number;
   receiver_name: string;
-  photo_id: number | null;
+  photo_id: number | string | null;
+  /** Todas as fotos do comprovante (comprovantes antigos têm só photo_id). */
+  photo_ids?: (number | string)[];
   notes: string | null;
   completed_at: string;
   completed_by_name: string;
@@ -171,6 +173,7 @@ function Section({ title, icon, children, aside }: { title: string; icon: ReactN
 }
 
 export function ProofView({ proof }: { proof: Proof }) {
+  const photos = proof.photo_ids?.length ? proof.photo_ids : proof.photo_id != null ? [proof.photo_id] : [];
   return (
     <div className="card pad stack tight">
       <div className="row between wrap">
@@ -179,10 +182,14 @@ export function ProofView({ proof }: { proof: Proof }) {
       </div>
       <span className="small muted">Entregador: {proof.completed_by_name}</span>
       {proof.notes && <p className="small">{proof.notes}</p>}
-      {proof.photo_id ? (
-        <a href={photoUrl(proof.photo_id)} target="_blank" rel="noopener noreferrer">
-          <img src={photoUrl(proof.photo_id)} alt={`Foto da entrega recebida por ${proof.receiver_name}`} className="photo-thumb" loading="lazy" />
-        </a>
+      {photos.length > 0 ? (
+        <div className="photo-grid proof">
+          {photos.map((id, i) => (
+            <a key={id} className="photo-tile" href={photoUrl(id)} target="_blank" rel="noopener noreferrer">
+              <img src={photoUrl(id)} alt={`Foto ${i + 1} da entrega recebida por ${proof.receiver_name}`} loading="lazy" />
+            </a>
+          ))}
+        </div>
       ) : (
         <span className="tiny muted row">
           <Camera size={13} /> Sem foto

@@ -131,6 +131,9 @@ export function deliveryDetail(db: DB, id: number, user: SessionUser) {
        WHERE pr.delivery_id = ? ORDER BY pr.completed_at DESC`,
     )
     .all(id) as Row[];
+  for (const pr of proofs) {
+    pr.photo_ids = (db.prepare('SELECT photo_id FROM proof_photos WHERE proof_id = ? ORDER BY position').all(pr.id) as Row[]).map((r) => r.photo_id);
+  }
   const events =
     user.role === 'admin'
       ? (db
@@ -592,7 +595,7 @@ export function completeDelivery(db: DB, id: number, body: Record<string, unknow
   const receiver = typeof body.receiver_name === 'string' ? body.receiver_name.trim().slice(0, 160) : '';
   if (receiver.length < 2) throw badRequest('Informe quem recebeu.', { receiver_name: 'Informe o nome de quem recebeu.' });
   const notes = typeof body.notes === 'string' ? body.notes.trim().slice(0, 1000) || null : null;
-  const photoId = body.photo_id == null ? null : Number(body.photo_id);
+  const photoIds = [...new Set((Array.isArray(body.photo_ids) ? body.photo_ids : body.photo_id == null ? [] : [body.photo_id]).map(Number))];
   transaction(db, () => {
     const d = loadRow(db, id);
     if (d.status === 'entregue') throw new HttpError(409, 'Esta entrega já foi confirmada.');
@@ -605,14 +608,17 @@ export function completeDelivery(db: DB, id: number, body: Record<string, unknow
             : 'Esta entrega não pode ser confirmada na situação atual.';
       throw new HttpError(409, msg);
     }
-    if (photoId != null) {
-      const p = db.prepare('SELECT id FROM photos WHERE id = ? AND delivery_id = ?').get(photoId, id);
+    for (const pid of photoIds) {
+      const p = Number.isInteger(pid) && db.prepare('SELECT id FROM photos WHERE id = ? AND delivery_id = ?').get(pid, id);
       if (!p) throw badRequest('Foto não encontrada. Envie novamente.');
     }
     const ts = now();
-    db.prepare(
-      'INSERT INTO delivery_proofs (delivery_id, receiver_name, photo_id, notes, completed_by, completed_at) VALUES (?, ?, ?, ?, ?, ?)',
-    ).run(id, receiver, photoId, notes, user.id, ts);
+    const proof = db
+      .prepare('INSERT INTO delivery_proofs (delivery_id, receiver_name, photo_id, notes, completed_by, completed_at) VALUES (?, ?, ?, ?, ?, ?)')
+      .run(id, receiver, photoIds[0] ?? null, notes, user.id, ts);
+    photoIds.forEach((pid, position) =>
+      db.prepare('INSERT INTO proof_photos (proof_id, photo_id, position) VALUES (?, ?, ?)').run(Number(proof.lastInsertRowid), pid, position),
+    );
     // Problemas em aberto ficam registrados como resolvidos pela própria entrega (o histórico não é apagado).
     db.prepare(
       `UPDATE delivery_problems SET resolved_at = ?, resolved_by = ?, resolution_notes = COALESCE(resolution_notes, 'Entrega concluída.')

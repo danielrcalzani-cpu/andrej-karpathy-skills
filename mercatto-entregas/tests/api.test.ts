@@ -189,11 +189,19 @@ test('fluxo completo: agendar, separar, conferir, carregar, iniciar e confirmar 
   assert.equal((await adminC.req('GET', `/api/photos/${up.body.photo_id}`)).status, 200);
 
   assert.equal((await carlos.req('POST', `/api/deliveries/${d.id}/complete`, { receiver_name: '' })).status, 400);
-  r = await carlos.req('POST', `/api/deliveries/${d.id}/complete`, { receiver_name: 'Maria (esposa)', photo_id: up.body.photo_id, notes: 'Deixado na garagem' });
+  const up2 = await carlos.req('POST', `/api/deliveries/${d.id}/photos`, jpeg, { 'Content-Type': 'image/jpeg' });
+  r = await carlos.req('POST', `/api/deliveries/${d.id}/complete`, {
+    receiver_name: 'Maria (esposa)',
+    photo_ids: [up.body.photo_id, up2.body.photo_id],
+    notes: 'Deixado na garagem',
+  });
   assert.equal(r.status, 200);
   assert.equal(r.body.delivery.status, 'entregue');
   assert.equal(r.body.proofs[0].receiver_name, 'Maria (esposa)');
   assert.equal(r.body.proofs[0].completed_by_name, 'CARLOS');
+  // Várias fotos no mesmo comprovante, na ordem enviada.
+  assert.deepEqual(r.body.proofs[0].photo_ids, [up.body.photo_id, up2.body.photo_id]);
+  assert.equal(r.body.proofs[0].photo_id, up.body.photo_id);
   // Quantidades preservadas após mudança de status.
   assert.equal(r.body.delivery.items[0].quantity, 12);
 

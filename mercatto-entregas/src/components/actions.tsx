@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   ExternalLink,
   ImageOff,
+  Images,
   MapPinOff,
   MessageCircle,
   Navigation,
@@ -38,7 +39,7 @@ import {
 } from '../../shared/domain.ts';
 import type { Delivery, DeliveryItem, FieldErrors, ItemStage } from '../../shared/domain.ts';
 import { ApiError, compressImage, post, uploadPhoto } from '../api.ts';
-import { invalidateAll, useResource, useSession } from '../lib.tsx';
+import { invalidateAll, newRequestId, useResource, useSession } from '../lib.tsx';
 import { Badge, Button, Field, Modal, ProgressBar, cx, useConfirm, useToast } from './ui.tsx';
 
 /** Executa uma ação na API com feedback e sincronização. */
@@ -205,82 +206,110 @@ export function WhatsAppButton({ delivery, tile, template }: { delivery: Deliver
 // ---------------------------------------------------------------------------
 // Comprovante de entrega
 
+interface ProofPhoto {
+  key: string;
+  blob: Blob;
+  preview: string;
+  photoId: number | string | null;
+  progress: number | null;
+  error: string | null;
+}
+
 export function ProofDialog({ delivery, open, onClose }: { delivery: Delivery; open: boolean; onClose: () => void }) {
   const { config } = useSession();
   const toast = useToast();
   const [receiver, setReceiver] = useState('');
   const [notes, setNotes] = useState('');
-  const [file, setFile] = useState<Blob | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
-  const [photoId, setPhotoId] = useState<number | null>(null);
-  const [progress, setProgress] = useState<number | null>(null);
-  const [photoError, setPhotoError] = useState<string | null>(null);
+  // Quantas fotos a pessoa quiser; cada uma é enviada separadamente e guarda seu id ao terminar.
+  const [photos, setPhotos] = useState<ProofPhoto[]>([]);
+  const [pickError, setPickError] = useState<string | null>(null);
+  const [uploadFailed, setUploadFailed] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [busy, setBusy] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const cameraRef = useRef<HTMLInputElement>(null);
+  const galleryRef = useRef<HTMLInputElement>(null);
+  const photosRef = useRef(photos);
+  photosRef.current = photos;
 
   useEffect(() => {
     if (open) setErrors({});
   }, [open]);
-  useEffect(() => () => void (preview && URL.revokeObjectURL(preview)), [preview]);
+  useEffect(() => () => photosRef.current.forEach((p) => URL.revokeObjectURL(p.preview)), []);
+
+  const updatePhoto = (key: string, patch: Partial<ProofPhoto>) => setPhotos((ps) => ps.map((p) => (p.key === key ? { ...p, ...patch } : p)));
+  const removePhoto = (key: string) =>
+    setPhotos((ps) => {
+      const p = ps.find((x) => x.key === key);
+      if (p) URL.revokeObjectURL(p.preview);
+      return ps.filter((x) => x.key !== key);
+    });
 
   const reset = () => {
     setReceiver('');
     setNotes('');
-    clearPhoto();
-  };
-  const clearPhoto = () => {
-    setFile(null);
-    setPreview(null);
-    setPhotoId(null);
-    setProgress(null);
-    setPhotoError(null);
-    if (inputRef.current) inputRef.current.value = '';
+    photosRef.current.forEach((p) => URL.revokeObjectURL(p.preview));
+    setPhotos([]);
+    setPickError(null);
+    setUploadFailed(false);
   };
 
-  const pick = async (f: File | undefined) => {
-    if (!f) return;
-    setPhotoError(null);
-    setPhotoId(null);
-    if (!/^image\//.test(f.type)) {
-      setPhotoError('Escolha um arquivo de imagem (foto).');
-      return;
-    }
-    if (f.size > 25 * 1024 * 1024) {
-      setPhotoError('Imagem grande demais (máx. 25 MB antes da compressão).');
-      return;
-    }
-    try {
-      const blob = await compressImage(f);
-      if (blob.size > config.max_photo_mb * 1024 * 1024) throw new Error(`A foto ficou maior que ${config.max_photo_mb} MB mesmo após compressão.`);
-      setFile(blob);
-      setPreview(URL.createObjectURL(blob));
-    } catch (e) {
-      setPhotoError(e instanceof Error ? e.message : 'Não foi possível usar esta foto.');
+  const pick = async (input: HTMLInputElement | null) => {
+    const files = Array.from(input?.files ?? []);
+    if (input) input.value = '';
+    if (!files.length) return;
+    setPickError(null);
+    setUploadFailed(false);
+    for (const f of files) {
+      if (!/^image\//.test(f.type)) {
+        setPickError('Escolha arquivos de imagem (fotos).');
+        continue;
+      }
+      if (f.size > 25 * 1024 * 1024) {
+        setPickError('Uma das imagens é grande demais (máx. 25 MB antes da compressão).');
+        continue;
+      }
+      try {
+        const blob = await compressImage(f);
+        if (blob.size > config.max_photo_mb * 1024 * 1024) throw new Error(`Uma foto ficou maior que ${config.max_photo_mb} MB mesmo após compressão.`);
+        setPhotos((ps) => [...ps, { key: newRequestId(), blob, preview: URL.createObjectURL(blob), photoId: null, progress: null, error: null }]);
+      } catch (e) {
+        setPickError(e instanceof Error ? e.message : 'Não foi possível usar uma das fotos.');
+      }
     }
   };
 
-  const submit = async (skipPhoto = false) => {
+  const submit = async (skipFailed = false) => {
     if (receiver.trim().length < 2) {
       setErrors({ receiver_name: 'Informe o nome de quem recebeu.' });
       return;
     }
     setBusy(true);
     setErrors({});
-    let pid = photoId;
+    setUploadFailed(false);
     try {
-      if (file && !pid && !skipPhoto) {
-        setProgress(0);
+      const ids: (number | string)[] = [];
+      let failed = false;
+      for (const p of photosRef.current) {
+        if (p.photoId != null) {
+          ids.push(p.photoId);
+          continue;
+        }
+        if (skipFailed && p.error) continue;
+        updatePhoto(p.key, { progress: 0, error: null });
         try {
-          pid = (await uploadPhoto(delivery.id, file, setProgress)).photo_id;
-          setPhotoId(pid);
+          const r = await uploadPhoto(delivery.id, p.blob, (pct) => updatePhoto(p.key, { progress: pct }));
+          updatePhoto(p.key, { photoId: r.photo_id, progress: 100 });
+          ids.push(r.photo_id);
         } catch (e) {
-          setProgress(null);
-          setPhotoError(`${e instanceof Error ? e.message : 'Falha no envio.'} A entrega ainda NÃO foi confirmada.`);
-          return;
+          failed = true;
+          updatePhoto(p.key, { progress: null, error: e instanceof Error ? e.message : 'Falha no envio.' });
         }
       }
-      await post(`/api/deliveries/${delivery.id}/complete`, { receiver_name: receiver, notes, photo_id: skipPhoto ? null : pid });
+      if (failed) {
+        setUploadFailed(true);
+        return;
+      }
+      await post(`/api/deliveries/${delivery.id}/complete`, { receiver_name: receiver, notes, photo_ids: ids, photo_id: ids[0] ?? null });
       reset();
       onClose();
       // A confirmação aparece fora deste cartão: ele some da lista assim que a entrega vira "Entregue".
@@ -293,6 +322,8 @@ export function ProofDialog({ delivery, open, onClose }: { delivery: Delivery; o
       setBusy(false);
     }
   };
+
+  const failedCount = photos.filter((p) => p.error && p.photoId == null).length;
 
   return (
     <Modal
@@ -327,46 +358,63 @@ export function ProofDialog({ delivery, open, onClose }: { delivery: Delivery; o
           />
         </Field>
         <div className="field">
-          <span className="label">Foto da entrega (opcional)</span>
-          <input ref={inputRef} type="file" accept="image/*" capture="environment" className="sr-only" id="pod-photo" onChange={(e) => pick(e.target.files?.[0])} />
-          {preview ? (
-            <div className="stack tight">
-              <img src={preview} alt="Pré-visualização da foto da entrega" className="photo-preview" />
-              {progress != null && (
-                <div className="stack tight">
-                  <ProgressBar value={progress} max={100} />
-                  <span className="tiny muted">{photoId ? 'Foto enviada.' : `Enviando foto… ${progress}%`}</span>
+          <span className="label">Fotos da entrega (opcional){photos.length ? ` · ${photos.length} ${photos.length === 1 ? 'foto' : 'fotos'}` : ''}</span>
+          <input ref={cameraRef} type="file" accept="image/*" capture="environment" className="sr-only" id="pod-photo" onChange={(e) => pick(e.target)} />
+          <input ref={galleryRef} type="file" accept="image/*" multiple className="sr-only" id="pod-gallery" onChange={(e) => pick(e.target)} />
+          {photos.length > 0 && (
+            <div className="photo-grid">
+              {photos.map((p, i) => (
+                <div key={p.key} className={cx('photo-tile', p.error && 'has-error')}>
+                  <img src={p.preview} alt={`Foto ${i + 1} da entrega`} />
+                  {p.photoId != null ? (
+                    <span className="photo-status ok" aria-label="Foto enviada">
+                      <Check size={14} />
+                    </span>
+                  ) : p.progress != null ? (
+                    <span className="photo-progress" aria-label={`Enviando ${p.progress}%`}>
+                      <span style={{ width: `${p.progress}%` }} />
+                    </span>
+                  ) : p.error ? (
+                    <span className="photo-status err" aria-label="Falha no envio">
+                      <ImageOff size={14} />
+                    </span>
+                  ) : null}
+                  <button type="button" className="photo-remove" aria-label={`Remover foto ${i + 1}`} disabled={busy} onClick={() => removePhoto(p.key)}>
+                    <Trash2 size={14} />
+                  </button>
                 </div>
-              )}
-              <div className="row">
-                <Button size="sm" icon={<Camera size={15} />} onClick={() => inputRef.current?.click()} disabled={busy}>
-                  Trocar foto
-                </Button>
-                <Button size="sm" variant="ghost" icon={<Trash2 size={15} />} onClick={clearPhoto} disabled={busy}>
-                  Remover
-                </Button>
-              </div>
+              ))}
             </div>
-          ) : (
-            <Button size="lg" block icon={<Camera size={20} />} onClick={() => inputRef.current?.click()}>
-              Tirar foto
-            </Button>
           )}
-          {photoError && (
+          <div className="row wrap">
+            <Button size={photos.length ? undefined : 'lg'} variant={photos.length ? 'default' : 'primary'} icon={<Camera size={photos.length ? 16 : 20} />} onClick={() => cameraRef.current?.click()} disabled={busy}>
+              {photos.length ? 'Tirar mais uma foto' : 'Tirar foto'}
+            </Button>
+            <Button size={photos.length ? undefined : 'lg'} icon={<Images size={photos.length ? 16 : 20} />} onClick={() => galleryRef.current?.click()} disabled={busy}>
+              Escolher da galeria
+            </Button>
+          </div>
+          {pickError && (
+            <div className="banner tone-warning small" role="alert">
+              <ImageOff size={16} />
+              <span>{pickError}</span>
+            </div>
+          )}
+          {uploadFailed && failedCount > 0 && (
             <div className="banner tone-danger small" role="alert">
               <ImageOff size={16} />
               <div className="stack tight grow">
-                <span>{photoError}</span>
-                {file && !photoId && (
-                  <div className="row wrap">
-                    <Button size="sm" icon={<RefreshCw size={14} />} onClick={() => submit()} disabled={busy}>
-                      Tentar enviar de novo
-                    </Button>
-                    <Button size="sm" variant="ghost" onClick={() => submit(true)} disabled={busy}>
-                      Confirmar sem foto
-                    </Button>
-                  </div>
-                )}
+                <span>
+                  {failedCount === 1 ? '1 foto não foi enviada' : `${failedCount} fotos não foram enviadas`}. A entrega ainda NÃO foi confirmada.
+                </span>
+                <div className="row wrap">
+                  <Button size="sm" icon={<RefreshCw size={14} />} onClick={() => submit()} disabled={busy}>
+                    Tentar enviar de novo
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={() => submit(true)} disabled={busy}>
+                    {failedCount === photos.length ? 'Confirmar sem fotos' : 'Confirmar sem essas fotos'}
+                  </Button>
+                </div>
               </div>
             </div>
           )}

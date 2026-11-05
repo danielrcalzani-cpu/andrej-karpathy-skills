@@ -814,7 +814,8 @@ route('POST', '/api/deliveries/:id/complete', async (p, _q, body) => {
   const receiver = textOf(body.receiver_name, 160);
   if (receiver.length < 2) badRequest('Informe quem recebeu.', { receiver_name: 'Informe o nome de quem recebeu.' });
   const notes = textOf(body.notes, 1000) || null;
-  const photoId = typeof body.photo_id === 'string' && /^[A-Za-z0-9_-]{8,64}$/.test(body.photo_id) ? body.photo_id : null;
+  const validId = (v: unknown): v is string => typeof v === 'string' && /^[A-Za-z0-9_-]{8,64}$/.test(v);
+  const photoIds = [...new Set((Array.isArray(body.photo_ids) ? body.photo_ids : [body.photo_id]).filter(validId))];
   await mutate(p.id!, (d) => {
     if (d.status === 'entregue') conflict('Esta entrega já foi confirmada.');
     if (!['pronta', 'em_rota', 'problema'].includes(d.status))
@@ -826,7 +827,7 @@ route('POST', '/api/deliveries/:id/complete', async (p, _q, body) => {
             : 'Esta entrega não pode ser confirmada na situação atual.',
       );
     const ts = now();
-    d.proofs = { ...(d.proofs ?? {}), [newId()]: { receiver_name: receiver, photo_id: photoId, notes, completed_by: me.id, completed_at: ts } };
+    d.proofs = { ...(d.proofs ?? {}), [newId()]: { receiver_name: receiver, photo_id: photoIds[0] ?? null, photo_ids: photoIds, notes, completed_by: me.id, completed_at: ts } };
     for (const [k, prob] of Object.entries(d.problems ?? {}))
       if (prob && !(prob as Doc).resolved_at)
         d.problems[k] = { ...(prob as Doc), resolved_at: ts, resolved_by: me.id, resolution_notes: (prob as Doc).resolution_notes ?? 'Entrega concluída.' };
