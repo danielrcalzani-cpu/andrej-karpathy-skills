@@ -144,9 +144,12 @@ export function DeliveryCard({ d, compact }: { d: Delivery; compact?: boolean })
               <WhatsAppButton delivery={d} />
             </>
           )}
-          <Button size="sm" variant="ghost" className={!final && !compact ? 'desktop-only' : undefined} onClick={() => openDelivery(d.id)}>
-            Detalhes
-          </Button>
+          {/* Entregues e canceladas já têm "Detalhes" como ação principal. */}
+          {!final && (
+            <Button size="sm" variant="ghost" className={!compact ? 'desktop-only' : undefined} onClick={() => openDelivery(d.id)}>
+              Detalhes
+            </Button>
+          )}
         </div>
       </div>
     </article>
